@@ -29,6 +29,12 @@ repositories {
 
 dependencies {
     compile 'org.springframework.boot:spring-boot-starter-thymeleaf'
+
+
+    compile("org.springframework:spring-web")
+    compile("com.fasterxml.jackson.core:jackson-databind")
+    compile group: 'org.json', name: 'json', version: '20160810'
+
     compile 'org.springframework:spring-orm:4.2.5.RELEASE'
     compile 'org.hibernate:hibernate-core:5.1.0.Final'
     compile 'org.apache.tomcat:tomcat-dbcp:8.0.32'
