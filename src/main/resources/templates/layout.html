@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:fragment="head(page_title)" lang="en">
+    <meta charset="UTF-8"/>
+    <meta description="viewport" content="width=device-width, initial-scale=1"/>
+
+    <link rel="icon" th:href="@{/favicon.png}" />
+
+    <!--<link rel="stylesheet" th:href="@{/vendor/materialize/css/materialize.css}" />-->
+    <!--<link rel="stylesheet" th:href="@{/vendor/codrops/css/cs-select.css}" />-->
+    <!--<link rel="stylesheet" th:href="@{/vendor/codrops/css/cs-skin-border.css}" />-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+    <link rel="stylesheet" th:href="@{/vendor/normalize.css}" />
+    <link rel="stylesheet" th:href="@{/app.css}" />
+
+    <title th:text="'LoL | ' + ${page_title}">LoL</title>
+</head>
+
+<body>
+
+<div th:fragment="nav" class="fixed">
+    <nav class="main-header">
+        <div class="container clearfix">
+            <h1 class="brand-logo"><a th:href="@{/}">UTPL <span>-</span> League of Legends</a></h1>
+            <ul class="navbar">
+                <li th:classappend="${#httpServletRequest.servletPath.equals('/') ? 'active' : ''}"><a th:href="@{/}">Summoners</a></li>
+                <li th:classappend="${#httpServletRequest.servletPath.equals('/matches') ? 'active' : ''}"><a th:href="@{/categories}">Matches</a></li>
+                <li th:classappend="${#httpServletRequest.servletPath.equals('/about') ? 'active' : ''}"><a th:href="@{/favorites}">About</a></li>
+            </ul>
+            <!--<ul id="mobile-nav" class="side-nav">
+                <li th:classappend="${#httpServletRequest.servletPath.equals('/') ? 'active' : ''}"><a th:href="@{/}">Summoners</a></li>
+                <li th:classappend="${#httpServletRequest.servletPath.equals('/matches') ? 'active' : ''}"><a th:href="@{/categories}">Matches</a></li>
+                <li th:classappend="${#httpServletRequest.servletPath.equals('/about') ? 'active' : ''}"><a th:href="@{/favorites}">About</a></li>
+            </ul>-->
+        </div>
+    </nav>
+</div>
+
+<div th:fragment="searchbar" class="search-bar container">
+    <div class="row">
+        <div class="col s12">
+            <form th:action="@{/search}" method="get">
+                <div class="input-field">
+                    <input name="q" type="search" placeholder="Search Summoner..." required="required" autocomplete="off"/>
+                    <i class="material-icons">search</i>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div th:fragment="flash" th:if="${flash != null}" class="container">
+    <i class="right material-icons" data-close="">close</i>
+    <div th:classappend="${#strings.toLowerCase(flash.status)}" th:text="${flash.message}" class="flash"></div>
+</div>
+
+<div th:fragment="scripts">
+    <script th:src="@{/vendor/jquery/jquery-1.11.3.js}"></script>
+    <!--<script th:src="@{/vendor/materialize/js/materialize.js}"></script>-->
+    <!--<script th:src="@{/vendor/codrops/js/classie.js}"></script>-->
+    <!--<script th:src="@{/vendor/codrops/js/selectFx.js}"></script>-->
+    <script th:src="@{/app.js}"></script>
+</div>
+
+</body>
+</html>
