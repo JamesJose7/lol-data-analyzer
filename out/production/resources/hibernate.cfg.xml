@@ -5,7 +5,7 @@
 <hibernate-configuration>
     <session-factory>
         <!-- SQL dialect -->
-        <property name="dialect">org.hibernate.dialect.H2Dialect</property>
+        <property name="dialect">org.hibernate.dialect.PostgreSQL94Dialect</property>
 
         <!-- Disable the second-nivel cache  -->
         <property name="cache.provider_class">org.hibernate.cache.internal.NoCacheProvider</property>
