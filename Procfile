@@ -1,0 +1,1 @@
+web: java -Dserver.port=$PORT -jar build/libs/lol-data-analyzer-1.0.jar

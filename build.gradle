@@ -22,6 +22,10 @@ apply plugin: 'spring-boot'
 // Apply the Java plugin (expects src/main/java to be source folder)
 apply plugin: 'java'
 
+jar {
+    baseName = 'lol-data-analyzer'
+    version = '1.0'
+}
 
 repositories {
     mavenCentral()
@@ -43,3 +47,10 @@ dependencies {
     compile 'com.squareup.okhttp3:okhttp:3.8.1'
 }
 
+task stage {
+    dependsOn build
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.9'
+}
