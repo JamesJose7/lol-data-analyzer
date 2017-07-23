@@ -9,23 +9,14 @@
 <section class="main-content">
 <div class="container">
     <div >
-        <div th:each="gif : ${gifs}" class="col s12 l4">
-            <a th:href="@{|/gifs/${gif.id}|}" class="actions">
-                <img th:src="@{|/gifs/${gif.id}.gif|}" alt="gif" />
-                <form th:action="@{|/gifs/${gif.id}/favorite|}" method="post">
-                    <button type="submit" th:class="(${gif.favorite}? 'un' : '') + 'mark favorite'"></button>
-                </form>
-            </a>
-        </div>
-
         <div th:each="jugador : ${jugadores}" class="summoner-card clearfix">
             <div class="basic-info">
-                <img src="@{|http://avatar.leagueoflegends.com/lan/${jugador.nombreInvocador}.png|}" alt="profile icon">
-                <h1 th:text="${jugador.nombreInvocador}">Zetal</h1>
-                <p th:text="|Level ${jugador.nivel}|">Level 30</p>
+                <img th:src="@{|http://avatar.leagueoflegends.com/lan/${jugador.nombreInvocador}.png|}" alt="profile icon"/>
+                <h1 th:text="${jugador.nombreInvocador}"></h1>
+                <p th:text="|Level ${jugador.nivel}|"></p>
             </div>
             <div class="ranked-info">
-                <img src="img/tier-icons/diamond_ii.png" alt="ranked position">
+                <img src="img/tier-icons/diamond_ii.png" alt="ranked position"/>
                 <h1>Diamond II</h1>
                 <p>3.96 KDA / 0 LP</p>
                 <p>Kha'Zix's Shadows</p>

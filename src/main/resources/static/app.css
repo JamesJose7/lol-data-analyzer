@@ -84,13 +84,13 @@ a:visited {
     color: rgb(84, 110, 122);
 }
 
-.navbar a:hover,
-.navbar a:active {
-    color: rgb(84, 110, 122);
-}
-
 .navbar a {
     color: white;
+}
+
+.navbar a:hover,
+.active a {
+    color: rgb(84, 110, 122);
 }
 
 .summoner-card {
