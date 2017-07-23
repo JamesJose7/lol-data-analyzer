@@ -84,7 +84,8 @@ a:visited {
     color: rgb(84, 110, 122);
 }
 
-.navbar a {
+.navbar a,
+.brand-logo a {
     color: white;
 }
 

@@ -1,6 +1,7 @@
 package com.jeep.lolesports.service;
 
 import com.jeep.lolesports.model.Jugador;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
@@ -13,25 +14,61 @@ public class RiotJugadorImpl implements RiotJugador {
     @Autowired
     private Environment env;
 
-    private static final String summonerV3_URL = "https://la1.api.riotgames.com/lol/summoner/v3/summoners/by-name/";
+    private static final String SUMMONER_V3_URL = "https://la1.api.riotgames.com/lol/summoner/v3/summoners/by-name/";
+    private static final String LEAGUE_V3_URL = "https://la1.api.riotgames.com/lol/league/v3/positions/by-summoner/";
 
     @Override
     public Jugador getJugadorByName(String nombreJugador) {
+        final String API_KEY = env.getProperty("lol.api.key");
+
         //Build url with api key and name
-        String url = String.format("%s%s?api_key=%s", summonerV3_URL, nombreJugador, env.getProperty("lol.api.key"));
+        String url = String.format("%s%s?api_key=%s", SUMMONER_V3_URL, nombreJugador, API_KEY);
 
         //Get JSON doc
         HTTPRequest httpRequest = new HTTPRequest();
-        String jsonData = httpRequest.getRequestContents(url);
-        //Build Jugador from JSON
-        Jugador jugador;
+        String jsonDataBasic = httpRequest.getRequestContents(url);
 
-        JSONObject doc = new JSONObject(jsonData);
-        int id = doc.getInt("id");
-        String nombre = doc.getString("name");
-        int nivel = doc.getInt("summonerLevel");
+        //Basic info
+        JSONObject docBasic = new JSONObject(jsonDataBasic);
+        int id = docBasic.getInt("id");
+        String nombre = docBasic.getString("name");
+        int nivel = docBasic.getInt("summonerLevel");
 
-        jugador = new Jugador(id, nombre, nivel);
+        //Ranked info
+        String urlRanked = String.format("%s%s?api_key=%s", LEAGUE_V3_URL, id, API_KEY);
+
+        String jsonDataRanked = httpRequest.getRequestContents(urlRanked);
+        JSONArray docRanked = new JSONArray(jsonDataRanked);
+
+        String tipoColaRanked;
+        int victoriasRanked;
+        int derrotasRanked;
+        String nivelRanked;
+        String rangoRanked;
+        String nombreLigaRanked;
+        int puntosRanked;
+        if (!docRanked.isNull(0)) {
+            JSONObject firstLeague = docRanked.getJSONObject(0);
+
+            tipoColaRanked = firstLeague.getString("queueType");
+            victoriasRanked = firstLeague.getInt("wins");
+            derrotasRanked = firstLeague.getInt("losses");
+            nivelRanked = firstLeague.getString("tier");
+            rangoRanked = firstLeague.getString("rank");
+            nombreLigaRanked = firstLeague.getString("leagueName");
+            puntosRanked = firstLeague.getInt("leaguePoints");
+        } else {
+            tipoColaRanked = "UNRANKED";
+            victoriasRanked = 0;
+            derrotasRanked = 0;
+            nivelRanked = "UNRANKED";
+            rangoRanked = "";
+            nombreLigaRanked = "N/A";
+            puntosRanked = 0;
+        }
+
+        Jugador jugador = new Jugador(id, nombre, nivel,
+                tipoColaRanked, victoriasRanked, derrotasRanked, nivelRanked, rangoRanked, nombreLigaRanked, puntosRanked);
         return jugador;
     }
 }

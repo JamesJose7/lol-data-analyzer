@@ -16,11 +16,11 @@
                     <p th:text="|Level ${jugador.nivel}|"></p>
                 </div>
                 <div class="ranked-info">
-                    <img src="img/tier-icons/diamond_ii.png" alt="ranked position"/>
-                    <h1>Diamond II</h1>
-                    <p>3.96 KDA / 0 LP</p>
-                    <p>Kha'Zix's Shadows</p>
-                    <p><span class="wins">6 W</span> <span class="losses">8 L</span></p>
+                    <img th:src="@{|/images/tier-icons/${jugador.nivelRanked}_${jugador.rangoRanked}.png|}" alt="ranked position"/>
+                    <h1 th:text="|${T(com.jeep.lolesports.utils.Utils).firstUpperCase(jugador.nivelRanked)} ${jugador.rangoRanked}|"></h1>
+                    <p th:text="|${T(com.jeep.lolesports.utils.Utils).prettyQueueName(jugador.tipoColaRanked)} / ${jugador.puntosRanked} LP|"></p>
+                    <p th:text="${jugador.nombreLigaRanked}"></p>
+                    <p><span class="wins" th:text="|${jugador.victoriasRanked} W|"></span> <span class="losses" th:text="|${jugador.derrotasRanked} L|"></span></p>
                 </div>
             </div>
         </div>
