@@ -1,5 +1,5 @@
-group 'com.jeep.lolesports'
-version '1.0'
+//group 'com.jeep.lolesports'
+//version '1.0'
 
 // Include the Spring Boot plugin
 buildscript {
@@ -43,6 +43,11 @@ dependencies {
     compile 'org.hibernate:hibernate-core:5.1.0.Final'
     compile 'org.apache.tomcat:tomcat-dbcp:8.0.32'
     compile 'com.h2database:h2:1.4.191'
+
+    compile 'org.hashids:hashids:1.0.1'
+    compile("org.springframework.boot:spring-boot-starter")
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-web
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '1.5.2.RELEASE'
 
     compile 'com.squareup.okhttp3:okhttp:3.8.1'
 }
