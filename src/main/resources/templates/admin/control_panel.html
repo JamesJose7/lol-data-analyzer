@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="layout :: head('Admin')"></head>
+<body>
+<div th:replace="layout :: nav"></div>
+<div th:replace="layout :: flash"></div>
+
+
+<div class="container">
+    <h2 class="settings-section">Administrar Integrantes</h2>
+
+    <div class="settings-container clearfix">
+        <div class="left-setting"><a href="/admin/agregar-integrante">Ingresar</a></div>
+        <div class="right-setting"><a href="#">Modificar</a></div>
+        <div class="left-setting"><a href="#">Eliminar</a></div>
+    </div>
+</div>
+
+<div class="container">
+    <h2 class="settings-section">Administrar plataforma</h2>
+</div>
+
+<div th:replace="layout :: scripts"></div>
+</body>
+</html>

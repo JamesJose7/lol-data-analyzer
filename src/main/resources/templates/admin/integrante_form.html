@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="layout :: head('Integrante')"></head>
+<body>
+<div th:replace="layout :: nav"></div>
+<div th:replace="layout :: flash"></div>
+
+
+<div class="container form-container">
+
+    <form action="#" method="post" class="clearfix settings">
+        <h1>Nuevo Integrante</h1>
+
+        <fieldset class="left settings">
+            <label class="settings" for="cedula">Cédula:</label>
+            <input class="settings" type="text" id="cedula" name="cedula"/>
+
+            <label class="settings" for="nombre">Nombre:</label>
+            <input class="settings" type="text" id="nombre" name="nombreIntegrante"/>
+
+            <label class="settings" for="correo">Correo:</label>
+            <input class="settings" type="text" id="correo" name="correo"/>
+
+        </fieldset>
+
+        <fieldset class="right settings">
+            <label class="settings" for="carrera">Carrera:</label>
+            <select class="settings" name="carrera" id="carrera">
+                <optgroup label="Área Técnica">
+                    <option value="Sistemas">Sistemas Informáticos</option>
+                    <option value="civil">Civil</option>
+                </optgroup>
+                <optgroup label="Área Biológica">
+                    <option value="medicina">Medicina</option>
+                    <option value="biologia">Biología</option>
+                </optgroup>
+            </select>
+
+            <label class="settings" for="ciclo">Ciclo:</label>
+            <select class="settings" name="ciclo" id="ciclo">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+            </select>
+
+            <input class="btn inln default settings" type="submit" value="Aceptar"/>
+            <input class="btn inln error settings" type="reset" value="Reiniciar"/>
+        </fieldset>
+    </form>
+</div>
+
+<div th:replace="layout :: scripts"></div>
+</body>
+</html>
