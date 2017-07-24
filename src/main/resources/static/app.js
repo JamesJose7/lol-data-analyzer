@@ -1,6 +1,6 @@
 $(function(){
     // Activate mobile nav toggle button
-    $(".button-collapse").sideNav({edge: 'right'});
+    //$(".button-collapse").sideNav({edge: 'right'});
 
     // Activate close icons for dismissible alerts
     $('[data-close]').on('click',function(){
@@ -14,15 +14,15 @@ $(function(){
         $(this).parent('.file-wrapper').find('.placeholder').text(value);
     });
 
-    var onChange = function(obj) {
+    /*var onChange = function(obj) {
         // Get option style
         var style = $(obj.selEl).find('li.cs-selected').attr('style');
 
         // Set style of parent cs-select placeholder to style of option
         $(obj.selPlaceholder).attr('style',style);
-    };
+    };*/
 
-    var onLoad = function(obj) {
+    /*var onLoad = function(obj) {
         // Get selected option
         var $option = $(obj.el).find('option[selected]');
 
@@ -42,7 +42,7 @@ $(function(){
             // Set select element's value to empty string
             $(obj.el).val('');
         }
-    };
+    };*/
 
     // Activate Codrops select magic
     (function() {

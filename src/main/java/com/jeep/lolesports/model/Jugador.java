@@ -3,12 +3,16 @@ package com.jeep.lolesports.model;
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @MappedSuperclass
 public class Jugador {
     @Id
     private int id;
     @Column
+    @NotNull
+    @Size(min = 1, message = "*Al menos debe tener {min} caracter")
     private String nombreInvocador;
     @Column
     private int nivel;

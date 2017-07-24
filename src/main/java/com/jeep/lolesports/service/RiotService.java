@@ -2,6 +2,6 @@ package com.jeep.lolesports.service;
 
 import com.jeep.lolesports.model.Jugador;
 
-public interface RiotJugador {
+public interface RiotService {
     Jugador getJugadorByName(String jugadorName);
 }

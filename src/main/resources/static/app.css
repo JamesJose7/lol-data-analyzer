@@ -22,6 +22,36 @@ a:visited {
 }
 
 /* Base layout */
+.flash {
+    margin: 0;
+    border-radius: 0;
+    padding: 1rem;
+}
+
+.flash {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    padding: 1rem 2rem;
+    border-radius: 4px;
+    font-size: 1.1rem;
+}
+
+.flash.success {
+    background-color: #7f9e40;
+    color: #f3f6ee;
+}
+
+.flash.failure {
+    background-color: #ac4343;
+    color: #f2e2e2;
+}
+
+i[data-close] {
+    margin: 1rem;
+    color: #fff;
+    cursor: default;
+    cursor: pointer;
+}
 
 .brand-logo {
     margin: 0;
@@ -249,12 +279,6 @@ input[type="checkbox"] {
     margin: 0 4px 8px 0;
 }
 
-select.settings {
-    padding: 6px;
-    height: 32px;
-    border-radius: 2px;
-}
-
 button {
     padding: 19px 39px 18px 39px;
     color: #FFF;
@@ -340,6 +364,15 @@ label.light {
 .inl {
     width: 100%;
     display: inline-block;
+}
+
+span.field-error {
+    color: firebrick;
+}
+
+input[type="text"].field-error {
+    border: 1px solid firebrick;
+    border-bottom: 3px solid firebrick;
 }
 
 

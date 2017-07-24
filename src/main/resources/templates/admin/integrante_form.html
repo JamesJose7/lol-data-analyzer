@@ -7,24 +7,27 @@
 
 <div class="container form-container">
 
-    <form action="#" method="post" class="clearfix settings">
-        <h1>Nuevo Integrante</h1>
+    <form th:action="${action}" method="post" class="clearfix settings" th:object="${integrante}">
+        <h1 th:text="${heading}"></h1>
 
         <fieldset class="left settings">
-            <label class="settings" for="cedula">Cédula:</label>
-            <input class="settings" type="text" id="cedula" name="cedula"/>
+            <label class="settings" for="cedula">Cédula: <span class="field-error" th:if="${#fields.hasErrors('cedula')}" th:errors="*{cedula}"></span></label>
+            <input class="settings" th:classappend="${#fields.hasErrors('cedula')} ? 'field-error' : ''" type="text" id="cedula" name="cedula" th:field="*{cedula}"/>
 
-            <label class="settings" for="nombre">Nombre:</label>
-            <input class="settings" type="text" id="nombre" name="nombreIntegrante"/>
+            <label class="settings" for="nombre">Nombre: <span class="field-error" th:if="${#fields.hasErrors('nombreIntegrante')}" th:errors="*{nombreIntegrante}"></span></label>
+            <input class="settings" th:classappend="${#fields.hasErrors('nombreIntegrante')} ? 'field-error' : ''" type="text" id="nombre" name="nombreIntegrante" th:field="*{nombreIntegrante}"/>
 
-            <label class="settings" for="correo">Correo:</label>
-            <input class="settings" type="text" id="correo" name="correo"/>
+            <label class="settings" for="correo">Correo: <span class="field-error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span></label>
+            <input class="settings" th:classappend="${#fields.hasErrors('email')} ? 'field-error' : ''" type="text" id="correo" name="correo" th:field="*{email}"/>
 
         </fieldset>
 
         <fieldset class="right settings">
+            <label class="settings" for="invocador">Nombre Invocador: <span class="field-error" th:if="${#fields.hasErrors('nombreInvocador')}" th:errors="*{nombreInvocador}"></span></label>
+            <input class="settings" th:classappend="${#fields.hasErrors('nombreInvocador')} ? 'field-error' : ''" type="text" id="invocador" name="invocador" th:field="*{nombreInvocador}"/>
+
             <label class="settings" for="carrera">Carrera:</label>
-            <select class="settings" name="carrera" id="carrera">
+            <select class="settings" name="carrera" id="carrera" th:field="*{carrera}">
                 <optgroup label="Área Técnica">
                     <option value="Arquitectura">Arquitectura</option>
                     <option value="Artes Plásticas y Diseño">Artes Plásticas y Diseño</option>
@@ -66,7 +69,7 @@
             </select>
 
             <label class="settings" for="ciclo">Ciclo:</label>
-            <select class="settings" name="ciclo" id="ciclo">
+            <select class="settings" name="ciclo" id="ciclo" th:field="*{ciclo}">
                 <option value="2">2</option>
                 <option value="3">3</option>
                 <option value="4">4</option>
@@ -78,7 +81,7 @@
                 <option value="10">10</option>
             </select>
 
-            <input class="btn inln default settings" type="submit" value="Aceptar"/>
+            <input class="btn inln default settings" type="submit" th:value="${submit}"/>
             <input class="btn inln error settings" type="reset" value="Reiniciar"/>
         </fieldset>
     </form>

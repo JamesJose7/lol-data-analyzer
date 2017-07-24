@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @PropertySource("app.properties")
-public class RiotJugadorImpl implements RiotJugador {
+public class RiotServiceImpl implements RiotService {
     @Autowired
     private Environment env;
 
@@ -25,7 +25,7 @@ public class RiotJugadorImpl implements RiotJugador {
         String url = String.format("%s%s?api_key=%s", SUMMONER_V3_URL, nombreJugador, API_KEY);
 
         //Get JSON doc
-        HTTPRequest httpRequest = new HTTPRequest();
+        HTTPService httpRequest = new HTTPService();
         String jsonDataBasic = httpRequest.getRequestContents(url);
 
         //Basic info

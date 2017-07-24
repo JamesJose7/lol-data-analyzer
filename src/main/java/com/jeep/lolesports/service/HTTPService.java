@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 
 @Service
-public class HTTPRequest {
+public class HTTPService {
 
     private String body;
 
