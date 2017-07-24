@@ -1,17 +1,32 @@
 package com.jeep.lolesports.model;
 
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
+
+@MappedSuperclass
 public class Jugador {
+    @Id
     private int id;
+    @Column
     private String nombreInvocador;
+    @Column
     private int nivel;
 
     //ranked info
+    @Column
     private String tipoColaRanked;
+    @Column
     private int victoriasRanked;
+    @Column
     private int derrotasRanked;
+    @Column
     private String nivelRanked;
+    @Column
     private String rangoRanked;
+    @Column
     private String nombreLigaRanked;
+    @Column
     private int puntosRanked;
 
     public Jugador(int id, String nombreInvocador, int nivel) {

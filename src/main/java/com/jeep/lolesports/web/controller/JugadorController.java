@@ -1,6 +1,9 @@
 package com.jeep.lolesports.web.controller;
 
+import com.jeep.lolesports.dao.IntegranteDao;
+import com.jeep.lolesports.model.Integrante;
 import com.jeep.lolesports.model.Jugador;
+import com.jeep.lolesports.service.IntegranteService;
 import com.jeep.lolesports.service.RiotJugador;
 import org.springframework.core.env.Environment;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,14 +23,30 @@ public class JugadorController {
     @Autowired
     private RiotJugador riotJugadorService;
 
+    @Autowired
+    private IntegranteService integranteService;
+
     // Home page - jugador searcher
     @RequestMapping("/")
     public String listJugadores(Model model) {
         List<Jugador> jugadores = new ArrayList<>();
+
+        Integrante i =  new Integrante(riotJugadorService.getJugadorByName("Zetal"), "Sistemas",
+                "123123", 6, "email@sdf.com", "Jose Eduardo");
+        Integrante i2 = new Integrante(riotJugadorService.getJugadorByName("ASTANDRE"), "Sistemas",
+                "436346", 6, "email@sfsd.com", "Andre Herrera");
+        Integrante i3 = new Integrante(riotJugadorService.getJugadorByName("StalinTucoLeon"), "Sistemas",
+                "9786986", 6, "esss@sdaf.com", "Stalin Carrion");
+
+        integranteService.save(i);
+        integranteService.save(i2);
+        integranteService.save(i3);
+
         //Test
-        jugadores.add(riotJugadorService.getJugadorByName("Zetal"));
-        jugadores.add(riotJugadorService.getJugadorByName("ASTANDRE"));
-        jugadores.add(riotJugadorService.getJugadorByName("StalinTucoLeon"));
+        jugadores.add(i);
+        jugadores.add(i2);
+        jugadores.add(i3);
+
 
         model.addAttribute("jugadores", jugadores);
         return "jugador/index";

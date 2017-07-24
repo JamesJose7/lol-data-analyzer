@@ -12,7 +12,7 @@
         <div th:each="jugador : ${jugadores}" class="summoner-card clearfix">
             <div class="basic-info">
                 <img th:src="@{|http://avatar.leagueoflegends.com/lan/${jugador.nombreInvocador}.png|}" alt="profile icon"/>
-                <h1 th:text="${T(com.jeep.lolesports.utils.Utils).firstUpperCase(jugador.nombreInvocador)}"></h1>
+                <h1 th:text="${jugador.nombreInvocador}"></h1>
                 <p th:text="|Level ${jugador.nivel}|"></p>
             </div>
             <div class="ranked-info">
