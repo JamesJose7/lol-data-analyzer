@@ -5,7 +5,6 @@
 <div th:replace="layout :: nav"></div>
 <div th:replace="layout :: flash"></div>
 
-
 <div class="container form-container">
 
     <form action="#" method="post" class="clearfix settings">
@@ -27,18 +26,47 @@
             <label class="settings" for="carrera">Carrera:</label>
             <select class="settings" name="carrera" id="carrera">
                 <optgroup label="Área Técnica">
-                    <option value="Sistemas">Sistemas Informáticos</option>
-                    <option value="civil">Civil</option>
+                    <option value="Arquitectura">Arquitectura</option>
+                    <option value="Artes Plásticas y Diseño">Artes Plásticas y Diseño</option>
+                    <option value="Electrónica y Telecomunicaciones">Electrónica y Telecomunicaciones</option>
+                    <option value="Geología y Minas">Geología y Minas</option>
+                    <option value="Ingenieria civil">Ingenieria civil</option>
+                    <option value="Sistemas Informáticos y Computación">Sistemas Informáticos y Computación</option>
                 </optgroup>
-                <optgroup label="Área Biológica">
-                    <option value="medicina">Medicina</option>
-                    <option value="biologia">Biología</option>
+
+                <optgroup label="Área Sociohumanística">
+                    <option value="Comunicación">Comunicación</option>
+                    <option value="Derecho">Derecho</option>
+                    <option value="Pedagogía de los idiomas nacionales y extranjeros">Pedagogía de los idiomas nacionales y extranjeros</option>
+                    <option value="Relaciones Públicas">Relaciones Públicas</option>
+                    <option value="Psicología">Psicología</option>
+                    <option value="Inglés">Inglés</option>
+                </optgroup>
+
+                <optgroup label="Área Biológica y Biomédica">
+                    <option value="Biología">Biología</option>
+                    <option value="Gestión Ambiental">Gestión Ambiental</option>
+                    <option value="Agropecuaria">Agropecuaria</option>
+                    <option value="Ingeniería Química">Ingeniería Química</option>
+                    <option value="Ingeniería Industrial">Ingeniería Industrial</option>
+                    <option value="Alimentos">Alimentos</option>
+                    <option value="Enfermería">Enfermería</option>
+                    <option value="Medicina">Medicina</option>
+                    <option value="Bioquímica y Farmacia">Bioquímica y Farmacia</option>
+                </optgroup>
+
+                <optgroup label="Área Administrativa">
+                    <option value="Administración de Empresas">Administración de Empresas</option>
+                    <option value="Administración en Banca y Finanzas">Administración en Banca y Finanzas</option>
+                    <option value="Contabilidad y Auditoría">Contabilidad y Auditoría</option>
+                    <option value="Economía">Economía</option>
+                    <option value="Hotelería y turismo">Hotelería y turismo</option>
+                    <option value="Gastronomía">Gastronomía</option>
                 </optgroup>
             </select>
 
             <label class="settings" for="ciclo">Ciclo:</label>
             <select class="settings" name="ciclo" id="ciclo">
-                <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
                 <option value="4">4</option>
