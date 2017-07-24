@@ -4,6 +4,7 @@ import org.apache.tomcat.dbcp.dbcp2.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.ClassPathResource;
@@ -32,6 +33,7 @@ public class DataConfig {
     }
 
     @Bean
+    @Profile("dev")
     public DataSource dataSource() {
         BasicDataSource ds = new BasicDataSource();
 
@@ -42,6 +44,19 @@ public class DataConfig {
         //Set credentials
         ds.setUsername(env.getProperty("lol.db.username"));
         ds.setPassword(env.getProperty("lol.db.password"));
+
+        return ds;
+    }
+
+    @Bean(name = "dataSource")
+    @Profile("prod")
+    public DataSource prodDataSource() {
+        BasicDataSource ds = new BasicDataSource();
+
+        ds.setDriverClassName(env.getProperty("lol.db.prod.driver"));
+        ds.setUrl(env.getProperty("lol.db.prod.url"));
+        ds.setUsername(env.getProperty("lol.db.prod.username"));
+        ds.setPassword(env.getProperty("lol.db.prod.password"));
 
         return ds;
     }

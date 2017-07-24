@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 
 <head th:fragment="head(page_title)" lang="en">
     <meta charset="UTF-8"/>
@@ -30,11 +30,6 @@
                 <li th:classappend="${#httpServletRequest.servletPath.equals('/matches') ? 'active' : ''}"><a th:href="@{/categories}">Matches</a></li>
                 <li th:classappend="${#httpServletRequest.servletPath.equals('/about') ? 'active' : ''}"><a th:href="@{/favorites}">About</a></li>
             </ul>
-            <!--<ul id="mobile-nav" class="side-nav">
-                <li th:classappend="${#httpServletRequest.servletPath.equals('/') ? 'active' : ''}"><a th:href="@{/}">Summoners</a></li>
-                <li th:classappend="${#httpServletRequest.servletPath.equals('/matches') ? 'active' : ''}"><a th:href="@{/categories}">Matches</a></li>
-                <li th:classappend="${#httpServletRequest.servletPath.equals('/about') ? 'active' : ''}"><a th:href="@{/favorites}">About</a></li>
-            </ul>-->
         </div>
     </nav>
 </div>
