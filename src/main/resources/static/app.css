@@ -22,36 +22,6 @@ a:visited {
 }
 
 /* Base layout */
-.flash {
-    margin: 0;
-    border-radius: 0;
-    padding: 1rem;
-}
-
-.flash {
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-    padding: 1rem 2rem;
-    border-radius: 4px;
-    font-size: 1.1rem;
-}
-
-.flash.success {
-    background-color: #7f9e40;
-    color: #f3f6ee;
-}
-
-.flash.failure {
-    background-color: #ac4343;
-    color: #f2e2e2;
-}
-
-i[data-close] {
-    margin: 1rem;
-    color: #fff;
-    cursor: default;
-    cursor: pointer;
-}
 
 .brand-logo {
     margin: 0;
@@ -348,6 +318,54 @@ label.light {
     background-color: #ff784f;
 }
 
+span.field-error {
+    color: firebrick;
+}
+
+input[type="text"].field-error {
+    border: 1px solid firebrick;
+    border-bottom: 3px solid firebrick;
+}
+
+button.delete-integrante {
+    padding: 0;
+    padding-top: 5px;
+    background-color: firebrick;
+    border: none;
+    display: inline-block;
+    width: 80%;
+    margin: 0;
+}
+
+div.integrante-row:nth-child(odd) {
+    background-color: #dddddd;
+}
+
+#integrantes-table {
+    display: table;
+    width: 100%;
+}
+
+div.integrante-row {
+    display: table-row;
+}
+
+div.integrante-cell {
+    display: table-cell;
+    padding: 8px 5px;
+    border-left: 1px solid #ccc;
+}
+
+div.integrante-cell:last-child {
+    border-right: 1px solid #ccc;
+    text-align: center;
+}
+
+div.header {
+    font-weight: bold;
+    background-color: #ccc;
+}
+
 /* Classes */
 
 .fixedwait {
@@ -366,13 +384,34 @@ label.light {
     display: inline-block;
 }
 
-span.field-error {
-    color: firebrick;
+.flash {
+    margin: 0;
+    border-radius: 0;
+    padding: 1rem;
+}
+.flash {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    padding: 1rem 2rem;
+    border-radius: 4px;
+    font-size: 1.1rem;
 }
 
-input[type="text"].field-error {
-    border: 1px solid firebrick;
-    border-bottom: 3px solid firebrick;
+.flash.success {
+    background-color: #7f9e40;
+    color: #f3f6ee;
+}
+
+.flash.failure {
+    background-color: #ac4343;
+    color: #f2e2e2;
+}
+
+i[data-close] {
+    margin: 1rem;
+    color: #fff;
+    cursor: default;
+    cursor: pointer;
 }
 
 

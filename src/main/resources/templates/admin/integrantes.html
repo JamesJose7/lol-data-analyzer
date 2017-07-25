@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head('categories')"></head>
+<body>
+<div th:replace="layout :: nav"></div>
+<div th:replace="layout :: flash"></div>
+
+<div class="container">
+
+    <h1>Integrantes</h1>
+
+    <form th:action="${action}" method="post">
+        <div id="integrantes-table">
+            <div class="integrante-row header">
+                <div class="integrante-cell">Invocador</div>
+                <div class="integrante-cell">Nombre</div>
+                <div class="integrante-cell bigger">Carrera</div>
+                <div class="integrante-cell">Ciclo</div>
+                <div class="integrante-cell bigger">e-mail</div>
+                <div class="integrante-cell smaller">Delete</div>
+            </div>
+            <div th:each="integrante : ${integrantes}" class="integrante-row">
+                <div th:text="${integrante.nombreInvocador}" class="integrante-cell">Zetal</div>
+                <div th:text="${integrante.nombreIntegrante}" class="integrante-cell">Jose</div>
+                <div th:text="${integrante.carrera}" class="integrante-cell bigger">Sistemas informatico</div>
+                <div th:text="${integrante.ciclo}" class="integrante-cell">6</div>
+                <div th:text="${integrante.email}" class="integrante-cell bigger">sadf@sdfs.com</div>
+                <div class="integrante-cell smaller"><button th:value="${integrante.id}" class="delete-integrante" type="submit" name="submit"><i class="material-icons">delete</i></button></div>
+            </div>
+        </div>
+    </form>
+
+</div>
+
+<div th:replace="layout :: scripts"></div>
+</body>
+</html>

@@ -12,9 +12,11 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 public class AdministradorController {
@@ -68,5 +70,26 @@ public class AdministradorController {
 
         // Redirect browser to /
         return "redirect:/";
+    }
+
+    @RequestMapping("/admin/borrar-integrante")
+    public String deleteIntegrante(Model model) {
+        List<Integrante> integrantes = integranteService.findAll();
+
+        model.addAttribute("integrantes", integrantes);
+        model.addAttribute("action", "/delete");
+
+        return "admin/integrantes";
+    }
+
+    @RequestMapping(value="/delete", method=RequestMethod.POST)
+    public String deleteIntegrante(@RequestParam("submit") int integranteId, RedirectAttributes redirectAttributes) {
+        Integrante integrante = integranteService.findById(integranteId);
+        integranteService.delete(integrante);
+
+        redirectAttributes.addFlashAttribute("flash", new FlashMessage("Integrante borrado exitosamente", FlashMessage.Status.SUCCESS));
+
+        // TODO: Redirect browser to /categories
+        return "redirect:/admin/borrar-integrante";
     }
 }
