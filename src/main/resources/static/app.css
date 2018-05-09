@@ -366,6 +366,10 @@ div.header {
     background-color: #ccc;
 }
 
+.delete-integrante-button {
+    background-color: green;
+}
+
 /* Classes */
 
 .fixedwait {
@@ -478,6 +482,7 @@ i[data-close] {
 
     .ranked-info img {
         width: 40%;
+        max-width: 134px;
     }
 
     /* Settings */
