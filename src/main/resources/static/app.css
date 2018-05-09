@@ -124,6 +124,7 @@ a:visited {
     margin-right: 30px;
     border: 3px solid #ccc;
     box-shadow: 0 0 5px rgba(0,0,0,.5);
+    max-width: 134px;
 }
 
 .ranked-info img {
@@ -482,7 +483,6 @@ i[data-close] {
 
     .ranked-info img {
         width: 40%;
-        max-width: 134px;
     }
 
     /* Settings */
