@@ -78,6 +78,7 @@ public class AdministradorController {
 
         model.addAttribute("integrantes", integrantes);
         model.addAttribute("action", "/delete");
+        model.addAttribute("button", "delete");
 
         return "admin/integrantes";
     }
@@ -91,5 +92,17 @@ public class AdministradorController {
 
         // TODO: Redirect browser to /categories
         return "redirect:/admin/borrar-integrante";
+    }
+
+    @RequestMapping("/admin/editar-integrante")
+    public String editIntegrante(Model model) {
+        List<Integrante> integrantes = integranteService.findAll();
+
+        model.addAttribute("integrantes", integrantes);
+        model.addAttribute("action", "/edit");
+        model.addAttribute("button", "edit");
+        model.addAttribute("class", "background-color: green;");
+
+        return "admin/integrantes";
     }
 }

@@ -25,7 +25,7 @@
                 <div th:text="${integrante.carrera}" class="integrante-cell bigger">Sistemas informatico</div>
                 <div th:text="${integrante.ciclo}" class="integrante-cell">6</div>
                 <div th:text="${integrante.email}" class="integrante-cell bigger">sadf@sdfs.com</div>
-                <div class="integrante-cell smaller"><button th:value="${integrante.id}" class="delete-integrante" type="submit" name="submit"><i class="material-icons">delete</i></button></div>
+                <div class="integrante-cell smaller"><button th:value="${integrante.id}" class="delete-integrante" th:style="${class}" type="submit" name="submit"><i class="material-icons" th:text="${button}">delete</i></button></div>
             </div>
         </div>
     </form>
