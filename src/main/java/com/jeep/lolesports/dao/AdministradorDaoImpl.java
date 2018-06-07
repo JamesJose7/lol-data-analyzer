@@ -6,6 +6,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+@SuppressWarnings("Duplicates")
 @Repository
 public class AdministradorDaoImpl implements AdministradorDao {
     @Autowired
