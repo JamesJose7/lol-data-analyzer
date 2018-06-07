@@ -1,7 +1,9 @@
 package com.jeep.lolesports.web.controller;
 
+import com.jeep.lolesports.model.Administrador;
 import com.jeep.lolesports.model.Integrante;
 import com.jeep.lolesports.model.Jugador;
+import com.jeep.lolesports.service.AdministradorService;
 import com.jeep.lolesports.service.IntegranteService;
 import com.jeep.lolesports.service.RiotService;
 import com.jeep.lolesports.web.FlashMessage;
@@ -25,6 +27,8 @@ public class AdministradorController {
 
     @Autowired
     private IntegranteService integranteService;
+    @Autowired
+    private AdministradorService administradorService;
 
     @Autowired
     private RiotService riotService;
@@ -104,5 +108,41 @@ public class AdministradorController {
         model.addAttribute("class", "background-color: green;");
 
         return "admin/integrantes";
+    }
+
+
+    /* Administradores */
+    @RequestMapping("/admin/agregar-admin")
+    public String addAdminForm(Model model) {
+        if (!model.containsAttribute("administrador")) {
+            model.addAttribute("administrador", new Administrador());
+        }
+
+        model.addAttribute("action", "/administrador");
+        model.addAttribute("heading", "Nuevo administrador");
+        model.addAttribute("submit", "Agregar");
+
+        return "admin/administrador_form";
+    }
+
+    @RequestMapping(value = "/administrador", method = RequestMethod.POST)
+    public String addAdmin(@Valid Administrador administrador, BindingResult result, RedirectAttributes redirectAttributes) {
+        if (result.hasErrors()) {
+            //Include validation errors upon redirect
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.administrador", result);
+
+                //Add the integrante if invalid data was received
+                redirectAttributes.addFlashAttribute("administrador", administrador);
+
+                //Redirect back to the form
+                return "redirect:/admin/agregar-admin";
+        }
+        //Save it as a 'Integrante'
+        administradorService.save(administrador);
+
+        redirectAttributes.addFlashAttribute("flash", new FlashMessage("Administrador agregado correctamente!", FlashMessage.Status.SUCCESS));
+
+        // Redirect browser to /
+        return "redirect:/";
     }
 }
