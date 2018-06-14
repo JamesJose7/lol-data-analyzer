@@ -8,6 +8,7 @@ import com.jeep.lolesports.service.UserService;
 import com.jeep.lolesports.web.FlashMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -145,6 +146,9 @@ public class AdministradorController {
         Role role = new Role(2L, "ROLE_ADMIN");
         User user = new User(administrador.getUsername(), administrador.getPassword(),
                 true, role);
+        //BCrypt password
+        String pwHash = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt(10));
+        user.setPassword(pwHash);
         userService.save(user);
         administrador.setPassword(null);
         administradorService.save(administrador);

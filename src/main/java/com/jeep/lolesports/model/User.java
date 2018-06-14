@@ -75,4 +75,8 @@ public class User implements UserDetails {
         this.enabled = enabled;
         this.role = role;
     }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }
