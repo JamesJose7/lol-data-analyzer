@@ -7,31 +7,16 @@
 
 <section class="main-content">
     <div class="container">
-        <div class="card">
-            <div class="card-image">
-                <!--<img th:src="@{/assets/images/desktop-computer.svg}" alt="desktop computer" />-->
-            </div>
-            <div class="card-content">
-                <div th:replace="layout :: flash"></div>
-                <form th:action="@{/login}" th:object="${user}" method="post" class="login">
-                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-                    <div class="row">
-                        <div class="col s12">
-                            <input th:field="*{username}" placeholder="username"/>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col s12">
-                            <input type="password" th:field="*{password}" placeholder="password"/>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col s12">
-                            <button type="submit" class="btn">Login</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
+        <div class="login-container">
+            <div th:replace="layout :: flash"></div>
+            <form th:action="@{/login}" th:object="${user}" method="post" class="clearfix settings">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
+                <h1>Login</h1>
+                <input type="text" th:field="*{username}" placeholder="username" class="settings"/>
+                <input type="password" th:field="*{password}" placeholder="password" class="settings"/>
+                <button type="submit" class="btn inln default settings">Login</button>
+            </form>
         </div>
     </div>
 </section>

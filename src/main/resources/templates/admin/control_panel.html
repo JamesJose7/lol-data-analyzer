@@ -7,8 +7,9 @@
 
 
 <div class="container">
-    <form class="logout inline" th:action="@{/logout}" method="post">
-        <button type="submit"><i class="material-icons">power_settings_new</i></button>
+    <form class="logout-form" th:action="@{/logout}" method="post">
+        <p id="log-in-user" th:text="|logged in as ${username}|"></p>
+        <button id="logout-button" type="submit"><i class="material-icons">power_settings_new</i></button>
     </form>
     <h2 class="settings-section">Administrar Integrantes</h2>
 

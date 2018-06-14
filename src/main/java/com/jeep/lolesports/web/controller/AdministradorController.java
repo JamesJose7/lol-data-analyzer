@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -35,7 +36,9 @@ public class AdministradorController {
     private RiotService riotService;
 
     @RequestMapping("/admin")
-    public String controlPanel(Model model) {
+    public String controlPanel(Model model, Principal principal) {
+        String username = principal.getName();
+        model.addAttribute("username", username);
         return "admin/control_panel";
     }
 
