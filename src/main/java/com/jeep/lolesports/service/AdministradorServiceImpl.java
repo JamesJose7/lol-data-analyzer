@@ -11,6 +11,11 @@ public class AdministradorServiceImpl implements AdministradorService {
     private AdministradorDao administradorDao;
 
     @Override
+    public Administrador findByUsername(String username) {
+        return administradorDao.findByUsername(username);
+    }
+
+    @Override
     public void save(Administrador administrador) {
         administradorDao.save(administrador);
     }

@@ -1,6 +1,6 @@
 package com.jeep.lolesports.dao;
 
-import com.jeep.lolesports.model.Administrador;
+import com.jeep.lolesports.model.User;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -10,28 +10,28 @@ import org.springframework.stereotype.Repository;
 
 @SuppressWarnings("Duplicates")
 @Repository
-public class AdministradorDaoImpl implements AdministradorDao {
+public class UserDaoImpl implements UserDao {
     @Autowired
     private SessionFactory sessionFactory;
 
     @Override
-    public Administrador findByUsername(String username) {
+    public User findByUsername(String username) {
         Session session = sessionFactory.openSession();
 
-        Criteria criteria = session.createCriteria(Administrador.class);
-        Administrador administrador = (Administrador) criteria.add(Restrictions.eq("username", username))
+        Criteria criteria = session.createCriteria(User.class);
+        User user = (User) criteria.add(Restrictions.eq("username", username))
                 .uniqueResult();
         //User user = session.get(User.class, username);
         session.close();
 
-        return administrador;
+        return user;
     }
 
     @Override
-    public void save(Administrador administrador) {
+    public void save(User user) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        session.saveOrUpdate(administrador);
+        session.saveOrUpdate(user);
         session.getTransaction().commit();
         session.close();
     }

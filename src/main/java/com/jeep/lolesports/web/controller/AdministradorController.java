@@ -1,14 +1,14 @@
 package com.jeep.lolesports.web.controller;
 
-import com.jeep.lolesports.model.Administrador;
-import com.jeep.lolesports.model.Integrante;
-import com.jeep.lolesports.model.Jugador;
+import com.jeep.lolesports.model.*;
 import com.jeep.lolesports.service.AdministradorService;
 import com.jeep.lolesports.service.IntegranteService;
 import com.jeep.lolesports.service.RiotService;
+import com.jeep.lolesports.service.UserService;
 import com.jeep.lolesports.web.FlashMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -29,12 +30,16 @@ public class AdministradorController {
     private IntegranteService integranteService;
     @Autowired
     private AdministradorService administradorService;
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private RiotService riotService;
 
     @RequestMapping("/admin")
-    public String controlPanel(Model model) {
+    public String controlPanel(Model model, Principal principal) {
+        String username = principal.getName();
+        model.addAttribute("username", username);
         return "admin/control_panel";
     }
 
@@ -137,7 +142,15 @@ public class AdministradorController {
                 //Redirect back to the form
                 return "redirect:/admin/agregar-admin";
         }
-        //Save it as a 'Integrante'
+        //Save user and null the password for admin object
+        Role role = new Role(2L, "ROLE_ADMIN");
+        User user = new User(administrador.getUsername(), administrador.getPassword(),
+                true, role);
+        //BCrypt password
+        String pwHash = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt(10));
+        user.setPassword(pwHash);
+        userService.save(user);
+        administrador.setPassword(null);
         administradorService.save(administrador);
 
         redirectAttributes.addFlashAttribute("flash", new FlashMessage("Administrador agregado correctamente!", FlashMessage.Status.SUCCESS));

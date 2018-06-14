@@ -1,43 +1,37 @@
 package com.jeep.lolesports.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
+import javax.persistence.*;
 import javax.validation.constraints.Size;
 
 @Entity
 public class Administrador {
     @Id
-    private int id;
-    @NotNull
-    @Size(min = 4, max = 10, message = "Esta mal")
-    private String user;
-    @NotNull
-    @Size(min = 4, max = 10, message = "Esta mal")
-    private String password;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    public Administrador(int id, String user, String password) {
-        this.id = id;
-        this.user = user;
-        this.password = password;
-    }
+    @Column(unique = true)
+    @Size(min = 8, max = 20)
+    private String username;
+
+    @Column(length = 100)
+    private String password;
 
     public Administrador() {}
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public String getUser() {
-        return user;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUser(String user) {
-        this.user = user;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {

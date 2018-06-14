@@ -371,6 +371,27 @@ div.header {
     background-color: green;
 }
 
+/* Authentication styles */
+
+.logout-form {
+
+}
+
+#logout-button {
+    width: 50px;
+    padding: 0;
+    margin: 0;
+    float: right;
+    background-color: #B22222;
+    border: 1px solid #8e1b1b;
+}
+
+#log-in-user {
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+}
+
 /* Classes */
 
 .fixedwait {
@@ -483,6 +504,14 @@ i[data-close] {
 
     .ranked-info img {
         width: 40%;
+    }
+
+    /* Authentication */
+    .login-container {
+        width: 50%;
+        max-width: 750px;
+        min-width: 700px;
+        margin: 0 auto;
     }
 
     /* Settings */

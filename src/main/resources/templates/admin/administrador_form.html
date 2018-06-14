@@ -11,8 +11,8 @@
         <h1 th:text="${heading}"></h1>
 
         <fieldset class="left settings">
-            <label class="settings" for="user">User: <span class="field-error" th:if="${#fields.hasErrors('user')}" th:errors="*{user}"></span></label>
-            <input class="settings" th:classappend="${#fields.hasErrors('user')} ? 'field-error' : ''" type="text" id="user" name="user" th:field="*{user}"/>
+            <label class="settings" for="username">User: <span class="field-error" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span></label>
+            <input class="settings" th:classappend="${#fields.hasErrors('username')} ? 'field-error' : ''" type="text" id="username" name="username" th:field="*{username}"/>
         </fieldset>
 
         <fieldset class="right settings">
