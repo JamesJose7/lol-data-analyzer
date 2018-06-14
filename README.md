@@ -42,3 +42,21 @@ hibernate.cfg.xml
 <!--<property name="dialect">org.hibernate.dialect.H2Dialect</property>-->
 ...
 ```
+
+## Authentication
+
+To use the admin page a username with a hashed password is now required, run this sql insertion on the DB
+### User table
+The password used for login is **'pass'**
+```
+INSERT INTO USER (username, password, enabled, role_id)
+values (jamesjose, '$2a$10$q0ZMt50H5RxMiue.Q9yqQOhapYLhBoR65lKnwyXnD1AtJB/o.aIWy', true, 2);
+```
+## Role table
+```
+INSERT INTO ROLE (name)
+values ('ROLE_USER')
+('ROLE_ADMIN');
+```
+
+**TODO:** automatically insert those statements on server execution
