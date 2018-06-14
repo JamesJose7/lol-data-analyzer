@@ -43,6 +43,7 @@ dependencies {
     compile 'org.hibernate:hibernate-core:5.1.0.Final'
     compile 'org.apache.tomcat:tomcat-dbcp:8.0.32'
     compile 'com.h2database:h2:1.4.191'
+    compile 'org.springframework.boot:spring-boot-starter-security'
 
     compile 'org.hashids:hashids:1.0.1'
     compile("org.springframework.boot:spring-boot-starter")

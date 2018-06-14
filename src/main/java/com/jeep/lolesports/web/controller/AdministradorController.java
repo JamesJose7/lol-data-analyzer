@@ -1,11 +1,10 @@
 package com.jeep.lolesports.web.controller;
 
-import com.jeep.lolesports.model.Administrador;
-import com.jeep.lolesports.model.Integrante;
-import com.jeep.lolesports.model.Jugador;
+import com.jeep.lolesports.model.*;
 import com.jeep.lolesports.service.AdministradorService;
 import com.jeep.lolesports.service.IntegranteService;
 import com.jeep.lolesports.service.RiotService;
+import com.jeep.lolesports.service.UserService;
 import com.jeep.lolesports.web.FlashMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -29,6 +28,8 @@ public class AdministradorController {
     private IntegranteService integranteService;
     @Autowired
     private AdministradorService administradorService;
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private RiotService riotService;
@@ -137,7 +138,12 @@ public class AdministradorController {
                 //Redirect back to the form
                 return "redirect:/admin/agregar-admin";
         }
-        //Save it as a 'Integrante'
+        //Save user and null the password for admin object
+        Role role = new Role(2L, "ROLE_ADMIN");
+        User user = new User(administrador.getUsername(), administrador.getPassword(),
+                true, role);
+        userService.save(user);
+        administrador.setPassword(null);
         administradorService.save(administrador);
 
         redirectAttributes.addFlashAttribute("flash", new FlashMessage("Administrador agregado correctamente!", FlashMessage.Status.SUCCESS));
