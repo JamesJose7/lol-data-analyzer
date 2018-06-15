@@ -8,6 +8,8 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @SuppressWarnings("Duplicates")
 @Repository
 public class AdministradorDaoImpl implements AdministradorDao {
@@ -34,5 +36,24 @@ public class AdministradorDaoImpl implements AdministradorDao {
         session.saveOrUpdate(administrador);
         session.getTransaction().commit();
         session.close();
+    }
+
+    @Override
+    public void delete(Administrador administrador) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        session.delete(administrador);
+        session.getTransaction().commit();
+        session.close();
+    }
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<Administrador> findAll() {
+        Session session = sessionFactory.openSession();
+
+        List<Administrador> categories = session.createCriteria(Administrador.class).list();
+
+        session.close();
+        return categories;
     }
 }
