@@ -158,4 +158,24 @@ public class AdministradorController {
         // Redirect browser to /
         return "redirect:/";
     }
+    @RequestMapping("/admin/borrar-administrador")
+    public String deleteAdministrador(Model model) {
+        List<Administrador> administradores = administradorService.findAll();
+
+        model.addAttribute("administradores", administradores);
+        model.addAttribute("action", "/admin/delete-administrador");
+        model.addAttribute("button", "delete");
+
+        return "admin/administradores";
+    }
+
+    @RequestMapping(value="/admin/delete-administrador", method=RequestMethod.POST)
+    public String deleteAdmin(@RequestParam("submit") String adminUsername, RedirectAttributes redirectAttributes) {
+        Administrador administrador = administradorService.findByUsername(adminUsername);
+        administradorService.delete(administrador);
+
+        redirectAttributes.addFlashAttribute("flash", new FlashMessage("Administrador borrado exitosamente", FlashMessage.Status.SUCCESS));
+
+        return "redirect:/admin/borrar-administrador";
+    }
 }
