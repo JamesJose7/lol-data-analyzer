@@ -35,4 +35,13 @@ public class UserDaoImpl implements UserDao {
         session.getTransaction().commit();
         session.close();
     }
+
+    @Override
+    public void delete(User user) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        session.delete(user);
+        session.getTransaction().commit();
+        session.close();
+    }
 }

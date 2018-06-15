@@ -173,6 +173,9 @@ public class AdministradorController {
     public String deleteAdmin(@RequestParam("submit") String adminUsername, RedirectAttributes redirectAttributes) {
         Administrador administrador = administradorService.findByUsername(adminUsername);
         administradorService.delete(administrador);
+        // Delete user associated with the admin
+        User user = userService.findByUsername(adminUsername);
+        userService.delete(user);
 
         redirectAttributes.addFlashAttribute("flash", new FlashMessage("Administrador borrado exitosamente", FlashMessage.Status.SUCCESS));
 

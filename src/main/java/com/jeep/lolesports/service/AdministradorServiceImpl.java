@@ -24,9 +24,7 @@ public class AdministradorServiceImpl implements AdministradorService {
 
     @Override
     public void delete(Administrador administrador) {
-        {
-            administradorDao.delete(administrador);
-        }
+        administradorDao.delete(administrador);
     }
 
     @Override
