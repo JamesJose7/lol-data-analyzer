@@ -23,6 +23,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void delete(User user) {
+        userDao.delete(user);
+    }
+
+    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         // Load user from the database (throw exception if not found)
         User user = userDao.findByUsername(username);
