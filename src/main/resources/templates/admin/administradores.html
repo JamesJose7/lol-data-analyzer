@@ -17,13 +17,14 @@
                 <div class="integrante-cell smaller">Edit</div>
             </div>
             <div th:each="administrador : ${administradores}" class="integrante-row">
-
                 <div th:text="${administrador.username}" class="integrante-cell">Jose</div>
                 <div class="integrante-cell smaller">
                     <button th:value="${administrador.username}" class="delete-integrante" th:style="${class}" type="submit" name="submit"><i class="material-icons" th:text="${button}">delete</i>
                     </button>
                 </div>
-                <a th:href="@{|/admin/editar/${administrador.id}|}"> Editar</a>
+                <div class="integrante-cell smaller">
+                    <a th:href="@{|/admin/editar/${administrador.id}|}"> Editar </a>
+                </div>
             </div>
         </div>
     </form>
