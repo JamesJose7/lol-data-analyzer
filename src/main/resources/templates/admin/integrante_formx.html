@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head('Integrante')"></head>
+<body>
+<div th:replace="layout :: nav"></div>
+<div th:replace="layout :: flash"></div>
+<div class="container form-container">
+
+    <form th:action="${action}" method="post" class="clearfix settings" th:object="${integrante}">
+        <h1 th:text="${heading}"></h1>
+        <input type="hidden" th:field="*{id}"/>
+        <fieldset class="left settings">
+            <label class="settings" for="cedula">Cédula: <span class="field-error" th:if="${#fields.hasErrors('cedula')}" th:errors="*{cedula}"></span></label>
+            <input readonly="readonly" class="settings" th:classappend="${#fields.hasErrors('cedula')} ? 'field-error' : ''" type="text" id="cedula" name="cedula" th:field="*{cedula}"/>
+
+            <label class="settings" for="nombre">Nombre: <span class="field-error" th:if="${#fields.hasErrors('nombreIntegrante')}" th:errors="*{nombreIntegrante}"></span></label>
+            <input readonly="readonly" class="settings" th:classappend="${#fields.hasErrors('nombreIntegrante')} ? 'field-error' : ''" type="text" id="nombre" name="nombreIntegrante" th:field="*{nombreIntegrante}"/>
+
+            <label class="settings" for="correo">Correo: <span class="field-error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span></label>
+            <input class="settings" th:classappend="${#fields.hasErrors('email')} ? 'field-error' : ''" type="text" id="correo" name="correo" th:field="*{email}"/>
+
+        </fieldset>
+
+        <fieldset class="right settings">
+            <label class="settings" for="invocador">Nombre Invocador: <span class="field-error" th:if="${#fields.hasErrors('nombreInvocador')}" th:errors="*{nombreInvocador}"></span></label>
+            <input class="settings" th:classappend="${#fields.hasErrors('nombreInvocador')} ? 'field-error' : ''" type="text" id="invocador" name="invocador" th:field="*{nombreInvocador}"/>
+
+            <label class="settings" for="carrera">Carrera:</label>
+            <select class="settings" name="carrera" id="carrera" th:field="*{carrera}">
+                <optgroup label="Área Técnica">
+                    <option value="Arquitectura">Arquitectura</option>
+                    <option value="Artes Plásticas y Diseño">Artes Plásticas y Diseño</option>
+                    <option value="Electrónica y Telecomunicaciones">Electrónica y Telecomunicaciones</option>
+                    <option value="Geología y Minas">Geología y Minas</option>
+                    <option value="Ingenieria civil">Ingenieria civil</option>
+                    <option value="Sistemas Informáticos y Computación">Sistemas Informáticos y Computación</option>
+                </optgroup>
+
+                <optgroup label="Área Sociohumanística">
+                    <option value="Comunicación">Comunicación</option>
+                    <option value="Derecho">Derecho</option>
+                    <option value="Pedagogía de los idiomas nacionales y extranjeros">Pedagogía de los idiomas nacionales y extranjeros</option>
+                    <option value="Relaciones Públicas">Relaciones Públicas</option>
+                    <option value="Psicología">Psicología</option>
+                    <option value="Inglés">Inglés</option>
+                </optgroup>
+
+                <optgroup label="Área Biológica y Biomédica">
+                    <option value="Biología">Biología</option>
+                    <option value="Gestión Ambiental">Gestión Ambiental</option>
+                    <option value="Agropecuaria">Agropecuaria</option>
+                    <option value="Ingeniería Química">Ingeniería Química</option>
+                    <option value="Ingeniería Industrial">Ingeniería Industrial</option>
+                    <option value="Alimentos">Alimentos</option>
+                    <option value="Enfermería">Enfermería</option>
+                    <option value="Medicina">Medicina</option>
+                    <option value="Bioquímica y Farmacia">Bioquímica y Farmacia</option>
+                </optgroup>
+
+                <optgroup label="Área Administrativa">
+                    <option value="Administración de Empresas">Administración de Empresas</option>
+                    <option value="Administración en Banca y Finanzas">Administración en Banca y Finanzas</option>
+                    <option value="Contabilidad y Auditoría">Contabilidad y Auditoría</option>
+                    <option value="Economía">Economía</option>
+                    <option value="Hotelería y turismo">Hotelería y turismo</option>
+                    <option value="Gastronomía">Gastronomía</option>
+                </optgroup>
+            </select>
+
+            <label class="settings" for="ciclo">Ciclo:</label>
+            <select class="settings" name="ciclo" id="ciclo" th:field="*{ciclo}">
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+            </select>
+
+            <input class="btn inln default settings" type="submit" th:value="${submit}"/>
+            <input class="btn inln error settings" type="reset" value="Reiniciar"/>
+        </fieldset>
+    </form>
+</div>
+
+<div th:replace="layout :: scripts"></div>
+</body>
+</html>
