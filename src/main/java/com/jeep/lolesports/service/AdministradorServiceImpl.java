@@ -33,5 +33,7 @@ public class AdministradorServiceImpl implements AdministradorService {
     }
 
     @Override
-    public Administrador findById(long id){return  administradorDao.findById(id);}
+    public Administrador findById(long id){
+        return  administradorDao.findById(id);
+    }
 }
