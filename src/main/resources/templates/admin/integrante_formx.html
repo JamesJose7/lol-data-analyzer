@@ -23,7 +23,7 @@
 
         <fieldset class="right settings">
             <label class="settings" for="invocador">Nombre Invocador: <span class="field-error" th:if="${#fields.hasErrors('nombreInvocador')}" th:errors="*{nombreInvocador}"></span></label>
-            <input class="settings" th:classappend="${#fields.hasErrors('nombreInvocador')} ? 'field-error' : ''" type="text" id="invocador" name="invocador" th:field="*{nombreInvocador}"/>
+            <input readonly="readonly" class="settings" th:classappend="${#fields.hasErrors('nombreInvocador')} ? 'field-error' : ''" type="text" id="invocador" name="invocador" th:field="*{nombreInvocador}"/>
 
             <label class="settings" for="carrera">Carrera:</label>
             <select class="settings" name="carrera" id="carrera" th:field="*{carrera}">
