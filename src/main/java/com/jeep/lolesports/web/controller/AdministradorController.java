@@ -1,9 +1,9 @@
 package com.jeep.lolesports.web.controller;
 
-import com.jeep.lolesports.model.*;
+import com.jeep.lolesports.model.Administrador;
+import com.jeep.lolesports.model.Role;
+import com.jeep.lolesports.model.User;
 import com.jeep.lolesports.service.AdministradorService;
-import com.jeep.lolesports.service.IntegranteService;
-import com.jeep.lolesports.service.RiotService;
 import com.jeep.lolesports.service.UserService;
 import com.jeep.lolesports.web.FlashMessage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +11,6 @@ import org.springframework.core.env.Environment;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,14 +28,9 @@ public class AdministradorController {
     private Environment env;
 
     @Autowired
-    private IntegranteService integranteService;
-    @Autowired
     private AdministradorService administradorService;
     @Autowired
     private UserService userService;
-
-    @Autowired
-    private RiotService riotService;
 
     @RequestMapping("/admin")
     public String controlPanel(Model model, Principal principal) {
@@ -45,116 +39,6 @@ public class AdministradorController {
         return "admin/control_panel";
     }
 
-    @RequestMapping("/admin/agregar-integrante")
-    public String integranteForm(Model model) {
-        if (!model.containsAttribute("integrante")) {
-            model.addAttribute("integrante", new Integrante());
-        }
-
-        model.addAttribute("action", "/integrantes");
-        model.addAttribute("heading", "Nuevo integrante");
-        model.addAttribute("submit", "Agregar");
-
-        return "admin/integrante_form";
-    }
-
-    @RequestMapping(value = "/integrantes", method = RequestMethod.POST)
-    public String addIntegrante(@Valid Integrante integrante, BindingResult result, RedirectAttributes redirectAttributes) {
-        if (result.hasErrors()) {
-            //Include validation errors upon redirect
-            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.integrante", result);
-
-            //Add the integrante if invalid data was received
-            redirectAttributes.addFlashAttribute("integrante", integrante);
-
-            //Redirect back to the form
-            return "redirect:/admin/agregar-integrante";
-        }
-        //Get the details of the player from Riot
-        Jugador jugador = riotService.getJugadorByName(integrante.getNombreInvocador());
-        //Save it as a 'Integrante'
-        Integrante newIntegrante = new Integrante(jugador, integrante.getCedula(), integrante.getNombreIntegrante(),
-                integrante.getCiclo(), integrante.getCarrera(), integrante.getEmail());
-        integranteService.save(newIntegrante);
-
-        redirectAttributes.addFlashAttribute("flash", new FlashMessage("Integrante agregado correctamente!", FlashMessage.Status.SUCCESS));
-
-        // Redirect browser to /
-        return "redirect:/";
-    }
-
-    @RequestMapping("/admin/borrar-integrante")
-    public String deleteIntegrante(Model model) {
-        List<Integrante> integrantes = integranteService.findAll();
-
-        model.addAttribute("integrantes", integrantes);
-        model.addAttribute("action", "/delete");
-        model.addAttribute("button", "delete");
-
-        return "admin/integrantes";
-    }
-
-    @RequestMapping(value="/delete", method=RequestMethod.POST)
-    public String deleteIntegrante(@RequestParam("submit") int integranteId, RedirectAttributes redirectAttributes) {
-        Integrante integrante = integranteService.findById(integranteId);
-        integranteService.delete(integrante);
-
-        redirectAttributes.addFlashAttribute("flash", new FlashMessage("Integrante borrado exitosamente", FlashMessage.Status.SUCCESS));
-
-        // TODO: Redirect browser to /categories
-        return "redirect:/admin/borrar-integrante";
-    }
-
-    @RequestMapping(value = "/admin/editar-integrante")
-    public String editIntegrante( Model model) {
-        List<Integrante> integrantes = integranteService.findAll();
-        model.addAttribute("integrantes", integrantes);
-        model.addAttribute("action", "/admin/editar-integrante/");
-        model.addAttribute("button", "edit");
-        model.addAttribute("class", "background-color: green;");
-
-        return "admin/integrantes_list";
-    }
-
-    @RequestMapping(value="/admin/editar-integrante/{id}", method = RequestMethod.GET)
-    public String editarIntegrante(@PathVariable("id") int id, Model model){
-        Integrante integrante = integranteService.findById(id);
-        model.addAttribute("action", "/admin/actualizar-integrante");
-        model.addAttribute("submit", "Actualizar");
-        model.addAttribute("integrante", integrante);
-//        return "admin/integrante_update";
-        return "admin/integrante_formx";
-    }
-
-    @RequestMapping(value = "/admin/actualizar-integrante", method = RequestMethod.POST)
-    public String actualizar(@Valid Integrante integrante, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
-        if (bindingResult.hasErrors()) {
-            //Include validation errors upon redirect
-            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.integrante", bindingResult);
-
-            //Add the integrante if invalid data was received
-            redirectAttributes.addFlashAttribute("integrante", integrante);
-
-            redirectAttributes.addFlashAttribute("flash", new FlashMessage("Error!", FlashMessage.Status.FAILURE));
-            //Redirect back to the form
-            return "redirect:/admin/editar-integrante/" + integrante.getId();
-        }
-        Integrante oldIntegrante = integranteService.findById(integrante.getId());
-
-        Jugador objJugador = new Jugador(oldIntegrante.getId(),
-                oldIntegrante.getNombreIntegrante(),oldIntegrante.getNivel(),
-                oldIntegrante.getTipoColaRanked(),oldIntegrante.getVictoriasRanked(),
-                oldIntegrante.getDerrotasRanked(), oldIntegrante.getNivelRanked(),
-                oldIntegrante.getRangoRanked(), oldIntegrante.getNombreLigaRanked(),
-                oldIntegrante.getPuntosRanked());
-        Integrante newIntegrante = new Integrante(objJugador,integrante.getCedula(),integrante.getNombreIntegrante(),
-        integrante.getCiclo(),integrante.getCarrera(), integrante.getEmail());
-        integranteService.save(newIntegrante);
-        redirectAttributes.addFlashAttribute("flash", new FlashMessage("Integrante Actualizado correctamente!", FlashMessage.Status.SUCCESS));
-
-
-        return "redirect:/admin/editar-integrante/";
-    }
     /* Administradores */
     @RequestMapping("/admin/agregar-admin")
     public String addAdminForm(Model model) {
