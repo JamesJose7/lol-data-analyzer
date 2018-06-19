@@ -220,4 +220,55 @@ public class AdministradorController {
 
         return "redirect:/admin/borrar-administrador";
     }
+
+    @RequestMapping(value="admin/show-admins")
+    public String listaAdmins(Model model){
+        model.addAttribute("administradores", administradorService.findAll());
+        model.addAttribute("button","Update");
+        return "admin/administradores";
+    }
+
+    @RequestMapping(value="admin/editar/{id}", method = RequestMethod.GET)
+    public String editar(@PathVariable("id") long id, Model model){
+        Administrador administrador = administradorService.findById(id);
+        model.addAttribute("action", "/actualizar");
+        model.addAttribute("submit", "Actualizar");
+        model.addAttribute("administrador", administrador);
+        return "admin/administrador_form";
+    }
+
+    @RequestMapping(value = "/actualizar", method = RequestMethod.POST)
+    public String actualizar(@Valid Administrador administrador, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            //Include validation errors upon redirect
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.administrador", bindingResult);
+
+            //Add the integrante if invalid data was received
+            redirectAttributes.addFlashAttribute("administrador", administrador);
+
+            //Redirect back to the form
+            return "redirect:/admin/editar/" + administrador.getId();
+        }
+        //Get previous admin
+        Administrador previousAdmin = administradorService.findById(administrador.getId());
+        //Save user and null the password for admin object
+        User user = userService.findByUsername(previousAdmin.getUsername());
+        //BCrypt password
+        String pwHash = BCrypt.hashpw(administrador.getPassword(), BCrypt.gensalt(10));
+        user.setUsername(administrador.getUsername());
+        user.setPassword(pwHash);
+        userService.save(user);
+        administrador.setPassword(null);
+        administradorService.save(administrador);
+
+        redirectAttributes.addFlashAttribute("flash", new FlashMessage("Administrador Actualizado correctamente!", FlashMessage.Status.SUCCESS));
+
+        // Redirect browser to /
+
+        return "redirect:/admin/show-admins";
+    }
+
+
+
+
 }

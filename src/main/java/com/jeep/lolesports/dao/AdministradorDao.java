@@ -9,4 +9,5 @@ public interface AdministradorDao {
     void save(Administrador administrador);
     void delete(Administrador administrador);
     List<Administrador> findAll();
+    Administrador findById(long id);
 }

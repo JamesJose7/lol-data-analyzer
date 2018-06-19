@@ -9,4 +9,5 @@ public interface AdministradorService {
     Administrador findByUsername(String username);
     void save(Administrador administrador);
     void delete(Administrador administrador);
+    Administrador findById(long id);
 }
