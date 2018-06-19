@@ -56,4 +56,13 @@ public class AdministradorDaoImpl implements AdministradorDao {
         session.close();
         return categories;
     }
+
+    @Override
+    public Administrador findById(long id) {
+        Session session = sessionFactory.openSession();
+        Administrador administrador = session.get(Administrador.class, id);
+        session.close();
+
+        return administrador;
+    }
 }

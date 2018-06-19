@@ -9,6 +9,7 @@
 
     <form th:action="${action}" method="post" class="clearfix settings" th:object="${administrador}">
         <h1 th:text="${heading}"></h1>
+        <input type="hidden" th:field="*{id}"/>
 
         <fieldset class="left settings">
             <label class="settings" for="username">User: <span class="field-error" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span></label>

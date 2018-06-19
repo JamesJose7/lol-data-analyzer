@@ -44,4 +44,13 @@ public class UserDaoImpl implements UserDao {
         session.getTransaction().commit();
         session.close();
     }
+
+    @Override
+    public User findById(int id) {
+        Session session = sessionFactory.openSession();
+        User user = session.get(User.class, id);
+        session.close();
+
+        return user;
+    }
 }

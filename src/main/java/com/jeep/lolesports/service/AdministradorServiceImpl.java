@@ -31,4 +31,7 @@ public class AdministradorServiceImpl implements AdministradorService {
     public List<Administrador> findAll() {
         return administradorDao.findAll();
     }
+
+    @Override
+    public Administrador findById(long id){return  administradorDao.findById(id);}
 }

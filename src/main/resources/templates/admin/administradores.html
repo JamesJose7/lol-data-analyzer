@@ -12,14 +12,18 @@
     <form th:action="${action}" method="post">
         <div id="integrantes-table">
             <div class="integrante-row header">
-                <div class="integrante-cell">Id</div>
                 <div class="integrante-cell">Nombre</div>
                 <div class="integrante-cell smaller">Delete</div>
+                <div class="integrante-cell smaller">Edit</div>
             </div>
             <div th:each="administrador : ${administradores}" class="integrante-row">
-                <div th:text="${administrador.id}" class="integrante-cell">Zetal</div>
+
                 <div th:text="${administrador.username}" class="integrante-cell">Jose</div>
-                <div class="integrante-cell smaller"><button th:value="${administrador.username}" class="delete-integrante" th:style="${class}" type="submit" name="submit"><i class="material-icons" th:text="${button}">delete</i></button></div>
+                <div class="integrante-cell smaller">
+                    <button th:value="${administrador.username}" class="delete-integrante" th:style="${class}" type="submit" name="submit"><i class="material-icons" th:text="${button}">delete</i>
+                    </button>
+                </div>
+                <a th:href="@{|/admin/editar/${administrador.id}|}"> Editar</a>
             </div>
         </div>
     </form>
