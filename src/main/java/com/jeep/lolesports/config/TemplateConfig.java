@@ -2,6 +2,7 @@ package com.jeep.lolesports.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
@@ -25,6 +26,7 @@ public class TemplateConfig {
     public SpringTemplateEngine templateEngine() {
         final SpringTemplateEngine springTemplateEngine = new SpringTemplateEngine();
         springTemplateEngine.addTemplateResolver(templateResolver());
+        springTemplateEngine.addDialect(new SpringSecurityDialect());
         return springTemplateEngine;
     }
 

@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
-import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -33,9 +32,7 @@ public class AdministradorController {
     private UserService userService;
 
     @RequestMapping("/admin")
-    public String controlPanel(Model model, Principal principal) {
-        String username = principal.getName();
-        model.addAttribute("username", username);
+    public String controlPanel(Model model) {
         return "admin/control_panel";
     }
 
@@ -79,15 +76,16 @@ public class AdministradorController {
         redirectAttributes.addFlashAttribute("flash", new FlashMessage("Administrador agregado correctamente!", FlashMessage.Status.SUCCESS));
 
         // Redirect browser to /
-        return "redirect:/";
+        return "redirect:/admin";
     }
-    @RequestMapping("/admin/borrar-administrador")
+    @RequestMapping("/admin/edit-admins")
     public String deleteAdministrador(Model model) {
         List<Administrador> administradores = administradorService.findAll();
 
         model.addAttribute("administradores", administradores);
         model.addAttribute("action", "/admin/delete-administrador");
-        model.addAttribute("button", "delete");
+        model.addAttribute("buttonDelete", "delete");
+        model.addAttribute("buttonEdit", "edit");
 
         return "admin/administradores";
     }
@@ -102,14 +100,7 @@ public class AdministradorController {
 
         redirectAttributes.addFlashAttribute("flash", new FlashMessage("Administrador borrado exitosamente", FlashMessage.Status.SUCCESS));
 
-        return "redirect:/admin/borrar-administrador";
-    }
-
-    @RequestMapping(value="admin/show-admins")
-    public String listaAdmins(Model model){
-        model.addAttribute("administradores", administradorService.findAll());
-        model.addAttribute("button","Update");
-        return "admin/administradores";
+        return "redirect:/admin/edit-admins";
     }
 
     @RequestMapping(value="admin/editar/{id}", method = RequestMethod.GET)
@@ -118,6 +109,7 @@ public class AdministradorController {
         model.addAttribute("action", "/actualizar");
         model.addAttribute("submit", "Actualizar");
         model.addAttribute("administrador", administrador);
+
         return "admin/administrador_form";
     }
 
@@ -149,7 +141,7 @@ public class AdministradorController {
 
         // Redirect browser to /
 
-        return "redirect:/admin/show-admins";
+        return "redirect:/admin/edit-admins";
     }
 
 
