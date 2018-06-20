@@ -2,6 +2,7 @@ package com.jeep.lolesports.config;
 
 import com.jeep.lolesports.model.Role;
 import com.jeep.lolesports.model.User;
+import com.jeep.lolesports.service.RoleService;
 import com.jeep.lolesports.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -12,11 +13,19 @@ import org.springframework.stereotype.Component;
 public class StartupConfig {
     @Autowired
     private UserService mUserService;
+    @Autowired
+    private RoleService mRoleService;
 
     @EventListener(ContextRefreshedEvent.class)
     public void contextRefreshedEvent() {
-        // Create (if it doesn't exist) default super user and save it
+        //Create roles
+        Role userRole = new Role(1L, "ROLE_USER");
+        Role adminRole = new Role(2L, "ROLE_ADMIN");
+        //Save roles
+        mRoleService.save(userRole);
+        mRoleService.save(adminRole);
 
+        // Create (if it doesn't exist) default super user and save it
         //Check if super user exists
         User superUser = mUserService.findByUsername("saitamaOne");
         if (superUser == null) {
