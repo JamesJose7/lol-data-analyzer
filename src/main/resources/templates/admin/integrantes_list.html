@@ -4,6 +4,7 @@
 <body>
 <div th:replace="layout :: nav"></div>
 <div th:replace="layout :: flash"></div>
+<div th:replace="layout :: admin-nav"></div>
 
 <div class="container">
 
@@ -25,8 +26,13 @@
                 <div th:text="${integrante.carrera}" class="integrante-cell bigger">Sistemas informatico</div>
                 <div th:text="${integrante.ciclo}" class="integrante-cell">6</div>
                 <div th:text="${integrante.email}" class="integrante-cell bigger">sadf@sdfs.com</div>
-                <button th:value="${integrante.id}" class="delete-integrante" th:style="${class}" type="submit" name="submit"><a
-                        th:href="@{|/admin/editar-integrante/${integrante.id}|}">Editar</a></button>
+                <div class="integrante-cell smaller">
+                    <button th:value="${integrante.id}" class="delete-integrante-button" th:style="${class}" type="submit" name="submit">
+                        <a th:href="@{|/admin/editar-integrante/${integrante.id}|}">
+                            <i class="material-icons">edit</i>
+                        </a>
+                    </button>
+                </div>
             </div>
         </div>
     </form>

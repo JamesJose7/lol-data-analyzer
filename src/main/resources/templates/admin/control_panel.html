@@ -4,13 +4,9 @@
 <body>
 <div th:replace="layout :: nav"></div>
 <div th:replace="layout :: flash"></div>
-
+<div th:replace="layout :: admin-nav"></div>
 
 <div class="container">
-    <form class="logout-form" th:action="@{/logout}" method="post">
-        <p id="log-in-user" th:text="|logged in as ${username}|"></p>
-        <button id="logout-button" type="submit"><i class="material-icons">power_settings_new</i></button>
-    </form>
     <h2 class="settings-section">Administrar Integrantes</h2>
 
     <div class="settings-container clearfix">
@@ -21,7 +17,21 @@
 </div>
 
 <div class="container">
+    <h2 class="settings-section">Administrar usuarios</h2>
+
+    <div class="settings-container clearfix">
+        <div class="left-setting"><a href="/admin/agregar-admin">Ingresar</a></div>
+        <div class="right-setting"><a href="/admin/edit-admins">Modificar</a></div>
+    </div>
+</div>
+
+
+<div class="container">
     <h2 class="settings-section">Administrar plataforma</h2>
+
+    <div class="settings-container clearfix">
+        <div class="left-setting"><a href="#">Modificar horario de extracción</a></div>
+    </div>
 </div>
 
 <div th:replace="layout :: scripts"></div>

@@ -21,6 +21,15 @@ a:visited {
     color: inherit;
 }
 
+a.button {
+    /*-webkit-appearance: button;*/
+    /*-moz-appearance: button;*/
+    /*appearance: button;*/
+
+    text-decoration: none;
+    color: initial;
+}
+
 /* Base layout */
 
 .brand-logo {
@@ -328,7 +337,7 @@ input[type="text"].field-error {
     border-bottom: 3px solid firebrick;
 }
 
-button.delete-integrante {
+.delete-integrante-button {
     padding: 0;
     padding-top: 5px;
     background-color: firebrick;
@@ -362,19 +371,39 @@ div.integrante-cell:last-child {
     text-align: center;
 }
 
+.center-cell {
+    text-align: center;
+}
+
 div.header {
     font-weight: bold;
     background-color: #ccc;
 }
 
-.delete-integrante-button {
-    background-color: green;
+.edit-button {
+    padding: 0;
+    padding-top: 5px;
+    background-color: #3D9C35;
+    border: none;
+    border-radius: 5px;
+    display: inline-block;
+    width: 80%;
+    margin: 0;
+}
+
+i {
+    color: #fff;
 }
 
 /* Authentication styles */
 
-.logout-form {
+#logged-user {
+    margin-left: 5px;
+}
 
+.logout-form {
+    padding-bottom: 15px;
+    margin-bottom: 15px;
 }
 
 #logout-button {
@@ -384,6 +413,20 @@ div.header {
     float: right;
     background-color: #B22222;
     border: 1px solid #8e1b1b;
+    padding-top: 4px;
+    margin-left: 9px;
+}
+
+#home-button {
+    width: 50px;
+    padding: 0;
+    margin: 0;
+    float: right;
+    background-color: #3D9C35;
+    border: 1px solid #307c2a;
+    border-radius: 5px;
+    text-align: center;
+    padding-top: 4px;
 }
 
 #log-in-user {
