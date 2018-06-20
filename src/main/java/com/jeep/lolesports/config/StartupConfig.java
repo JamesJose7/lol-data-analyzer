@@ -19,11 +19,16 @@ public class StartupConfig {
     @EventListener(ContextRefreshedEvent.class)
     public void contextRefreshedEvent() {
         //Create roles
-        Role userRole = new Role(1L, "ROLE_USER");
-        Role adminRole = new Role(2L, "ROLE_ADMIN");
-        //Save roles
-        mRoleService.save(userRole);
-        mRoleService.save(adminRole);
+        Role userRole = mRoleService.findByName("ROLE_USER");
+        if (userRole == null) {
+            userRole = new Role(1L, "ROLE_USER");
+            mRoleService.save(userRole);
+        }
+        Role adminRole = mRoleService.findByName("ROLE_ADMIN");
+        if (adminRole == null) {
+            adminRole = new Role(2L, "ROLE_ADMIN");
+            mRoleService.save(adminRole);
+        }
 
         // Create (if it doesn't exist) default super user and save it
         //Check if super user exists
