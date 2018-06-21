@@ -33,6 +33,7 @@ public class RiotServiceImpl implements RiotService {
         int id = docBasic.getInt("id");
         String nombre = docBasic.getString("name");
         int nivel = docBasic.getInt("summonerLevel");
+        int accountId = docBasic.getInt("accountId");
 
         //Ranked info
         String urlRanked = String.format("%s%s?api_key=%s", LEAGUE_V3_URL, id, API_KEY);
@@ -40,7 +41,7 @@ public class RiotServiceImpl implements RiotService {
         String jsonDataRanked = httpRequest.getRequestContents(urlRanked);
         JSONArray docRanked = new JSONArray(jsonDataRanked);
 
-        Jugador jugador = new Jugador(id, nombre, nivel);
+        Jugador jugador = new Jugador(id, nombre, nivel, accountId);
 
         //Check first league in array
         if (!docRanked.isNull(0)) {

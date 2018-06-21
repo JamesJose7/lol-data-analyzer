@@ -10,6 +10,8 @@ import javax.validation.constraints.Size;
 public class Jugador {
     @Id
     private int id;
+    @Column(nullable = true)
+    private int accountId;
     @Column
     @NotNull
     @Size(min = 1, message = "*Al menos debe tener {min} caracter")
@@ -35,10 +37,11 @@ public class Jugador {
     private String nombreLigaRankedFlex;
     private int puntosRankedFlex;
 
-    public Jugador(int id, String nombreInvocador, int nivel) {
+    public Jugador(int id, String nombreInvocador, int nivel, int accountId) {
         this.id = id;
         this.nombreInvocador = nombreInvocador;
         this.nivel = nivel;
+        this.accountId = accountId;
         //Default to unranked
         tipoColaRankedSolo = "UNRANKED";
         victoriasRankedSolo = 0;
@@ -57,13 +60,14 @@ public class Jugador {
         puntosRankedFlex = 0;
     }
 
-    public Jugador(int id, String nombreInvocador, int nivel, String tipoColaRankedSolo, int victoriasRankedSolo,
+    public Jugador(int id, String nombreInvocador, int nivel, int accountId, String tipoColaRankedSolo, int victoriasRankedSolo,
                    int derrotasRankedSolo, String nivelRankedSolo, String rangoRankedSolo, String nombreLigaRankedSolo,
                    int puntosRankedSolo, String tipoColaRankedFlex, int victoriasRankedFlex, int derrotasRankedFlex,
                    String nivelRankedFlex, String rangoRankedFlex, String nombreLigaRankedFlex, int puntosRankedFlex) {
         this.id = id;
         this.nombreInvocador = nombreInvocador;
         this.nivel = nivel;
+        this.accountId = accountId;
         this.tipoColaRankedSolo = tipoColaRankedSolo;
         this.victoriasRankedSolo = victoriasRankedSolo;
         this.derrotasRankedSolo = derrotasRankedSolo;
@@ -104,6 +108,14 @@ public class Jugador {
 
     public void setNivel(int nivel) {
         this.nivel = nivel;
+    }
+
+    public int getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(int accountId) {
+        this.accountId = accountId;
     }
 
     public String getTipoColaRankedSolo() {
