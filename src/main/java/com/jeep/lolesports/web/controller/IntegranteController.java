@@ -2,11 +2,13 @@ package com.jeep.lolesports.web.controller;
 
 import com.jeep.lolesports.model.Integrante;
 import com.jeep.lolesports.model.Jugador;
+import com.jeep.lolesports.model.Partida;
 import com.jeep.lolesports.service.IntegranteService;
+import com.jeep.lolesports.service.PartidaService;
 import com.jeep.lolesports.service.RiotService;
 import com.jeep.lolesports.web.FlashMessage;
-import org.springframework.core.env.Environment;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -29,6 +31,8 @@ public class IntegranteController {
 
     @Autowired
     private IntegranteService integranteService;
+    @Autowired
+    private PartidaService partidaService;
 
     @Autowired
     private RiotService riotService;
@@ -38,6 +42,10 @@ public class IntegranteController {
     public String listJugadores(Model model) {
         //Get all integrantes
         List<Integrante> jugadores = integranteService.findAll();
+
+        /*long id = jugadores.get(0).getId();
+        List<Partida> partidas = partidaService.findPlayerMatches(id);
+        System.out.println(partidas);*/
 
         model.addAttribute("jugadores", jugadores);
         return "jugador/index";
@@ -79,10 +87,18 @@ public class IntegranteController {
         }
         //Get the details of the player from Riot
         Jugador jugador = riotService.getJugadorByName(integrante.getNombreInvocador());
+        //Get the recent matches from player
+        List<Partida> partidas = riotService.getPartidasByAccountId(jugador.getAccountId());
         //Save it as a 'Integrante'
         Integrante newIntegrante = new Integrante(jugador, integrante.getCedula(), integrante.getNombreIntegrante(),
                 integrante.getCiclo(), integrante.getCarrera(), integrante.getEmail());
+        //newIntegrante.setPartidas(partidas);
         integranteService.save(newIntegrante);
+        //Save partidas
+        for (Partida partida : partidas) {
+            partida.setIntegrante(newIntegrante);
+            partidaService.save(partida);
+        }
 
         redirectAttributes.addFlashAttribute("flash", new FlashMessage("Integrante agregado correctamente!", FlashMessage.Status.SUCCESS));
 
@@ -148,12 +164,13 @@ public class IntegranteController {
         }
         Integrante oldIntegrante = integranteService.findById(integrante.getId());
 
-        Jugador objJugador = new Jugador(oldIntegrante.getId(),
-                oldIntegrante.getNombreIntegrante(),oldIntegrante.getNivel(),
-                oldIntegrante.getTipoColaRanked(),oldIntegrante.getVictoriasRanked(),
-                oldIntegrante.getDerrotasRanked(), oldIntegrante.getNivelRanked(),
-                oldIntegrante.getRangoRanked(), oldIntegrante.getNombreLigaRanked(),
-                oldIntegrante.getPuntosRanked());
+        Jugador objJugador = new Jugador(oldIntegrante.getId(), oldIntegrante.getNombreInvocador(),oldIntegrante.getNivel(), oldIntegrante.getAccountId(),
+                oldIntegrante.getTipoColaRankedSolo(),oldIntegrante.getVictoriasRankedSolo(), oldIntegrante.getDerrotasRankedSolo(),
+                oldIntegrante.getNivelRankedSolo(), oldIntegrante.getRangoRankedSolo(), oldIntegrante.getNombreLigaRankedSolo(),
+                oldIntegrante.getPuntosRankedSolo(), oldIntegrante.getTipoColaRankedFlex(), oldIntegrante.getVictoriasRankedFlex(),
+                oldIntegrante.getDerrotasRankedFlex(), oldIntegrante.getNivelRankedFlex(), oldIntegrante.getRangoRankedFlex(),
+                oldIntegrante.getNombreLigaRankedFlex(), oldIntegrante.getPuntosRankedFlex());
+
         Integrante newIntegrante = new Integrante(objJugador,integrante.getCedula(),integrante.getNombreIntegrante(),
                 integrante.getCiclo(),integrante.getCarrera(), integrante.getEmail());
         integranteService.save(newIntegrante);

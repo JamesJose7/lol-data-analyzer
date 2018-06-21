@@ -27,11 +27,9 @@
                 <div th:text="${integrante.ciclo}" class="integrante-cell">6</div>
                 <div th:text="${integrante.email}" class="integrante-cell bigger">sadf@sdfs.com</div>
                 <div class="integrante-cell smaller">
-                    <button th:value="${integrante.id}" class="delete-integrante-button" th:style="${class}" type="submit" name="submit">
-                        <a th:href="@{|/admin/editar-integrante/${integrante.id}|}">
-                            <i class="material-icons">edit</i>
-                        </a>
-                    </button>
+                    <a th:href="@{|/admin/editar-integrante/${integrante.id}|}" class="button edit-button">
+                        <i class="material-icons">edit</i>
+                    </a>
                 </div>
             </div>
         </div>
