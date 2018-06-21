@@ -1,6 +1,8 @@
 package com.jeep.lolesports.service;
 
 import com.jeep.lolesports.model.Jugador;
+import com.jeep.lolesports.model.Partida;
+import com.jeep.lolesports.model.Partida.PartidaBuilder;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,14 +10,21 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 @PropertySource("app.properties")
 public class RiotServiceImpl implements RiotService {
     @Autowired
     private Environment env;
 
+    private static final int END_INDEX_PARTIDAS = 20;
+
     private static final String SUMMONER_V3_URL = "https://la1.api.riotgames.com/lol/summoner/v3/summoners/by-name/";
     private static final String LEAGUE_V3_URL = "https://la1.api.riotgames.com/lol/league/v3/positions/by-summoner/";
+    private static final String MATCHLIST_V3_URL = "https://la1.api.riotgames.com/lol/match/v3/matchlists/by-account/";
+    private static final String MATCH_V3_URL = "https://la1.api.riotgames.com/lol/match/v3/matches/";
 
     @Override
     public Jugador getJugadorByName(String nombreJugador) {
@@ -86,5 +95,47 @@ public class RiotServiceImpl implements RiotService {
         jugador.setRangoRankedFlex(rankedFlex.getString("rank"));
         jugador.setNombreLigaRankedFlex(rankedFlex.getString("leagueName"));
         jugador.setPuntosRankedFlex(rankedFlex.getInt("leaguePoints"));
+    }
+
+    @Override
+    public List<Partida> getPartidasByAccountId(long accountId) {
+        final String API_KEY = env.getProperty("lol.api.key");
+
+        List<Partida> partidas = new ArrayList<>();
+
+        // Build recent matches url
+        String recentMatchesUrl = String.format("%s%d?endIndex=%d&api_key=%s",
+                MATCHLIST_V3_URL, accountId, END_INDEX_PARTIDAS, API_KEY);
+
+        // Get recent matches list
+        HTTPService httpService = new HTTPService();
+        String jsonRecentMatches = httpService.getRequestContents(recentMatchesUrl);
+        JSONObject recentMatchesDoc = new JSONObject(jsonRecentMatches);
+        JSONArray recentMatchesList = recentMatchesDoc.getJSONArray("matches");
+
+        // Iterate through matches getting their details
+        for (int i = 0; i < recentMatchesList.length(); i++) {
+            //Get Json summary for match
+            JSONObject matchSummary = recentMatchesList.getJSONObject(i);
+            //Get match id
+            long matchId = matchSummary.getLong("gameId");
+
+            // Build match details url
+            String matchDetailsUrl = String.format("%s%d?api_key=%s",
+                    MATCH_V3_URL, matchId, API_KEY);
+
+            // Get details for each match
+            String jsonMatchDetails = httpService.getRequestContents(matchDetailsUrl);
+            JSONObject matchDetails = new JSONObject(jsonMatchDetails);
+
+            Partida partida = new PartidaBuilder(matchId)
+                    .withGameDuration(matchDetails.getLong("gameDuration"))
+                    .withGameMode(matchDetails.getString("gameMode"))
+                    .withGameType(matchDetails.getString("gameType"))
+                    .build();
+            //Add partida to the the list
+            partidas.add(partida);
+        }
+        return partidas;
     }
 }

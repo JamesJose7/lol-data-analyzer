@@ -16,11 +16,11 @@
                     <p th:text="|Level ${jugador.nivel}|"></p>
                 </div>
                 <div class="ranked-info">
-                    <img th:src="@{|/images/tier-icons/${jugador.nivelRanked}_${jugador.rangoRanked}.png|}" alt="ranked position"/>
-                    <h1 th:text="|${T(com.jeep.lolesports.utils.Utils).firstUpperCase(jugador.nivelRanked)} ${jugador.rangoRanked}|"></h1>
-                    <p th:text="|${T(com.jeep.lolesports.utils.Utils).prettyQueueName(jugador.tipoColaRanked)} / ${jugador.puntosRanked} LP|"></p>
-                    <p th:text="${jugador.nombreLigaRanked}"></p>
-                    <p><span class="wins" th:text="|${jugador.victoriasRanked} W|"></span> <span class="losses" th:text="|${jugador.derrotasRanked} L|"></span></p>
+                    <img th:src="@{|/images/tier-icons/${jugador.nivelRankedSolo}_${jugador.rangoRankedSolo}.png|}" alt="ranked position"/>
+                    <h1 th:text="|${T(com.jeep.lolesports.utils.Utils).firstUpperCase(jugador.nivelRankedSolo)} ${jugador.rangoRankedSolo}|"></h1>
+                    <p th:text="|${T(com.jeep.lolesports.utils.Utils).prettyQueueName(jugador.tipoColaRankedSolo)} / ${jugador.puntosRankedSolo} LP|"></p>
+                    <p th:text="${jugador.nombreLigaRankedSolo}"></p>
+                    <p><span class="wins" th:text="|${jugador.victoriasRankedSolo} W|"></span> <span class="losses" th:text="|${jugador.derrotasRankedSolo} L|"></span></p>
                 </div>
             </div>
         </div>
