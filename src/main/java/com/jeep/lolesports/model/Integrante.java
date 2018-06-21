@@ -27,21 +27,13 @@ public class Integrante extends Jugador {
     @Pattern(regexp = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])", message = "*Ingresar un e-mail válido")
     private String email;
 
-    public Integrante(int id, String nombreInvocador, int nivel, String tipoColaRanked,
-                      int victoriasRanked, int derrotasRanked, String nivelRanked,
-                      String rangoRanked, String nombreLigaRanked, int puntosRanked, String cedula,
-                      String nombreIntegrante, int ciclo, String carrera, String email) {
-        super(id, nombreInvocador, nivel, tipoColaRanked, victoriasRanked, derrotasRanked, nivelRanked, rangoRanked, nombreLigaRanked, puntosRanked);
-        this.cedula = cedula;
-        this.nombreIntegrante = nombreIntegrante;
-        this.ciclo = ciclo;
-        this.carrera = carrera;
-        this.email = email;
-    }
-
     public Integrante(Jugador jugador, String cedula, String nombreIntegrante, int ciclo, String carrera, String email) {
-        super(jugador.getId(), jugador.getNombreInvocador(), jugador.getNivel(), jugador.getTipoColaRanked(), jugador.getVictoriasRanked(),
-                jugador.getDerrotasRanked(), jugador.getNivelRanked(), jugador.getRangoRanked(), jugador.getNombreLigaRanked(), jugador.getPuntosRanked());
+        super(jugador.getId(), jugador.getNombreInvocador(), jugador.getNivel(), jugador.getTipoColaRankedSolo(),
+                jugador.getVictoriasRankedSolo(), jugador.getDerrotasRankedSolo(), jugador.getNivelRankedSolo(),
+                jugador.getRangoRankedSolo(), jugador.getNombreLigaRankedSolo(), jugador.getPuntosRankedSolo(),
+                jugador.getTipoColaRankedFlex(), jugador.getVictoriasRankedFlex(), jugador.getDerrotasRankedFlex(),
+                jugador.getNivelRankedFlex(), jugador.getRangoRankedFlex(), jugador.getNombreLigaRankedFlex(),
+                jugador.getPuntosRankedFlex());
         this.cedula = cedula;
         this.nombreIntegrante = nombreIntegrante;
         this.ciclo = ciclo;

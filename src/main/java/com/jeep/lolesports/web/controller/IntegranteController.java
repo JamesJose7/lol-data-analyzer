@@ -148,12 +148,13 @@ public class IntegranteController {
         }
         Integrante oldIntegrante = integranteService.findById(integrante.getId());
 
-        Jugador objJugador = new Jugador(oldIntegrante.getId(),
-                oldIntegrante.getNombreIntegrante(),oldIntegrante.getNivel(),
-                oldIntegrante.getTipoColaRanked(),oldIntegrante.getVictoriasRanked(),
-                oldIntegrante.getDerrotasRanked(), oldIntegrante.getNivelRanked(),
-                oldIntegrante.getRangoRanked(), oldIntegrante.getNombreLigaRanked(),
-                oldIntegrante.getPuntosRanked());
+        Jugador objJugador = new Jugador(oldIntegrante.getId(), oldIntegrante.getNombreInvocador(),oldIntegrante.getNivel(),
+                oldIntegrante.getTipoColaRankedSolo(),oldIntegrante.getVictoriasRankedSolo(), oldIntegrante.getDerrotasRankedSolo(),
+                oldIntegrante.getNivelRankedSolo(), oldIntegrante.getRangoRankedSolo(), oldIntegrante.getNombreLigaRankedSolo(),
+                oldIntegrante.getPuntosRankedSolo(), oldIntegrante.getTipoColaRankedFlex(), oldIntegrante.getVictoriasRankedFlex(),
+                oldIntegrante.getDerrotasRankedFlex(), oldIntegrante.getNivelRankedFlex(), oldIntegrante.getRangoRankedFlex(),
+                oldIntegrante.getNombreLigaRankedFlex(), oldIntegrante.getPuntosRankedFlex());
+
         Integrante newIntegrante = new Integrante(objJugador,integrante.getCedula(),integrante.getNombreIntegrante(),
                 integrante.getCiclo(),integrante.getCarrera(), integrante.getEmail());
         integranteService.save(newIntegrante);

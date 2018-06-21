@@ -40,35 +40,50 @@ public class RiotServiceImpl implements RiotService {
         String jsonDataRanked = httpRequest.getRequestContents(urlRanked);
         JSONArray docRanked = new JSONArray(jsonDataRanked);
 
-        String tipoColaRanked;
-        int victoriasRanked;
-        int derrotasRanked;
-        String nivelRanked;
-        String rangoRanked;
-        String nombreLigaRanked;
-        int puntosRanked;
+        Jugador jugador = new Jugador(id, nombre, nivel);
+
+        //Check first league in array
         if (!docRanked.isNull(0)) {
             JSONObject firstLeague = docRanked.getJSONObject(0);
 
-            tipoColaRanked = firstLeague.getString("queueType");
-            victoriasRanked = firstLeague.getInt("wins");
-            derrotasRanked = firstLeague.getInt("losses");
-            nivelRanked = firstLeague.getString("tier");
-            rangoRanked = firstLeague.getString("rank");
-            nombreLigaRanked = firstLeague.getString("leagueName");
-            puntosRanked = firstLeague.getInt("leaguePoints");
-        } else {
-            tipoColaRanked = "UNRANKED";
-            victoriasRanked = 0;
-            derrotasRanked = 0;
-            nivelRanked = "UNRANKED";
-            rangoRanked = "";
-            nombreLigaRanked = "N/A";
-            puntosRanked = 0;
+            String tipoColaRanked = firstLeague.getString("queueType");
+            if (tipoColaRanked.equals("RANKED_SOLO_5x5"))
+                setRankedSolo(firstLeague, jugador);
+            else
+                setRankedFlex(firstLeague, jugador);
         }
 
-        Jugador jugador = new Jugador(id, nombre, nivel,
-                tipoColaRanked, victoriasRanked, derrotasRanked, nivelRanked, rangoRanked, nombreLigaRanked, puntosRanked);
+        //Check second league in array
+        if (!docRanked.isNull(1)) {
+            JSONObject secondLeague = docRanked.getJSONObject(1);
+
+            String tipoColaRanked = secondLeague.getString("queueType");
+            if (tipoColaRanked.equals("RANKED_SOLO_5x5"))
+                setRankedSolo(secondLeague, jugador);
+            else
+                setRankedFlex(secondLeague, jugador);
+        }
+
         return jugador;
+    }
+
+    private void setRankedSolo(JSONObject rankedSolo, Jugador jugador) {
+        jugador.setTipoColaRankedSolo(rankedSolo.getString("queueType"));
+        jugador.setVictoriasRankedSolo(rankedSolo.getInt("wins"));
+        jugador.setDerrotasRankedSolo(rankedSolo.getInt("losses"));
+        jugador.setNivelRankedSolo(rankedSolo.getString("tier"));
+        jugador.setRangoRankedSolo(rankedSolo.getString("rank"));
+        jugador.setNombreLigaRankedSolo(rankedSolo.getString("leagueName"));
+        jugador.setPuntosRankedSolo(rankedSolo.getInt("leaguePoints"));
+    }
+
+    private void setRankedFlex(JSONObject rankedFlex, Jugador jugador) {
+        jugador.setTipoColaRankedFlex(rankedFlex.getString("queueType"));
+        jugador.setVictoriasRankedFlex(rankedFlex.getInt("wins"));
+        jugador.setDerrotasRankedFlex(rankedFlex.getInt("losses"));
+        jugador.setNivelRankedFlex(rankedFlex.getString("tier"));
+        jugador.setRangoRankedFlex(rankedFlex.getString("rank"));
+        jugador.setNombreLigaRankedFlex(rankedFlex.getString("leagueName"));
+        jugador.setPuntosRankedFlex(rankedFlex.getInt("leaguePoints"));
     }
 }

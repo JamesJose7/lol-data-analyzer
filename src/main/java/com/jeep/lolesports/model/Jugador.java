@@ -17,40 +17,67 @@ public class Jugador {
     @Column
     private int nivel;
 
-    //ranked info
-    @Column
-    private String tipoColaRanked;
-    @Column
-    private int victoriasRanked;
-    @Column
-    private int derrotasRanked;
-    @Column
-    private String nivelRanked;
-    @Column
-    private String rangoRanked;
-    @Column
-    private String nombreLigaRanked;
-    @Column
-    private int puntosRanked;
+    //solo ranked info
+    private String tipoColaRankedSolo;
+    private int victoriasRankedSolo;
+    private int derrotasRankedSolo;
+    private String nivelRankedSolo;
+    private String rangoRankedSolo;
+    private String nombreLigaRankedSolo;
+    private int puntosRankedSolo;
+
+    //flex ranked info
+    private String tipoColaRankedFlex;
+    private int victoriasRankedFlex;
+    private int derrotasRankedFlex;
+    private String nivelRankedFlex;
+    private String rangoRankedFlex;
+    private String nombreLigaRankedFlex;
+    private int puntosRankedFlex;
 
     public Jugador(int id, String nombreInvocador, int nivel) {
         this.id = id;
         this.nombreInvocador = nombreInvocador;
         this.nivel = nivel;
+        //Default to unranked
+        tipoColaRankedSolo = "UNRANKED";
+        victoriasRankedSolo = 0;
+        derrotasRankedSolo = 0;
+        nivelRankedSolo = "UNRANKED";
+        rangoRankedSolo = "";
+        nombreLigaRankedSolo = "N/A";
+        puntosRankedSolo = 0;
+
+        tipoColaRankedFlex = "UNRANKED";
+        victoriasRankedFlex = 0;
+        derrotasRankedFlex = 0;
+        nivelRankedFlex = "UNRANKED";
+        rangoRankedFlex = "";
+        nombreLigaRankedFlex = "N/A";
+        puntosRankedFlex = 0;
     }
 
-    public Jugador(int id, String nombreInvocador, int nivel, String tipoColaRanked, int victoriasRanked,
-                   int derrotasRanked, String nivelRanked, String rangoRanked, String nombreLigaRanked, int puntosRanked) {
+    public Jugador(int id, String nombreInvocador, int nivel, String tipoColaRankedSolo, int victoriasRankedSolo,
+                   int derrotasRankedSolo, String nivelRankedSolo, String rangoRankedSolo, String nombreLigaRankedSolo,
+                   int puntosRankedSolo, String tipoColaRankedFlex, int victoriasRankedFlex, int derrotasRankedFlex,
+                   String nivelRankedFlex, String rangoRankedFlex, String nombreLigaRankedFlex, int puntosRankedFlex) {
         this.id = id;
         this.nombreInvocador = nombreInvocador;
         this.nivel = nivel;
-        this.tipoColaRanked = tipoColaRanked;
-        this.victoriasRanked = victoriasRanked;
-        this.derrotasRanked = derrotasRanked;
-        this.nivelRanked = nivelRanked;
-        this.rangoRanked = rangoRanked;
-        this.nombreLigaRanked = nombreLigaRanked;
-        this.puntosRanked = puntosRanked;
+        this.tipoColaRankedSolo = tipoColaRankedSolo;
+        this.victoriasRankedSolo = victoriasRankedSolo;
+        this.derrotasRankedSolo = derrotasRankedSolo;
+        this.nivelRankedSolo = nivelRankedSolo;
+        this.rangoRankedSolo = rangoRankedSolo;
+        this.nombreLigaRankedSolo = nombreLigaRankedSolo;
+        this.puntosRankedSolo = puntosRankedSolo;
+        this.tipoColaRankedFlex = tipoColaRankedFlex;
+        this.victoriasRankedFlex = victoriasRankedFlex;
+        this.derrotasRankedFlex = derrotasRankedFlex;
+        this.nivelRankedFlex = nivelRankedFlex;
+        this.rangoRankedFlex = rangoRankedFlex;
+        this.nombreLigaRankedFlex = nombreLigaRankedFlex;
+        this.puntosRankedFlex = puntosRankedFlex;
     }
 
     public Jugador() {}
@@ -79,59 +106,115 @@ public class Jugador {
         this.nivel = nivel;
     }
 
-    public String getTipoColaRanked() {
-        return tipoColaRanked;
+    public String getTipoColaRankedSolo() {
+        return tipoColaRankedSolo;
     }
 
-    public void setTipoColaRanked(String tipoColaRanked) {
-        this.tipoColaRanked = tipoColaRanked;
+    public void setTipoColaRankedSolo(String tipoColaRanked) {
+        this.tipoColaRankedSolo = tipoColaRanked;
     }
 
-    public int getVictoriasRanked() {
-        return victoriasRanked;
+    public int getVictoriasRankedSolo() {
+        return victoriasRankedSolo;
     }
 
-    public void setVictoriasRanked(int victoriasRanked) {
-        this.victoriasRanked = victoriasRanked;
+    public void setVictoriasRankedSolo(int victoriasRanked) {
+        this.victoriasRankedSolo = victoriasRanked;
     }
 
-    public int getDerrotasRanked() {
-        return derrotasRanked;
+    public int getDerrotasRankedSolo() {
+        return derrotasRankedSolo;
     }
 
-    public void setDerrotasRanked(int derrotasRanked) {
-        this.derrotasRanked = derrotasRanked;
+    public void setDerrotasRankedSolo(int derrotasRanked) {
+        this.derrotasRankedSolo = derrotasRanked;
     }
 
-    public String getNivelRanked() {
-        return nivelRanked;
+    public String getNivelRankedSolo() {
+        return nivelRankedSolo;
     }
 
-    public void setNivelRanked(String nivelRanked) {
-        this.nivelRanked = nivelRanked;
+    public void setNivelRankedSolo(String nivelRanked) {
+        this.nivelRankedSolo = nivelRanked;
     }
 
-    public String getRangoRanked() {
-        return rangoRanked;
+    public String getRangoRankedSolo() {
+        return rangoRankedSolo;
     }
 
-    public void setRangoRanked(String rangoRanked) {
-        this.rangoRanked = rangoRanked;
+    public void setRangoRankedSolo(String rangoRanked) {
+        this.rangoRankedSolo = rangoRanked;
     }
 
-    public String getNombreLigaRanked() {
-        return nombreLigaRanked;
+    public String getNombreLigaRankedSolo() {
+        return nombreLigaRankedSolo;
     }
 
-    public void setNombreLigaRanked(String nombreLigaRanked) {
-        this.nombreLigaRanked = nombreLigaRanked;
+    public void setNombreLigaRankedSolo(String nombreLigaRanked) {
+        this.nombreLigaRankedSolo = nombreLigaRanked;
     }
 
-    public int getPuntosRanked() {
-        return puntosRanked;
+    public int getPuntosRankedSolo() {
+        return puntosRankedSolo;
     }
 
-    public void setPuntosRanked(int puntosRanked) {
-        this.puntosRanked = puntosRanked;
+    public void setPuntosRankedSolo(int puntosRanked) {
+        this.puntosRankedSolo = puntosRanked;
+    }
+
+    public String getTipoColaRankedFlex() {
+        return tipoColaRankedFlex;
+    }
+
+    public void setTipoColaRankedFlex(String tipoColaRankedFlex) {
+        this.tipoColaRankedFlex = tipoColaRankedFlex;
+    }
+
+    public int getVictoriasRankedFlex() {
+        return victoriasRankedFlex;
+    }
+
+    public void setVictoriasRankedFlex(int victoriasRankedFlex) {
+        this.victoriasRankedFlex = victoriasRankedFlex;
+    }
+
+    public int getDerrotasRankedFlex() {
+        return derrotasRankedFlex;
+    }
+
+    public void setDerrotasRankedFlex(int derrotasRankedFlex) {
+        this.derrotasRankedFlex = derrotasRankedFlex;
+    }
+
+    public String getNivelRankedFlex() {
+        return nivelRankedFlex;
+    }
+
+    public void setNivelRankedFlex(String nivelRankedFlex) {
+        this.nivelRankedFlex = nivelRankedFlex;
+    }
+
+    public String getRangoRankedFlex() {
+        return rangoRankedFlex;
+    }
+
+    public void setRangoRankedFlex(String rangoRankedFlex) {
+        this.rangoRankedFlex = rangoRankedFlex;
+    }
+
+    public String getNombreLigaRankedFlex() {
+        return nombreLigaRankedFlex;
+    }
+
+    public void setNombreLigaRankedFlex(String nombreLigaRankedFlex) {
+        this.nombreLigaRankedFlex = nombreLigaRankedFlex;
+    }
+
+    public int getPuntosRankedFlex() {
+        return puntosRankedFlex;
+    }
+
+    public void setPuntosRankedFlex(int puntosRankedFlex) {
+        this.puntosRankedFlex = puntosRankedFlex;
     }
 }
