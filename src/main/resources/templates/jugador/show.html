@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="layout :: head('jugadores')"></head>
+<body>
+<div th:replace="layout :: nav"></div>
+<div th:replace="layout :: searchbar"></div>
+<div th:replace="layout :: flash"></div>
+
+<section class="main-content">
+    <div class="container">
+        <div >
+            <img th:src="@{|http://avatar.leagueoflegends.com/lan/${jugador.nombreInvocador}.png|}" alt="profile icon"/>
+            <div class="basic-info">
+                <h3>Datos del Integrante </h3>
+                <h4>Nombre de Invocador</h4>
+                <p th:text="|${jugador.nombreInvocador}|"></p>
+                <h4>ID</h4>
+                <p th:text="|ID ${jugador.id}|"></p>
+                <h4>Nivel</h4>
+                <p th:text="|${jugador.nivel}|"></p>
+
+                <h4>Nombre del Integrante</h4>
+                <p th:text="|${jugador.nombreIntegrante}|"></p>
+                <h4>Cedula</h4>
+                <p th:text="|${jugador.cedula}|"></p>
+                <h4>Carrera </h4>
+                <p th:text="|${jugador.carrera} / Ciclo ${jugador.ciclo} |"></p>
+                <h4>Contacto</h4>
+                <p th:text="|Email ${jugador.email}|"></p>
+                <h4>Carrera </h4>
+                <p th:text="|${jugador.carrera} / Ciclo ${jugador.ciclo} |"></p>
+
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<div th:replace="layout :: scripts"></div>
+</body>
+</html>

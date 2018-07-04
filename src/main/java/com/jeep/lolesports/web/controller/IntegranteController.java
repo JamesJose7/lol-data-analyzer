@@ -8,7 +8,9 @@ import org.springframework.core.env.Environment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -40,5 +42,12 @@ public class IntegranteController {
 
         model.addAttribute("jugador", jugador);
         return "jugador/search";
+    }
+    @RequestMapping(value="/jugadores/mostar/{id}", method = RequestMethod.GET)
+    public String showInfoIntegrante(@PathVariable("id") int id, Model model){
+        Integrante integrante = integranteService.findById(id);
+        Jugador jugador  ;
+        model.addAttribute("jugador",integrante );
+        return "jugador/show";
     }
 }

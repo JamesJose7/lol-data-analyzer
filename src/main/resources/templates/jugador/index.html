@@ -14,6 +14,7 @@
                 <img th:src="@{|http://avatar.leagueoflegends.com/lan/${jugador.nombreInvocador}.png|}" alt="profile icon"/>
                 <h1 th:text="${jugador.nombreInvocador}"></h1>
                 <p th:text="|Level ${jugador.nivel}|"></p>
+                <a th:href="@{|/jugadores/mostar/${jugador.id}|}"> Mas Informacion</a>
             </div>
             <div class="ranked-info">
                 <img th:src="@{|/images/tier-icons/${jugador.nivelRanked}_${jugador.rangoRanked}.png|}" alt="ranked position"/>
