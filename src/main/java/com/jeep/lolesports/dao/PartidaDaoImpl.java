@@ -1,5 +1,6 @@
 package com.jeep.lolesports.dao;
 
+import com.jeep.lolesports.model.Integrante;
 import com.jeep.lolesports.model.Partida;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -45,11 +46,11 @@ public class PartidaDaoImpl implements PartidaDao {
     }
 
     @Override
-    public List<Partida> findPlayerMatches(long id) {
+    public List<Partida> findPlayerMatches(Integrante integrante) {
         Session session = sessionFactory.openSession();
 
         Criteria criteria = session.createCriteria(Partida.class);
-        List<Partida> partidas = criteria.add(Restrictions.eq("integrante_id", id))
+        List<Partida> partidas = criteria.add(Restrictions.eq("integrante", integrante))
                 .list();
         session.close();
 

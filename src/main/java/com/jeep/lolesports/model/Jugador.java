@@ -1,10 +1,9 @@
 package com.jeep.lolesports.model;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @MappedSuperclass
 public class Jugador {
@@ -18,6 +17,10 @@ public class Jugador {
     private String nombreInvocador;
     @Column
     private int nivel;
+
+    @OneToMany(mappedBy = "integrante",
+            cascade = CascadeType.ALL)
+    private List<Partida> partidas;
 
     //solo ranked info
     private String tipoColaRankedSolo;
@@ -108,6 +111,14 @@ public class Jugador {
 
     public void setNivel(int nivel) {
         this.nivel = nivel;
+    }
+
+    public List<Partida> getPartidas() {
+        return partidas;
+    }
+
+    public void setPartidas(List<Partida> partidas) {
+        this.partidas = partidas;
     }
 
     public int getAccountId() {

@@ -1,6 +1,7 @@
 package com.jeep.lolesports.service;
 
 import com.jeep.lolesports.dao.PartidaDao;
+import com.jeep.lolesports.model.Integrante;
 import com.jeep.lolesports.model.Partida;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,7 +29,7 @@ public class PartidaServiceImpl implements PartidaService {
     }
 
     @Override
-    public List<Partida> findPlayerMatches(long id) {
-        return partidaDao.findPlayerMatches(id);
+    public List<Partida> findPlayerMatches(Integrante integrante) {
+        return partidaDao.findPlayerMatches(integrante);
     }
 }

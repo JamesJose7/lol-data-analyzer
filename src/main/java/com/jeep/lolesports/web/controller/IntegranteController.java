@@ -43,8 +43,8 @@ public class IntegranteController {
         //Get all integrantes
         List<Integrante> jugadores = integranteService.findAll();
 
-        /*long id = jugadores.get(0).getId();
-        List<Partida> partidas = partidaService.findPlayerMatches(id);
+        /*int id = jugadores.get(0).getId();
+        List<Partida> partidas = partidaService.findPlayerMatches(jugadores.get(0));
         System.out.println(partidas);*/
 
         model.addAttribute("jugadores", jugadores);

@@ -1,8 +1,10 @@
 package com.jeep.lolesports.model;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
@@ -10,19 +12,21 @@ public class Partida {
     @Id
     private long id;
 
+    private long matchId;
     private long gameDuration;
     private int mapId;
     private String gameMode;
     private String gameType;
 
-    @ManyToOne
-    @JoinColumn(name = "integrante_id")
+    @ManyToOne/*(fetch = FetchType.EAGER)*/
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Integrante integrante;
 
     public Partida() {}
 
     public Partida(PartidaBuilder builder) {
         this.id = builder.id;
+        this.matchId = builder.matchId;
         this.gameDuration = builder.gameDuration;
         this.mapId = builder.mapId;
         this.gameMode = builder.gameMode;
@@ -35,6 +39,14 @@ public class Partida {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public long getMatchId() {
+        return matchId;
+    }
+
+    public void setMatchId(long matchId) {
+        this.matchId = matchId;
     }
 
     public long getGameDuration() {
@@ -79,6 +91,7 @@ public class Partida {
 
     public static class PartidaBuilder {
         private long id;
+        public long matchId;
         private long gameDuration;
         private int mapId;
         private String gameMode;
@@ -86,6 +99,11 @@ public class Partida {
 
         public PartidaBuilder(long id) {
             this.id = id;
+        }
+
+        public PartidaBuilder withMatchId(long matchId) {
+            this.matchId = matchId;
+            return this;
         }
 
         public PartidaBuilder withGameDuration(long gameDuration) {
