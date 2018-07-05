@@ -16,7 +16,8 @@
                     <img th:src="@{|http://avatar.leagueoflegends.com/lan/${jugador.nombreInvocador}.png|}" alt="profile icon"/>
                     <h1 th:text="${jugador.nombreInvocador}"></h1>
                     <p th:text="|Level ${jugador.nivel}|"></p>
-                    <p th:text=" ${miembro}|"></p>
+                    <img th:src="@{/images/member_logo.png}" alt="logo de miembro" class="member-logo"
+                         th:classappend="${miembro ? '' : 'grayscale'}"/>
                 </div>
                 <div class="ranked-info">
                     <img th:src="@{|/images/tier-icons/${jugador.nivelRankedSolo}_${jugador.rangoRankedSolo}.png|}" alt="ranked position"/>
