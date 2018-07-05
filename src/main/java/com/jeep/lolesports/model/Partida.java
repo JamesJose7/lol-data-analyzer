@@ -2,7 +2,6 @@ package com.jeep.lolesports.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
@@ -15,8 +14,7 @@ public class Partida {
     private String gameMode;
     private String gameType;
 
-    @ManyToOne
-    @JoinColumn(name = "integrante_id")
+    @ManyToOne/*(fetch = FetchType.EAGER)*/
     private Integrante integrante;
 
     public Partida() {}
