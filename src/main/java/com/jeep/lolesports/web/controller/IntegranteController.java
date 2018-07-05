@@ -55,12 +55,11 @@ public class IntegranteController {
     public String searchJugadores(@RequestParam String q, Model model) {
         Jugador jugador = mRiotServiceService.getJugadorByName(q);
         Jugador miembro =integranteService.findById(jugador.getId());
-       if(miembro ==null){
-           model.addAttribute("miembro", "No es miembro");
-       }
-       else{
-           model.addAttribute("miembro", "Si es miembro");
-       }
+       if(miembro ==null)
+           model.addAttribute("miembro", false);
+       else
+           model.addAttribute("miembro", true);
+       
         model.addAttribute("jugador", jugador);
         return "jugador/search";
     }

@@ -155,6 +155,12 @@ a.button {
     inset 1px 1px 1px rgba(0,0,0,.1);
 }
 
+img.member-logo {
+    width: 40px;
+    border: none;
+    box-shadow: none;
+}
+
 /* layout containers */
 
 .container {
@@ -441,6 +447,9 @@ i {
     position: fixed;
 }
 
+.grayscale {
+    filter: grayscale(1);
+}
 
 .clearfix::after {
     content: " ";
