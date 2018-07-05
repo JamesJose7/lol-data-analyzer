@@ -128,7 +128,10 @@ public class RiotServiceImpl implements RiotService {
             String jsonMatchDetails = httpService.getRequestContents(matchDetailsUrl);
             JSONObject matchDetails = new JSONObject(jsonMatchDetails);
 
-            Partida partida = new PartidaBuilder(matchId)
+            //Create composite id = matchId + accountId
+            long id = Long.parseLong(String.format("%d%d", matchId, accountId));
+            Partida partida = new PartidaBuilder(id)
+                    .withMatchId(matchId)
                     .withGameDuration(matchDetails.getLong("gameDuration"))
                     .withGameMode(matchDetails.getString("gameMode"))
                     .withGameType(matchDetails.getString("gameType"))
