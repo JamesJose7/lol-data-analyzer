@@ -18,7 +18,8 @@ public class Jugador {
     @Column
     private int nivel;
 
-    @OneToMany(mappedBy = "integrante")
+    @OneToMany(mappedBy = "integrante",
+            cascade = CascadeType.ALL)
     private List<Partida> partidas;
 
     //solo ranked info

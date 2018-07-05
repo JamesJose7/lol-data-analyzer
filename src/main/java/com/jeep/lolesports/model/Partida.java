@@ -1,5 +1,8 @@
 package com.jeep.lolesports.model;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -15,6 +18,7 @@ public class Partida {
     private String gameType;
 
     @ManyToOne/*(fetch = FetchType.EAGER)*/
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Integrante integrante;
 
     public Partida() {}
