@@ -10,11 +10,25 @@
         background-color: #f7f5fa;
         border-radius: 6px;
     }
+    .err404 img{
+        float: left;
+        width: 250px;
+    }
+
+    .err404 p {
+        padding-top: 33px;
+        font-size: 3em;
+    }
+
 </style>
 <div th:replace="layout :: nav"></div>
 <div th:replace="layout :: searchbar"></div>
 <div class="container">
     <h2 th:text="|${#httpServletRequest.getAttribute('javax.servlet.error.status_code')} Error|">500 Error</h2>
+    <div th:if="${#httpServletRequest.getAttribute('javax.servlet.error.status_code') == 404}" class="err404">
+        <img th:src="@{/images/404-lee.png}" alt="not found"/>
+        <p>Estas perdido? No se encontró el recurso que estás buscando</p>
+    </div>
     <div th:if="${#httpServletRequest.getAttribute('javax.servlet.error.exception')} != null" class="app-error">
         <code th:text="${#httpServletRequest.getAttribute('javax.servlet.error.exception')}">Error Message</code>
     </div>
