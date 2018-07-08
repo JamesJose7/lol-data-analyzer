@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
-import java.util.List;
+import java.util.*;
 
 @Controller
 public class IntegranteController {
@@ -183,5 +183,167 @@ public class IntegranteController {
 
 
         return "redirect:/admin/editar-integrante/";
+    }
+
+    /*LeaderBoard*/
+    @RequestMapping("/leaderboard")
+    public String listJugadoresLeaderBoard(Model model) {
+        //Get all integrantes
+        List<Integrante> jugadores = integranteService.findAll();
+        model.addAttribute("jugadores", jugadores);
+        return "jugador/leaderboard";
+    }
+    @RequestMapping("/leaderboard/nivel")
+    public String listJugadoresLeaderBoardNivel(Model model) {
+        //Get all integrantes
+        List<Integrante> jugadores = integranteService.findAll();
+        List<Integrante> jugadoresByLvl = new ArrayList<Integrante>();
+        int size = jugadores.size();
+//Ordenando jugadores por nivel
+        for (int i = 0; i < size; i++){
+            Integrante maxIntegrante = jugadores
+                    .stream()
+                    .max(Comparator.comparing(Integrante::getNivel))
+                    .orElseThrow(NoSuchElementException::new);
+            jugadores.remove(maxIntegrante);
+            jugadoresByLvl.add(maxIntegrante);
+        }
+
+        model.addAttribute("jugadores", jugadoresByLvl);
+        return "jugador/leaderboard";
+    }
+
+    @RequestMapping("/leaderboard/victorias-ranked-solo")
+    public String listJugadoresLeaderBoardRankedSolo(Model model) {
+        //Get all integrantes
+        List<Integrante> jugadores = integranteService.findAll();
+        List<Integrante> jugadoresByLvl = new ArrayList<Integrante>();
+        int size = jugadores.size();
+//Ordenando jugadores por nivel
+        for (int i = 0; i < size; i++){
+            Integrante maxIntegrante = jugadores
+                    .stream()
+                    .max(Comparator.comparing(Integrante::getVictoriasRankedSolo))
+                    .orElseThrow(NoSuchElementException::new);
+            jugadores.remove(maxIntegrante);
+            jugadoresByLvl.add(maxIntegrante);
+        }
+        model.addAttribute("jugadores", jugadoresByLvl);
+        return "jugador/leaderboard";
+    }
+
+    @RequestMapping("/leaderboard/victorias-ranked-flex")
+    public String listJugadoresLeaderBoardRankedFlex(Model model) {
+        //Get all integrantes
+        List<Integrante> jugadores = integranteService.findAll();
+        List<Integrante> jugadoresByLvl = new ArrayList<Integrante>();
+        int size = jugadores.size();
+//Ordenando jugadores por nivel
+        for (int i = 0; i < size; i++){
+            Integrante maxIntegrante = jugadores
+                    .stream()
+                    .max(Comparator.comparing(Integrante::getVictoriasRankedFlex))
+                    .orElseThrow(NoSuchElementException::new);
+            jugadores.remove(maxIntegrante);
+            jugadoresByLvl.add(maxIntegrante);
+        }
+        model.addAttribute("jugadores", jugadoresByLvl);
+        return "jugador/leaderboardflex";
+    }
+
+    @RequestMapping("/leaderboard/rango-ranked")
+    public String listJugadoresLeaderBoardRangoRanked(Model model) {
+        //Get all integrantes
+        List<Integrante> jugadores = integranteService.findAll();
+        List<Integrante> jugadoresUnranked = new ArrayList<Integrante>();
+        List<Integrante> jugadoresBronze = new ArrayList<Integrante>();
+        List<Integrante> jugadoresSilver = new ArrayList<Integrante>();
+        List<Integrante> jugadoresGold = new ArrayList<Integrante>();
+        List<Integrante> jugadoresDiamond = new ArrayList<Integrante>();
+        List<Integrante> jugadoresPlatinum = new ArrayList<Integrante>();
+        List<Integrante> jugadoresChallenger = new ArrayList<Integrante>();
+        List<Integrante> jugadoresByRango = new ArrayList<Integrante>();
+//TODO ordenar por rango y nivel
+        for(Integrante jugador :jugadores){
+            String rango = jugador.getNivelRankedSolo();
+            if(rango.equals("UNRANKED")){
+            jugadoresUnranked.add(jugador);
+            }
+            if(rango.equals("BRONZE")){
+                jugadoresBronze.add(jugador);
+            }
+            if(rango.equals("SILVER")){
+                jugadoresSilver.add(jugador);
+            }
+            if(rango.equals("GOLD")){
+                jugadoresGold.add(jugador);
+            }
+            if(rango.equals("PLATINUM")){
+                jugadoresPlatinum.add(jugador);
+            }
+            if(rango.equals("DIAMOND")){
+                jugadoresDiamond.add(jugador);
+            }
+            if(rango.equals("CHALLENGER")){
+                jugadoresChallenger.add(jugador);
+            }
+        }
+        jugadoresByRango.addAll(jugadoresChallenger);
+        jugadoresByRango.addAll(jugadoresPlatinum);
+        jugadoresByRango.addAll(jugadoresDiamond);
+        jugadoresByRango.addAll(jugadoresGold);
+        jugadoresByRango.addAll(jugadoresSilver);
+        jugadoresByRango.addAll(jugadoresBronze);
+        jugadoresByRango.addAll(jugadoresUnranked);
+        model.addAttribute("jugadores", jugadoresByRango);
+        return "jugador/leaderboard";
+    }
+
+    @RequestMapping("/leaderboard/rango-ranked-flex")
+    public String listJugadoresLeaderBoardRangoRankedFlex(Model model) {
+        //Get all integrantes
+        List<Integrante> jugadores = integranteService.findAll();
+        List<Integrante> jugadoresUnranked = new ArrayList<Integrante>();
+        List<Integrante> jugadoresBronze = new ArrayList<Integrante>();
+        List<Integrante> jugadoresSilver = new ArrayList<Integrante>();
+        List<Integrante> jugadoresGold = new ArrayList<Integrante>();
+        List<Integrante> jugadoresDiamond = new ArrayList<Integrante>();
+        List<Integrante> jugadoresPlatinum = new ArrayList<Integrante>();
+        List<Integrante> jugadoresChallenger = new ArrayList<Integrante>();
+        List<Integrante> jugadoresByRango = new ArrayList<Integrante>();
+//TODO ordenar por rango y nivel
+        for(Integrante jugador :jugadores){
+            String rango = jugador.getNivelRankedFlex();
+            if(rango.equals("UNRANKED")){
+                jugadoresUnranked.add(jugador);
+            }
+            if(rango.equals("BRONZE")){
+                jugadoresBronze.add(jugador);
+            }
+            if(rango.equals("SILVER")){
+                jugadoresSilver.add(jugador);
+            }
+            if(rango.equals("GOLD")){
+                jugadoresGold.add(jugador);
+            }
+            if(rango.equals("PLATINUM")){
+                jugadoresPlatinum.add(jugador);
+            }
+            if(rango.equals("DIAMOND")){
+                jugadoresDiamond.add(jugador);
+            }
+            if(rango.equals("CHALLENGER")){
+                jugadoresChallenger.add(jugador);
+            }
+        }
+        jugadoresByRango.addAll(jugadoresChallenger);
+        jugadoresByRango.addAll(jugadoresPlatinum);
+        jugadoresByRango.addAll(jugadoresDiamond);
+        jugadoresByRango.addAll(jugadoresGold);
+        jugadoresByRango.addAll(jugadoresSilver);
+        jugadoresByRango.addAll(jugadoresBronze);
+        jugadoresByRango.addAll(jugadoresUnranked);
+        model.addAttribute("jugadores", jugadoresByRango);
+        return "jugador/leaderboardflex";
     }
 }

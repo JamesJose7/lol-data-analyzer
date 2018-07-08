@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head('jugadores')"></head>
+<body>
+<div th:replace="layout :: nav"></div>
+<!--<div th:replace="layout :: searchbar"></div>-->
+<div th:replace="layout :: flash"></div>
+<section>
+<div>
+    <a href="/leaderboard">Inicio</a>
+    <a href="/leaderboard/nivel">Nivel</a>
+    <a href="/leaderboard/victorias-ranked-solo">TopVictorias-Solo</a>
+    <a href="/leaderboard/victorias-ranked-flex">TopVictorias-FLex</a>
+    <a href="/leaderboard/rango-ranked">Rango-Solo</a>
+    <a href="/leaderboard/rango-ranked-flex">Rango-Flex</a>
+</div>
+</section>
+<section class="main-content">
+    <div class="container">
+        <div >
+            <div th:each="jugador : ${jugadores}" class="summoner-card clearfix">
+                <div class="basic-info">
+                    <img th:src="@{|https://avatar.leagueoflegends.com/lan/${jugador.nombreInvocador}.png|}" alt="profile icon"/>
+                    <h1 th:text="${jugador.nombreInvocador}"></h1>
+                    <p th:text="|Level ${jugador.nivel}|"></p>
+                    <img th:src="@{/images/member_logo.png}" alt="logo de miembro" class="member-logo"/>
+                </div>
+                <div class="ranked-info">
+                    <img th:src="@{|/images/tier-icons/${jugador.nivelRankedSolo}_${jugador.rangoRankedSolo}.png|}" alt="ranked position"/>
+                    <h1 th:text="|${T(com.jeep.lolesports.utils.Utils).firstUpperCase(jugador.nivelRankedSolo)} ${jugador.rangoRankedSolo}|"></h1>
+                    <p th:text="|${T(com.jeep.lolesports.utils.Utils).prettyQueueName(jugador.tipoColaRankedSolo)} / ${jugador.puntosRankedSolo} LP|"></p>
+                    <p th:text="${jugador.nombreLigaRankedSolo}"></p>
+                    <p><span class="wins" th:text="|${jugador.victoriasRankedSolo} W|"></span> <span class="losses" th:text="|${jugador.derrotasRankedSolo} L|"></span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div th:replace="layout :: scripts"></div>
+</body>
+</html>
