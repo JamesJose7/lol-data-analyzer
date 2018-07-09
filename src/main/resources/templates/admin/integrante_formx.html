@@ -10,22 +10,34 @@
 
     <form th:action="${action}" method="post" class="clearfix settings" th:object="${integrante}">
         <h1 th:text="${heading}"></h1>
-        <input type="hidden" th:field="*{id}"/>
+
         <fieldset class="left settings">
             <label class="settings" for="cedula">Cédula: <span class="field-error" th:if="${#fields.hasErrors('cedula')}" th:errors="*{cedula}"></span></label>
-            <input readonly="readonly" class="settings" th:classappend="${#fields.hasErrors('cedula')} ? 'field-error' : ''" type="text" id="cedula" name="cedula" th:field="*{cedula}"/>
+            <input class="settings" th:classappend="${#fields.hasErrors('cedula')} ? 'field-error' : ''" type="text" id="cedula" name="cedula" th:field="*{cedula}"/>
 
             <label class="settings" for="nombre">Nombre: <span class="field-error" th:if="${#fields.hasErrors('nombreIntegrante')}" th:errors="*{nombreIntegrante}"></span></label>
-            <input readonly="readonly" class="settings" th:classappend="${#fields.hasErrors('nombreIntegrante')} ? 'field-error' : ''" type="text" id="nombre" name="nombreIntegrante" th:field="*{nombreIntegrante}"/>
+            <input class="settings" th:classappend="${#fields.hasErrors('nombreIntegrante')} ? 'field-error' : ''" type="text" id="nombre" name="nombreIntegrante" th:field="*{nombreIntegrante}"/>
+
+            <select class="settings" name="genero" id="genero" th:field="*{genero}">
+                <option value="Femenino">Femenino</option>
+                <option value="Masculino">Masculino</option>
+            </select>
 
             <label class="settings" for="correo">Correo: <span class="field-error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span></label>
             <input class="settings" th:classappend="${#fields.hasErrors('email')} ? 'field-error' : ''" type="text" id="correo" name="correo" th:field="*{email}"/>
+
+            <label class="settings" for="celular">Celular: <span class="field-error" th:if="${#fields.hasErrors('celular')}" th:errors="*{celular}"></span></label>
+            <input class="settings" th:classappend="${#fields.hasErrors('celular')} ? 'field-error' : ''" type="text" id="celular" name="celular" th:field="*{celular}"/>
+
+            <label class="settings" for="fechaCumple">Celular: <span class="field-error" th:if="${#fields.hasErrors('fechaCumple')}" th:errors="*{fechaCumple}"></span></label>
+            <input class="settings" th:classappend="${#fields.hasErrors('fechaCumple')} ? 'field-error' : ''" type="date" id="fechaCumple" name="fechaCumple" th:field="*{fechaCumple}"/>
+
 
         </fieldset>
 
         <fieldset class="right settings">
             <label class="settings" for="invocador">Nombre Invocador: <span class="field-error" th:if="${#fields.hasErrors('nombreInvocador')}" th:errors="*{nombreInvocador}"></span></label>
-            <input readonly="readonly" class="settings" th:classappend="${#fields.hasErrors('nombreInvocador')} ? 'field-error' : ''" type="text" id="invocador" name="invocador" th:field="*{nombreInvocador}"/>
+            <input class="settings" th:classappend="${#fields.hasErrors('nombreInvocador')} ? 'field-error' : ''" type="text" id="invocador" name="invocador" th:field="*{nombreInvocador}"/>
 
             <label class="settings" for="carrera">Carrera:</label>
             <select class="settings" name="carrera" id="carrera" th:field="*{carrera}">
@@ -80,6 +92,22 @@
                 <option value="8">8</option>
                 <option value="9">9</option>
                 <option value="10">10</option>
+            </select>
+            <label class="settings" for="rolPrimario">Rol Primario:</label>
+            <select class="settings" name="rolPrimario" id="rolPrimario" th:field="*{rolPrimario}">
+                <option value="Top">Top</option>
+                <option value="Mid">Mid</option>
+                <option value="Jungla">Jungla</option>
+                <option value="Support">Support</option>
+                <option value="Adc">Adc</option>
+            </select>
+            <label class="settings" for="rolSecundario">Rol Secundario:</label>
+            <select class="settings" name="rolSecundario" id="rolSecundario" th:field="*{rolSecundario}">
+                <option value="Top">Top</option>
+                <option value="Mid">Mid</option>
+                <option value="Jungla">Jungla</option>
+                <option value="Support">Support</option>
+                <option value="Adc">Adc</option>
             </select>
 
             <input class="btn inln default settings" type="submit" th:value="${submit}"/>

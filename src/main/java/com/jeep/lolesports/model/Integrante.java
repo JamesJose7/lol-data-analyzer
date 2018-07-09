@@ -27,7 +27,28 @@ public class Integrante extends Jugador {
     @Pattern(regexp = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])", message = "*Ingresar un e-mail válido")
     private String email;
 
-    public Integrante(Jugador jugador, String cedula, String nombreIntegrante, int ciclo, String carrera, String email) {
+    @Column
+    @NotNull
+    private String genero;
+    @Column
+    @NotNull
+    private String fechaCumple;
+    @Column
+    @NotNull
+    private String celular;
+    @Column
+    @NotNull
+    private String rolPrimario;
+    @Column
+    @NotNull
+    private String rolSecundario;
+
+
+
+
+
+
+    public Integrante(Jugador jugador, String cedula, String nombreIntegrante, int ciclo, String carrera, String email,String genero ,String fechaCumple, String celular, String rolPrimario, String rolSecundario) {
         super(jugador.getId(), jugador.getNombreInvocador(), jugador.getNivel(), jugador.getAccountId(), jugador.getTipoColaRankedSolo(),
                 jugador.getVictoriasRankedSolo(), jugador.getDerrotasRankedSolo(), jugador.getNivelRankedSolo(),
                 jugador.getRangoRankedSolo(), jugador.getNombreLigaRankedSolo(), jugador.getPuntosRankedSolo(),
@@ -39,6 +60,11 @@ public class Integrante extends Jugador {
         this.ciclo = ciclo;
         this.carrera = carrera;
         this.email = email;
+        this.genero = genero;
+        this.fechaCumple = fechaCumple;
+        this.celular = celular;
+        this.rolPrimario = rolPrimario;
+        this.rolSecundario = rolSecundario;
     }
 
     public Integrante() {}
@@ -82,4 +108,36 @@ public class Integrante extends Jugador {
     public void setEmail(String email) {
         this.email = email;
     }
+    public String getGenero() {
+        return genero; }
+
+    public String getFechaCumple() {
+        return fechaCumple; }
+
+    public String getCelular() {
+        return celular; }
+
+    public String getRolPrimario() {
+        return rolPrimario; }
+
+    public String getRolSecundario() {
+        return rolSecundario; }
+
+    public void setGenero(String genero) {
+        this.genero = genero; }
+
+    public void setFechaCumple(String fechaCumple) {
+        this.fechaCumple = fechaCumple; }
+
+    public void setCelular(String celular) {
+        this.celular = celular; }
+
+    public void setRolPrimario(String rolPrimario) {
+        this.rolPrimario = rolPrimario;
+    }
+
+    public void setRolSecundario(String rolSecundario) {
+        this.rolSecundario = rolSecundario;
+    }
+
 }

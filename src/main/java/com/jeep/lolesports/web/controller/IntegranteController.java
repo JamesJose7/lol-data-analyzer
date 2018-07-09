@@ -96,7 +96,8 @@ public class IntegranteController {
         List<Partida> partidas = riotService.getPartidasByAccountId(jugador.getAccountId());
         //Save it as a 'Integrante'
         Integrante newIntegrante = new Integrante(jugador, integrante.getCedula(), integrante.getNombreIntegrante(),
-                integrante.getCiclo(), integrante.getCarrera(), integrante.getEmail());
+                integrante.getCiclo(), integrante.getCarrera(), integrante.getEmail(),integrante.getGenero(),
+                integrante.getFechaCumple(),integrante.getCelular(),integrante.getRolPrimario(),integrante.getRolSecundario());
         //newIntegrante.setPartidas(partidas);
         integranteService.save(newIntegrante);
         //Save partidas
@@ -177,7 +178,8 @@ public class IntegranteController {
                 oldIntegrante.getNombreLigaRankedFlex(), oldIntegrante.getPuntosRankedFlex());
 
         Integrante newIntegrante = new Integrante(objJugador,integrante.getCedula(),integrante.getNombreIntegrante(),
-                integrante.getCiclo(),integrante.getCarrera(), integrante.getEmail());
+                integrante.getCiclo(),integrante.getCarrera(), integrante.getEmail(),integrante.getGenero(),integrante.getCelular(),
+                integrante.getFechaCumple(),integrante.getRolPrimario(),integrante.getRolSecundario());
         integranteService.save(newIntegrante);
         redirectAttributes.addFlashAttribute("flash", new FlashMessage("Integrante Actualizado correctamente!", FlashMessage.Status.SUCCESS));
 
