@@ -52,6 +52,12 @@ public class IntegranteController {
         return "jugador/index";
     }
 
+    @RequestMapping("/jugadores/{id}")
+    public String listPlayerProfile(@PathVariable int id, Model model) {
+
+        return "jugador/profile";
+    }
+
     @RequestMapping("/jugadores/search")
     public String searchJugadores(@RequestParam String q, Model model) {
         Jugador jugador = mRiotServiceService.getJugadorByName(q);
