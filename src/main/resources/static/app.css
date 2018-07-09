@@ -140,12 +140,12 @@ a.button {
     float: right;
 }
 
-.ranked-info .wins {
+.ranked-info .wins, .profile-info .wins {
     color: forestgreen;
     font-weight: bold;
 }
 
-.ranked-info .losses {
+.ranked-info .losses, .profile-info .losses {
     color: firebrick;
     font-weight: bold;
 }
@@ -518,6 +518,10 @@ i {
 
 
 /* Classes */
+
+.highlight-drop {
+    font-weight: bold;
+}
 
 .disable-click {
     pointer-events: none;

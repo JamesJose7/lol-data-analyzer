@@ -17,12 +17,12 @@
                 <i class="material-icons disable-click">keyboard_arrow_down</i></button>
             </div>
             <div id="leaderboard-dropdown" class="dropdown-list">
-                <a href="/leaderboard">Inicio</a>
-                <a href="/leaderboard/nivel">Nivel</a>
-                <a href="/leaderboard/victorias-ranked-solo">Victorias (Ranked Solo)</a>
-                <a href="/leaderboard/victorias-ranked-flex">Victorias (Ranked Flex)</a>
-                <a href="/leaderboard/rango-ranked">Rango Solo</a>
-                <a href="/leaderboard/rango-ranked-flex">Rango Flex</a>
+                <a th:classappend="${#httpServletRequest.servletPath.equals('/leaderboard') ? 'highlight-drop' : ''}" href="/leaderboard">Inicio</a>
+                <a th:classappend="${#httpServletRequest.servletPath.equals('/leaderboard/nivel') ? 'highlight-drop' : ''}" href="/leaderboard/nivel">Nivel</a>
+                <a th:classappend="${#httpServletRequest.servletPath.equals('/leaderboard/victorias-ranked-solo') ? 'highlight-drop' : ''}" href="/leaderboard/victorias-ranked-solo">Victorias (Ranked Solo)</a>
+                <a th:classappend="${#httpServletRequest.servletPath.equals('/leaderboard/victorias-ranked-flex') ? 'highlight-drop' : ''}" href="/leaderboard/victorias-ranked-flex">Victorias (Ranked Flex)</a>
+                <a th:classappend="${#httpServletRequest.servletPath.equals('/leaderboard/rango-ranked') ? 'highlight-drop' : ''}" href="/leaderboard/rango-ranked">Rango Solo</a>
+                <a th:classappend="${#httpServletRequest.servletPath.equals('/leaderboard/rango-ranked-flex') ? 'highlight-drop' : ''}" href="/leaderboard/rango-ranked-flex">Rango Flex</a>
             </div>
         </div>
 
