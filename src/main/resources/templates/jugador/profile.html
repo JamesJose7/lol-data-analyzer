@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head('jugadores')"></head>
+<body>
+<div th:replace="layout :: nav"></div>
+<div th:replace="layout :: searchbar"></div>
+<div th:replace="layout :: flash"></div>
+
+<section class="main-content">
+    <div class="profile-container">
+        <section class="profile-info summoner-card clearfix">
+            <img id="profile-image" src="https://avatar.leagueoflegends.com/lan/Zetal.png" alt="imagen de perfil"/>
+            <h1 id="profile-name">Zetal</h1>
+            <p id="profile-level">Level 55</p>
+            <!--<img th:src="@{/images/member_logo.png}" alt="logo de miembro"/>-->
+
+            <section class="profile-ranked">
+                <div id="solo-ranked-container">
+                    <img th:src="@{/images/tier-icons/UNRANKED_.png}" alt="ranked solo"/>
+                    <h1 >Unranked</h1>
+                    <p>Solo ranked / 40LP</p>
+                    <p>Rengar's Slayers</p>
+                    <p><span class="wins" >10 W</span> <span class="losses">10 L</span></p>
+                </div>
+                <div id="flex-ranked-container">
+                    <img th:src="@{/images/tier-icons/UNRANKED_.png}" alt="ranked flex"/>
+                    <h1 >Unranked</h1>
+                    <p>Flex ranked / 40LP</p>
+                    <p>Rengar's Slayers</p>
+                    <p><span class="wins" >10 W</span> <span class="losses">10 L</span></p>
+                </div>
+            </section>
+        </section>
+
+        <section class="profile-matches summoner-card clearfix">
+            <div class="match-details-container match-victory">
+                <div class="match-basic-data">
+                    <p>Ranked solo</p>
+                    <p>26m 46s</p>
+                </div>
+                <div class="summoner-second-row">
+                    <div class="summoner-champion clearfix">
+                        <img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/Ezreal.png"
+                             alt="champion icon" class="champion-icon"/>
+                        <img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/spell/SummonerFlash.png"
+                             alt="summoner spell 1" class="s-spell-1"/>
+                        <img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/spell/SummonerSmite.png"
+                             alt="summoner spell 2" class="s-spell-2"/>
+                    </div>
+                    <div class="summoner-kda">
+                        <p>6 / 7 / 3</p>
+                        <p>1.42 KDA</p>
+                        <p>Penta Kill</p>
+                    </div>
+                    <div class="summoner-items">
+                        <div class="items-row1">
+                            <img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/item/3031.png" alt=""/>
+                            <img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/item/3031.png" alt=""/>
+                            <img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/item/3031.png" alt=""/>
+                            <img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/item/3340.png" alt=""/>
+                        </div>
+                        <div class="items-row2">
+                            <img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/item/3031.png" alt=""/>
+                            <img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/item/3031.png" alt=""/>
+                            <img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/item/3031.png" alt=""/>
+                            <img src="http://via.placeholder.com/150x150" alt=""/>
+                        </div>
+                    </div>
+                    <div class="match-stats">
+                        <p>Level 12</p>
+                        <p>124 CS</p>
+                        <p>Kill participation</p>
+                    </div>
+                    <table class="match-teams">
+                        <tr>
+                            <td><img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/Ezreal.png"
+                                     alt="champion icon" class="champion-icon"/></td>
+                            <td>Potato</td>
+                            <td><img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/Ezreal.png"
+                                     alt="champion icon" class="champion-icon"/></td>
+                            <td>Summoner 2</td>
+                        </tr>
+                        <tr>
+                            <td><img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/Ezreal.png"
+                                     alt="champion icon" class="champion-icon"/></td>
+                            <td>Potato</td>
+                            <td><img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/Ezreal.png"
+                                     alt="champion icon" class="champion-icon"/></td>
+                            <td>Summoner 2</td>
+                        </tr>
+                        <tr>
+                            <td><img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/Ezreal.png"
+                                     alt="champion icon" class="champion-icon"/></td>
+                            <td>Potato</td>
+                            <td><img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/Ezreal.png"
+                                     alt="champion icon" class="champion-icon"/></td>
+                            <td>Summoner 2</td>
+                        </tr>
+                        <tr>
+                            <td><img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/Ezreal.png"
+                                     alt="champion icon" class="champion-icon"/></td>
+                            <td>Potato</td>
+                            <td><img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/Ezreal.png"
+                                     alt="champion icon" class="champion-icon"/></td>
+                            <td>Summoner 2</td>
+                        </tr>
+                        <tr>
+                            <td><img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/Ezreal.png"
+                                     alt="champion icon" class="champion-icon"/></td>
+                            <td>Potato</td>
+                            <td><img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/Ezreal.png"
+                                     alt="champion icon" class="champion-icon"/></td>
+                            <td>Summoner 2</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="mobile-third-row">
+                    <div class="mobile-match-stats">
+                        <p>Level 12</p>
+                        <p>124 CS</p>
+                        <p>Kill participation</p>
+                    </div>
+                    <table class="mobile-match-teams">
+                        <tbody>
+                        <tr>
+                            <td><img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/Ezreal.png"
+                                     alt="champion icon" class="champion-icon"/></td>
+                            <td>Potato</td>
+                            <td><img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/Ezreal.png"
+                                     alt="champion icon" class="champion-icon"/></td>
+                            <td>Summoner 2</td>
+                        </tr>
+                        <tr>
+                            <td><img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/Ezreal.png"
+                                     alt="champion icon" class="champion-icon"/></td>
+                            <td>Potato</td>
+                            <td><img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/Ezreal.png"
+                                     alt="champion icon" class="champion-icon"/></td>
+                            <td>Summoner 2</td>
+                        </tr>
+                        <tr>
+                            <td><img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/Ezreal.png"
+                                     alt="champion icon" class="champion-icon"/></td>
+                            <td>Potato</td>
+                            <td><img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/Ezreal.png"
+                                     alt="champion icon" class="champion-icon"/></td>
+                            <td>Summoner 2</td>
+                        </tr>
+                        <tr>
+                            <td><img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/Ezreal.png"
+                                     alt="champion icon" class="champion-icon"/></td>
+                            <td>Potato</td>
+                            <td><img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/Ezreal.png"
+                                     alt="champion icon" class="champion-icon"/></td>
+                            <td>Summoner 2</td>
+                        </tr>
+                        <tr>
+                            <td><img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/Ezreal.png"
+                                     alt="champion icon" class="champion-icon"/></td>
+                            <td>Potato</td>
+                            <td><img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/Ezreal.png"
+                                     alt="champion icon" class="champion-icon"/></td>
+                            <td>Summoner 2</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="match-details-container match-defeat">
+                <div class="match-basic-data">
+                    <p>Ranked solo</p>
+                    <p>26m 46s</p>
+                </div>
+                <div class="summoner-second-row">
+                    <div class="summoner-champion clearfix">
+                        <img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/Ezreal.png"
+                             alt="champion icon" class="champion-icon"/>
+                        <img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/spell/SummonerFlash.png"
+                             alt="summoner spell 1" class="s-spell-1"/>
+                        <img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/spell/SummonerSmite.png"
+                             alt="summoner spell 2" class="s-spell-2"/>
+                    </div>
+                    <div class="summoner-kda">
+                        <p>6 / 7 / 3</p>
+                        <p>1.42 KDA</p>
+                        <p>Penta Kill</p>
+                    </div>
+                    <div class="summoner-items">
+                        <div class="items-row1">
+                            <img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/item/3031.png" alt=""/>
+                            <img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/item/3031.png" alt=""/>
+                            <img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/item/3031.png" alt=""/>
+                            <img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/item/3340.png" alt=""/>
+                        </div>
+                        <div class="items-row2">
+                            <img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/item/3031.png" alt=""/>
+                            <img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/item/3031.png" alt=""/>
+                            <img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/item/3031.png" alt=""/>
+                            <img src="http://via.placeholder.com/150x150" alt=""/>
+                        </div>
+                    </div>
+                    <table class="match-teams">
+                        <tr>
+                            <td><img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/Ezreal.png"
+                                     alt="champion icon" class="champion-icon"/></td>
+                            <td>Potato</td>
+                            <td><img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/Ezreal.png"
+                                     alt="champion icon" class="champion-icon"/></td>
+                            <td>Summoner 2</td>
+                        </tr>
+                        <tr>
+                            <td><img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/Ezreal.png"
+                                     alt="champion icon" class="champion-icon"/></td>
+                            <td>Potato</td>
+                            <td><img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/Ezreal.png"
+                                     alt="champion icon" class="champion-icon"/></td>
+                            <td>Summoner 2</td>
+                        </tr>
+                        <tr>
+                            <td><img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/Ezreal.png"
+                                     alt="champion icon" class="champion-icon"/></td>
+                            <td>Potato</td>
+                            <td><img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/Ezreal.png"
+                                     alt="champion icon" class="champion-icon"/></td>
+                            <td>Summoner 2</td>
+                        </tr>
+                        <tr>
+                            <td><img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/Ezreal.png"
+                                     alt="champion icon" class="champion-icon"/></td>
+                            <td>Potato</td>
+                            <td><img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/Ezreal.png"
+                                     alt="champion icon" class="champion-icon"/></td>
+                            <td>Summoner 2</td>
+                        </tr>
+                        <tr>
+                            <td><img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/Ezreal.png"
+                                     alt="champion icon" class="champion-icon"/></td>
+                            <td>Potato</td>
+                            <td><img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/Ezreal.png"
+                                     alt="champion icon" class="champion-icon"/></td>
+                            <td>Summoner 2</td>
+                        </tr>
+                    </table>
+                </div>
+
+            </div>
+        </section>
+    </div>
+</section>
+
+<div th:replace="layout :: scripts"></div>
+</body>
+</html>
