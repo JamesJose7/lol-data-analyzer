@@ -6,17 +6,26 @@
 <!--<div th:replace="layout :: searchbar"></div>-->
 <div th:replace="layout :: flash"></div>
 <section>
-<div>
-    <a href="/leaderboard">Inicio</a>
-    <a href="/leaderboard/nivel">Nivel</a>
-    <a href="/leaderboard/victorias-ranked-solo">TopVictorias-Solo</a>
-    <a href="/leaderboard/victorias-ranked-flex">TopVictorias-FLex</a>
-    <a href="/leaderboard/rango-ranked">Rango-Solo</a>
-    <a href="/leaderboard/rango-ranked-flex">Rango-Flex</a>
-</div>
 </section>
 <section class="main-content">
     <div class="container">
+        <div class="dropdown">
+            <div class="dropdown-controls clearfix">
+                <p class="leaderboard-title">Leaderboard</p>
+            <button class="drop-button onClickDrop">
+                <p th:text="${filterName}" class="disable-click">Inicio</p>
+                <i class="material-icons disable-click">keyboard_arrow_down</i></button>
+            </div>
+            <div id="leaderboard-dropdown" class="dropdown-list">
+                <a href="/leaderboard">Inicio</a>
+                <a href="/leaderboard/nivel">Nivel</a>
+                <a href="/leaderboard/victorias-ranked-solo">Victorias (Ranked Solo)</a>
+                <a href="/leaderboard/victorias-ranked-flex">Victorias (Ranked Flex)</a>
+                <a href="/leaderboard/rango-ranked">Rango Solo</a>
+                <a href="/leaderboard/rango-ranked-flex">Rango Flex</a>
+            </div>
+        </div>
+
         <div >
             <div th:each="jugador : ${jugadores}" class="summoner-card clearfix">
                 <div class="basic-info">
@@ -36,7 +45,8 @@
         </div>
     </div>
 </section>
-
 <div th:replace="layout :: scripts"></div>
+
+
 </body>
 </html>
