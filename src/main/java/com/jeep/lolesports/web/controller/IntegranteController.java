@@ -295,8 +295,8 @@ public class IntegranteController {
             }
         }
         jugadoresByRango.addAll(jugadoresChallenger);
-        jugadoresByRango.addAll(jugadoresPlatinum);
         jugadoresByRango.addAll(jugadoresDiamond);
+        jugadoresByRango.addAll(jugadoresPlatinum);
         jugadoresByRango.addAll(jugadoresGold);
         jugadoresByRango.addAll(jugadoresSilver);
         jugadoresByRango.addAll(jugadoresBronze);
@@ -344,8 +344,8 @@ public class IntegranteController {
             }
         }
         jugadoresByRango.addAll(jugadoresChallenger);
-        jugadoresByRango.addAll(jugadoresPlatinum);
         jugadoresByRango.addAll(jugadoresDiamond);
+        jugadoresByRango.addAll(jugadoresPlatinum);
         jugadoresByRango.addAll(jugadoresGold);
         jugadoresByRango.addAll(jugadoresSilver);
         jugadoresByRango.addAll(jugadoresBronze);
