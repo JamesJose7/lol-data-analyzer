@@ -21,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.validation.Valid;
 import java.util.*;
 
+@SuppressWarnings("Duplicates")
 @Controller
 public class IntegranteController {
     @Autowired
@@ -191,15 +192,17 @@ public class IntegranteController {
         //Get all integrantes
         List<Integrante> jugadores = integranteService.findAll();
         model.addAttribute("jugadores", jugadores);
+        model.addAttribute("filterName", "Inicio");
         return "jugador/leaderboard";
     }
+
     @RequestMapping("/leaderboard/nivel")
     public String listJugadoresLeaderBoardNivel(Model model) {
         //Get all integrantes
         List<Integrante> jugadores = integranteService.findAll();
         List<Integrante> jugadoresByLvl = new ArrayList<Integrante>();
         int size = jugadores.size();
-//Ordenando jugadores por nivel
+        //Ordenando jugadores por nivel
         for (int i = 0; i < size; i++){
             Integrante maxIntegrante = jugadores
                     .stream()
@@ -210,6 +213,7 @@ public class IntegranteController {
         }
 
         model.addAttribute("jugadores", jugadoresByLvl);
+        model.addAttribute("filterName", "Nivel");
         return "jugador/leaderboard";
     }
 
@@ -219,7 +223,7 @@ public class IntegranteController {
         List<Integrante> jugadores = integranteService.findAll();
         List<Integrante> jugadoresByLvl = new ArrayList<Integrante>();
         int size = jugadores.size();
-//Ordenando jugadores por nivel
+        //Ordenando jugadores por nivel
         for (int i = 0; i < size; i++){
             Integrante maxIntegrante = jugadores
                     .stream()
@@ -229,6 +233,7 @@ public class IntegranteController {
             jugadoresByLvl.add(maxIntegrante);
         }
         model.addAttribute("jugadores", jugadoresByLvl);
+        model.addAttribute("filterName", "Victorias (Ranked Solo)");
         return "jugador/leaderboard";
     }
 
@@ -238,7 +243,7 @@ public class IntegranteController {
         List<Integrante> jugadores = integranteService.findAll();
         List<Integrante> jugadoresByLvl = new ArrayList<Integrante>();
         int size = jugadores.size();
-//Ordenando jugadores por nivel
+        //Ordenando jugadores por nivel
         for (int i = 0; i < size; i++){
             Integrante maxIntegrante = jugadores
                     .stream()
@@ -248,6 +253,7 @@ public class IntegranteController {
             jugadoresByLvl.add(maxIntegrante);
         }
         model.addAttribute("jugadores", jugadoresByLvl);
+        model.addAttribute("filterName", "Victorias (Ranked Flex)");
         return "jugador/leaderboardflex";
     }
 
@@ -263,7 +269,7 @@ public class IntegranteController {
         List<Integrante> jugadoresPlatinum = new ArrayList<Integrante>();
         List<Integrante> jugadoresChallenger = new ArrayList<Integrante>();
         List<Integrante> jugadoresByRango = new ArrayList<Integrante>();
-//TODO ordenar por rango y nivel
+        //TODO ordenar por rango y nivel
         for(Integrante jugador :jugadores){
             String rango = jugador.getNivelRankedSolo();
             if(rango.equals("UNRANKED")){
@@ -296,6 +302,7 @@ public class IntegranteController {
         jugadoresByRango.addAll(jugadoresBronze);
         jugadoresByRango.addAll(jugadoresUnranked);
         model.addAttribute("jugadores", jugadoresByRango);
+        model.addAttribute("filterName", "Rango Solo");
         return "jugador/leaderboard";
     }
 
@@ -311,7 +318,7 @@ public class IntegranteController {
         List<Integrante> jugadoresPlatinum = new ArrayList<Integrante>();
         List<Integrante> jugadoresChallenger = new ArrayList<Integrante>();
         List<Integrante> jugadoresByRango = new ArrayList<Integrante>();
-//TODO ordenar por rango y nivel
+        //TODO ordenar por rango y nivel
         for(Integrante jugador :jugadores){
             String rango = jugador.getNivelRankedFlex();
             if(rango.equals("UNRANKED")){
@@ -344,6 +351,7 @@ public class IntegranteController {
         jugadoresByRango.addAll(jugadoresBronze);
         jugadoresByRango.addAll(jugadoresUnranked);
         model.addAttribute("jugadores", jugadoresByRango);
+        model.addAttribute("filterName", "Rango Flex");
         return "jugador/leaderboardflex";
     }
 }

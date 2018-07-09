@@ -441,7 +441,87 @@ i {
     margin: 0;
 }
 
+/* Leader board styles */
+.dropdown {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.leaderboard-title {
+    font-size: 2em;
+}
+
+.dropdown p {
+    margin: 0;
+    padding: 5px 0 5px 0;
+}
+
+.drop-button {
+    color: black;
+    padding: 5px 10px 5px 10px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+
+    float: right;
+    width: 35%;
+    background: rgba(100,100,100,.1);
+}
+
+.drop-button p {
+    margin: 0;
+    width: 90%;
+    text-align: left;
+    padding: 0 0 5px 0;
+}
+
+.drop-button i {
+    padding: 5px 0 0 0;
+    color: #000;
+}
+
+.drop-button:hover, .drop-button:focus {
+    background-color: rgba(100,100,100,.2);
+}
+
+.dropdown-list {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    width: 35%;
+    min-width: 160px;
+    right: 0;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-list a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-list a:hover {background-color: #ddd}
+
+.show {display:block;}
+
+.dropdown-controls {
+
+}
+
+.dropdown-controls p {
+    display: inline-block;
+}
+
+
 /* Classes */
+
+.disable-click {
+    pointer-events: none;
+}
 
 .fixedwait {
     position: fixed;
