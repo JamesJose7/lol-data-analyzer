@@ -3,7 +3,10 @@ package com.jeep.lolesports.service;
 import com.jeep.lolesports.model.Jugador;
 import com.jeep.lolesports.model.Partida;
 import com.jeep.lolesports.model.Partida.PartidaBuilder;
+import com.jeep.lolesports.model.matches_data.ParticipantsStatsPar;
+import com.jeep.lolesports.model.matches_data.TeamPar;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
@@ -136,6 +139,115 @@ public class RiotServiceImpl implements RiotService {
                     .withGameMode(matchDetails.getString("gameMode"))
                     .withGameType(matchDetails.getString("gameType"))
                     .build();
+
+            // Get team data
+            List<TeamPar> teamsData = new ArrayList<>();
+            JSONArray teamArray = matchDetails.getJSONArray("teams");
+            for (int j = 0; j < teamArray.length(); j++) {
+                JSONObject team = teamArray.getJSONObject(j);
+                TeamPar teamPar = new TeamPar();
+                teamPar.setTeamId(team.getInt("teamId"));
+                teamPar.setWin(team.getString("win"));
+                teamPar.setFirstBlood(team.getBoolean("firstBlood"));
+                teamPar.setFirstTower(team.getBoolean("firstTower"));
+                teamPar.setFirstInhibitor(team.getBoolean("firstInhibitor"));
+                teamPar.setFirstBaron(team.getBoolean("firstBaron"));
+                teamPar.setFirstDragon(team.getBoolean("firstDragon"));
+                teamPar.setFirstRiftHerald(team.getBoolean("firstRiftHerald"));
+                teamPar.setTowerKills(team.getInt("towerKills"));
+                teamPar.setInhibitorKills(team.getInt("inhibitorKills"));
+                teamPar.setBaronKills(team.getInt("baronKills"));
+                teamPar.setDragonKills(team.getInt("dragonKills"));
+                teamPar.setRiftHeraldKills(team.getInt("riftHeraldKills"));
+                teamPar.setPartida(partida);
+                teamsData.add(teamPar);
+            }
+            partida.setTeams(teamsData);
+
+            // Get participants stats data
+            List<ParticipantsStatsPar> participantsStats = new ArrayList<>();
+            JSONArray partArray = matchDetails.getJSONArray("participants");
+            for (int j = 0; j < partArray.length(); j++) {
+                ParticipantsStatsPar stats = new ParticipantsStatsPar();
+
+                JSONObject participants = partArray.getJSONObject(j);
+                stats.setParticipantId(participants.getInt("participantId"));
+                stats.setTeamId(participants.getInt("teamId"));
+                stats.setChampionId(participants.getInt("championId"));
+                stats.setSpell1Id(participants.getInt("spell1Id"));
+                stats.setSpell2Id(participants.getInt("spell2Id"));
+
+                // Stats object
+                JSONObject statsJSN = participants.getJSONObject("stats");
+
+                stats.setItem0(statsJSN.getInt("item0"));
+                stats.setItem1(statsJSN.getInt("item1"));
+                stats.setItem2(statsJSN.getInt("item2"));
+                stats.setItem3(statsJSN.getInt("item3"));
+                stats.setItem4(statsJSN.getInt("item4"));
+                stats.setItem5(statsJSN.getInt("item5"));
+                stats.setItem6(statsJSN.getInt("item6"));
+                stats.setKills(statsJSN.getInt("kills"));
+                stats.setDeaths(statsJSN.getInt("deaths"));
+                stats.setAssists(statsJSN.getInt("assists"));
+                stats.setLargestKillingSpree(statsJSN.getInt("largestKillingSpree"));
+                stats.setLargestMultiKill(statsJSN.getInt("largestMultiKill"));
+                stats.setLongestTimeSpentLiving(statsJSN.getInt("longestTimeSpentLiving"));
+                stats.setDoubleKills(statsJSN.getInt("doubleKills"));
+                stats.setTripleKills(statsJSN.getInt("tripleKills"));
+                stats.setQuadraKills(statsJSN.getInt("quadraKills"));
+                stats.setPentaKills(statsJSN.getInt("pentaKills"));
+                stats.setTotalDamageDealt(statsJSN.getLong("totalDamageDealt"));
+                stats.setTotalHeal(statsJSN.getLong("totalHeal"));
+                stats.setDamageDealtToObjectives(statsJSN.getLong("damageDealtToObjectives"));
+                stats.setDamageDealtToTurrets(statsJSN.getLong("damageDealtToTurrets"));
+                stats.setVisionScore(statsJSN.getLong("visionScore"));
+                stats.setTimeCCingOthers(statsJSN.getLong("timeCCingOthers"));
+                stats.setTotalDamageTake(statsJSN.getLong("totalDamageTaken"));
+                stats.setGoldEarned(statsJSN.getInt("goldEarned"));
+                stats.setGoldSpent(statsJSN.getInt("goldSpent"));
+                stats.setTurretKills(statsJSN.getInt("turretKills"));
+                stats.setInhibitorKills(statsJSN.getInt("inhibitorKills"));
+                stats.setTotalMinionsKilled(statsJSN.getInt("totalMinionsKilled"));
+                stats.setNeutralMinionsKilled(statsJSN.getInt("neutralMinionsKilled"));
+                try {
+                    stats.setNeutralMinionsKilledTeamJungle(statsJSN.getInt("neutralMinionsKilledTeamJungle"));
+                    stats.setNeutralMinionsKilledEnemyJungle(statsJSN.getInt("neutralMinionsKilledEnemyJungle"));
+                } catch (JSONException e) {
+                    //System.out.println("neutral minions kills not separated");
+                }
+                stats.setTotalTimeCrowdControlDealt(statsJSN.getInt("totalTimeCrowdControlDealt"));
+                stats.setChampLevel(statsJSN.getInt("champLevel"));
+                stats.setVisionWardsBoughtInGame(statsJSN.getInt("visionWardsBoughtInGame"));
+                stats.setSightWardsBoughtInGame(statsJSN.getInt("sightWardsBoughtInGame"));
+
+                try {
+                    stats.setWardsPlaced(statsJSN.getInt("wardsPlaced"));
+                    stats.setWardsKilled(statsJSN.getInt("wardsKilled"));
+                } catch (JSONException e) {
+                    //System.out.println();
+                }
+
+                try {
+                    stats.setFirstBloodKill(statsJSN.getBoolean("firstBloodKill"));
+                } catch (JSONException ignored) {}
+                try {
+                    stats.setFirstBloodAssist(statsJSN.getBoolean("firstBloodAssist"));
+                } catch (JSONException ignored) {}
+                try {
+                    stats.setFirstTowerKill(statsJSN.getBoolean("firstTowerKill"));
+                } catch (JSONException ignored) {}
+
+                // Timeline object
+                JSONObject timeline = participants.getJSONObject("timeline");
+                stats.setRole(timeline.getString("role"));
+                stats.setLane(timeline.getString("lane"));
+
+                stats.setPartida(partida);
+                participantsStats.add(stats);
+            }
+            partida.setParticipantsStats(participantsStats);
+
             //Add partida to the the list
             partidas.add(partida);
         }

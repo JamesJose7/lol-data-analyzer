@@ -1,7 +1,6 @@
 package com.jeep.lolesports.dao;
 
 import com.jeep.lolesports.model.Integrante;
-import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
