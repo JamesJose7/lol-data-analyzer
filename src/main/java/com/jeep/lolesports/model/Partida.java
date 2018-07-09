@@ -1,11 +1,12 @@
 package com.jeep.lolesports.model;
 
+import com.jeep.lolesports.model.matches_data.ParticipantsStatsPar;
+import com.jeep.lolesports.model.matches_data.TeamPar;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Partida {
@@ -17,6 +18,15 @@ public class Partida {
     private int mapId;
     private String gameMode;
     private String gameType;
+
+    @OneToMany(mappedBy = "partida",
+            cascade = CascadeType.ALL/*,
+            fetch = FetchType.EAGER*/)
+    private List<TeamPar> teams;
+
+    @OneToMany(mappedBy = "partida",
+            cascade = CascadeType.ALL)
+    private List<ParticipantsStatsPar> participantsStats;
 
     @ManyToOne/*(fetch = FetchType.EAGER)*/
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -79,6 +89,22 @@ public class Partida {
 
     public void setGameType(String gameType) {
         this.gameType = gameType;
+    }
+
+    public List<TeamPar> getTeams() {
+        return teams;
+    }
+
+    public void setTeams(List<TeamPar> teams) {
+        this.teams = teams;
+    }
+
+    public List<ParticipantsStatsPar> getParticipantsStats() {
+        return participantsStats;
+    }
+
+    public void setParticipantsStats(List<ParticipantsStatsPar> participantsStats) {
+        this.participantsStats = participantsStats;
     }
 
     public Integrante getIntegrante() {
