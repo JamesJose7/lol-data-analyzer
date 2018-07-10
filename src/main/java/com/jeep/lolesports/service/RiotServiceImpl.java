@@ -5,6 +5,7 @@ import com.jeep.lolesports.model.Partida;
 import com.jeep.lolesports.model.Partida.PartidaBuilder;
 import com.jeep.lolesports.model.matches_data.ParticipantsStatsPar;
 import com.jeep.lolesports.model.matches_data.TeamPar;
+import com.jeep.lolesports.model.static_riot.Champion;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,6 +29,9 @@ public class RiotServiceImpl implements RiotService {
     private static final String LEAGUE_V3_URL = "https://la1.api.riotgames.com/lol/league/v3/positions/by-summoner/";
     private static final String MATCHLIST_V3_URL = "https://la1.api.riotgames.com/lol/match/v3/matchlists/by-account/";
     private static final String MATCH_V3_URL = "https://la1.api.riotgames.com/lol/match/v3/matches/";
+
+    private static final String STATIC_CHAMPIONS_URL = "http://ddragon.leagueoflegends.com/cdn/6.24.1/data/en_US/champion.json";
+    private List<Champion> mChampions;
 
     @Override
     public Jugador getJugadorByName(String nombreJugador) {
@@ -102,6 +106,9 @@ public class RiotServiceImpl implements RiotService {
 
     @Override
     public List<Partida> getPartidasByAccountId(long accountId) {
+        //Load champion static data
+        loadChampionData();
+
         final String API_KEY = env.getProperty("lol.api.key");
 
         List<Partida> partidas = new ArrayList<>();
@@ -246,11 +253,73 @@ public class RiotServiceImpl implements RiotService {
                 stats.setPartida(partida);
                 participantsStats.add(stats);
             }
+
+            // Get participants identities
+            JSONArray participantsIdentities = matchDetails.getJSONArray("participantIdentities");
+            for (int j = 0; j < participantsIdentities.length(); j++) {
+                JSONObject participant = participantsIdentities.getJSONObject(j);
+                //Get participant id
+                int partId = participant.getInt("participantId");
+                ParticipantsStatsPar stats = getParticipantById(participantsStats, partId);
+                //Player identity details
+                JSONObject playerStats = participant.getJSONObject("player");
+                try {
+                    stats.setSummonerId(playerStats.getInt("summonerId"));
+                } catch (JSONException ignored) {}
+                stats.setAccountId(playerStats.getLong("accountId"));
+                stats.setSummonerName(playerStats.getString("summonerName"));
+                stats.setChampion(getChampionById(stats.getChampionId()));
+                // Check what champion was played by the user
+                if (stats.getAccountId() == accountId) {
+                    partida.setChampionPlayedId(stats.getChampion().getKey());
+                    //Check if match was won
+                    for (TeamPar team : teamsData) {
+                        if (stats.getTeamId() == team.getTeamId())
+                            if (team.getWin().toLowerCase().equals("win"))
+                                partida.setMatchWon(true);
+                    }
+                }
+            }
+            
             partida.setParticipantsStats(participantsStats);
 
             //Add partida to the the list
             partidas.add(partida);
         }
         return partidas;
+    }
+
+    private ParticipantsStatsPar getParticipantById(List<ParticipantsStatsPar> participants, int id) {
+        for (ParticipantsStatsPar participant : participants)
+            if (participant.getParticipantId() == id)
+                return participant;
+        return participants.get(0);
+    }
+
+    @Override
+    public void loadChampionData() {
+        HTTPService httpService = new HTTPService();
+        JSONObject json = new JSONObject(httpService.getRequestContents(STATIC_CHAMPIONS_URL));
+
+        JSONObject data = json.getJSONObject("data");
+        //Get champ names to iterate through
+        JSONArray champNames = data.names();
+        mChampions = new ArrayList<>();
+        for (int i = 0; i < champNames.length(); i++) {
+            //Get the champion with the name
+            JSONObject champData = data.getJSONObject(champNames.get(i).toString());
+            Champion champion = new Champion(champData.getInt("key"), champData.getString("name"),
+                    champData.getJSONObject("image").getString("full"));
+            mChampions.add(champion);
+        }
+    }
+
+    @Override
+    public Champion getChampionById(int id) {
+        for (Champion champion : mChampions) {
+            if (champion.getKey() == id)
+                return champion;
+        }
+        return mChampions.get(0);
     }
 }

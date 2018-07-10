@@ -3,7 +3,10 @@ package com.jeep.lolesports.web.controller;
 import com.jeep.lolesports.model.Integrante;
 import com.jeep.lolesports.model.Jugador;
 import com.jeep.lolesports.model.Partida;
+import com.jeep.lolesports.model.matches_data.ParticipantsStatsPar;
+import com.jeep.lolesports.model.static_riot.Champion;
 import com.jeep.lolesports.service.IntegranteService;
+import com.jeep.lolesports.service.MatchDataService;
 import com.jeep.lolesports.service.PartidaService;
 import com.jeep.lolesports.service.RiotService;
 import com.jeep.lolesports.web.FlashMessage;
@@ -28,12 +31,11 @@ public class IntegranteController {
     private Environment env;
 
     @Autowired
-    private RiotService mRiotServiceService;
-
-    @Autowired
     private IntegranteService integranteService;
     @Autowired
     private PartidaService partidaService;
+    @Autowired
+    private MatchDataService matchDataService;
 
     @Autowired
     private RiotService riotService;
@@ -54,13 +56,39 @@ public class IntegranteController {
 
     @RequestMapping("/jugadores/{id}")
     public String listPlayerProfile(@PathVariable int id, Model model) {
+        // Load champions
+        riotService.loadChampionData();
+        // Get player by id
+        Integrante integrante = integranteService.findById(id);
+
+        // Get player matches
+        List<Partida> partidas = partidaService.findPlayerMatches(integrante);
+        //Partida partida = partidas.get(0);
+        for (Partida partida : partidas) {
+            partida.setParticipantsStats(matchDataService.findParticipantsStats(partida));
+            for (ParticipantsStatsPar stats : partida.getParticipantsStats()) {
+                Champion champ = riotService.getChampionById(stats.getChampionId());
+                stats.setChampion(champ);
+                //Set player stats
+                if (stats.getSummonerId() == id)
+                    partida.setPlayerStats(stats);
+            }
+            partida.setTeams(matchDataService.findTeamStats(partida));
+            //Set champion played
+            partida.setChampionPlayed(riotService.getChampionById(partida.getChampionPlayedId()));
+        }
+        //Reverse partidas list
+        Collections.reverse(partidas);
+
+        model.addAttribute("jugador", integrante);
+        model.addAttribute("partidas", partidas);
 
         return "jugador/profile";
     }
 
     @RequestMapping("/jugadores/search")
     public String searchJugadores(@RequestParam String q, Model model) {
-        Jugador jugador = mRiotServiceService.getJugadorByName(q);
+        Jugador jugador = riotService.getJugadorByName(q);
         Jugador miembro =integranteService.findById(jugador.getId());
        if(miembro ==null)
            model.addAttribute("miembro", false);
