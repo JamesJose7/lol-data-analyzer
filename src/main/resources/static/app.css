@@ -598,6 +598,7 @@ i {
     width: 25%;
     display: table-cell;
     vertical-align: middle;
+    padding-left: 5px;
 }
 
 .champion-icon {
