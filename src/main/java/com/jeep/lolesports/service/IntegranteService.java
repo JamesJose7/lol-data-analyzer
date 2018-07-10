@@ -7,6 +7,7 @@ import java.util.List;
 public interface IntegranteService {
     List<Integrante> findAll();
     Integrante findById(int id);
+    Integrante findByAccountId(int id);
     void save(Integrante category);
     void delete(Integrante category);
 }

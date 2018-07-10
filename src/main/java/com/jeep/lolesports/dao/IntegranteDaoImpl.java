@@ -1,8 +1,10 @@
 package com.jeep.lolesports.dao;
 
 import com.jeep.lolesports.model.Integrante;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -30,6 +32,16 @@ public class IntegranteDaoImpl implements IntegranteDao {
         Integrante integrante = session.get(Integrante.class, id);
         session.close();
 
+        return integrante;
+    }
+
+    @Override
+    public Integrante findByAccountId(int id) {
+        Session session = sessionFactory.openSession();
+        Criteria criteria = session.createCriteria(Integrante.class);
+        Integrante integrante = (Integrante) criteria.add(Restrictions.eq("accountId", id))
+                .uniqueResult();
+        session.close();
         return integrante;
     }
 

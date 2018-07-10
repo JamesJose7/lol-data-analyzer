@@ -7,6 +7,7 @@ import java.util.List;
 public interface IntegranteDao {
     List<Integrante> findAll();
     Integrante findById(int id);
+    Integrante findByAccountId(int id);
     void save(Integrante integrante);
     void delete(Integrante integrante);
 }

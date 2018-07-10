@@ -559,6 +559,19 @@ i {
     padding: 20px 0;
 }
 
+.profile-matches-title {
+    text-align: center;
+    display: block;
+    width: 100%;
+}
+
+.profile-matches h1 {
+    font-size: 1.4em;
+    margin-top: 0;
+    border-bottom: 1px solid rgba(0,0,0,.3);
+    display: inline-block;
+}
+
 .match-details-container {
     background-color: rgba(155,155,155,.2);
     padding: 8px 4px;
@@ -826,6 +839,10 @@ i[data-close] {
         font-size: 1em;
     }
 
+    .profile-matches h1 {
+        font-size: 1.8em;
+    }
+
     #profile-name {
         font-size: 3em;
     }
@@ -975,6 +992,16 @@ i[data-close] {
     /* Profile info */
     .profile-container {
         width: 75%;
+    }
+
+    .profile-matches-title {
+        text-align: left;
+        padding: 5px 0 0 10px;
+    }
+
+    .profile-matches h1 {
+        font-size: 2em;
+        border: none;
     }
 
     .profile-basic-info {

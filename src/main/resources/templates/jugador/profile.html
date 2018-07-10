@@ -36,6 +36,9 @@
         </section>
 
         <section class="profile-matches summoner-card clearfix">
+            <section class="profile-matches-title">
+                <h1>Historial de partidas</h1>
+            </section>
             <div class="match-details-container match-victory" th:each="partida : ${partidas}"
                  th:classappend="${partida.matchWon ? 'match-victory' : 'match-defeat'}">
                 <div class="match-basic-data">

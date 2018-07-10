@@ -23,6 +23,11 @@ public class IntegranteServiceImpl implements IntegranteService {
     }
 
     @Override
+    public Integrante findByAccountId(int id) {
+        return integranteDao.findByAccountId(id);
+    }
+
+    @Override
     public void save(Integrante integrante) {
         integranteDao.save(integrante);
     }

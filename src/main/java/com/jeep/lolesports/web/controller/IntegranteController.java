@@ -128,7 +128,7 @@ public class IntegranteController {
         //Get the details of the player from Riot
         Jugador jugador = riotService.getJugadorByName(integrante.getNombreInvocador());
         //Get the recent matches from player
-        List<Partida> partidas = riotService.getPartidasByAccountId(jugador.getAccountId());
+        List<Partida> partidas = riotService.getPartidasByAccountId(jugador.getAccountId(), jugador.getId());
         //Save it as a 'Integrante'
         Integrante newIntegrante = new Integrante(jugador, integrante.getCedula(), integrante.getNombreIntegrante(),
                 integrante.getCiclo(), integrante.getCarrera(), integrante.getEmail());

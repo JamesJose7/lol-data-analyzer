@@ -1,5 +1,6 @@
 package com.jeep.lolesports.service;
 
+import com.jeep.lolesports.model.Integrante;
 import com.jeep.lolesports.model.Jugador;
 import com.jeep.lolesports.model.Partida;
 import com.jeep.lolesports.model.Partida.PartidaBuilder;
@@ -32,6 +33,9 @@ public class RiotServiceImpl implements RiotService {
 
     private static final String STATIC_CHAMPIONS_URL = "http://ddragon.leagueoflegends.com/cdn/6.24.1/data/en_US/champion.json";
     private List<Champion> mChampions;
+
+    @Autowired
+    private IntegranteService integranteService;
 
     @Override
     public Jugador getJugadorByName(String nombreJugador) {
@@ -105,7 +109,7 @@ public class RiotServiceImpl implements RiotService {
     }
 
     @Override
-    public List<Partida> getPartidasByAccountId(long accountId) {
+    public List<Partida> getPartidasByAccountId(long accountId, int summonerId) {
         //Load champion static data
         loadChampionData();
 
@@ -270,7 +274,7 @@ public class RiotServiceImpl implements RiotService {
                 stats.setSummonerName(playerStats.getString("summonerName"));
                 stats.setChampion(getChampionById(stats.getChampionId()));
                 // Check what champion was played by the user
-                if (stats.getAccountId() == accountId) {
+                if (stats.getSummonerId() == summonerId) {
                     partida.setChampionPlayedId(stats.getChampion().getKey());
                     //Check if match was won
                     for (TeamPar team : teamsData) {
