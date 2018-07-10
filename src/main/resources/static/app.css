@@ -451,7 +451,7 @@ i {
 }
 
 .leaderboard-title {
-    font-size: 2em;
+    font-size: .8em;
 }
 
 .dropdown p {
@@ -467,7 +467,7 @@ i {
     cursor: pointer;
 
     float: right;
-    width: 35%;
+    width: 100%;
     background: rgba(100,100,100,.1);
 }
 
@@ -491,7 +491,7 @@ i {
     display: none;
     position: absolute;
     background-color: #f1f1f1;
-    width: 35%;
+    width: 100%;
     min-width: 160px;
     right: 0;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
@@ -696,6 +696,10 @@ i {
 
 /* Classes */
 
+.active {
+    font-weight: bold;
+}
+
 .highlight-drop {
     font-weight: bold;
 }
@@ -788,6 +792,18 @@ i[data-close] {
     .inln.settings {
         width: auto;
         display: inline-block;
+    }
+
+    /* Leaderboard */
+    .leaderboard-title {
+        font-size: 2em;
+    }
+
+    .drop-button {
+
+    }
+
+    .dropdown-list {
     }
 
     /* Profile info */
@@ -920,6 +936,19 @@ i[data-close] {
     .inln.settings {
         width: auto;
         display: inline-block;
+    }
+
+    /* Leaderboard */
+    .drop-button {
+        width: 35%;
+    }
+
+    .dropdown-list {
+        width: 35%;
+    }
+
+    .drop-button p {
+        width: 80%;
     }
 
     /* Profile info */
