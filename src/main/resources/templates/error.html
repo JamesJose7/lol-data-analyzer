@@ -17,8 +17,23 @@
 
     .err404 p {
         padding-top: 33px;
-        font-size: 3em;
+        font-size: 3vw;
     }
+    @media (max-width: 480px) {
+        .err404 img {
+            float: none;
+            width: 100%;
+            display: block;
+        }
+
+        .err404 p {
+            display: block;
+            width: 100%;
+            font-size: 2em;
+            text-align: center;
+        }
+    }
+
 
 </style>
 <div th:replace="layout :: nav"></div>

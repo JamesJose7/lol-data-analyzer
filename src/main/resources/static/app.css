@@ -137,8 +137,9 @@ a.button {
     max-width: 134px;
 }
 
-.ranked-info img {
-    float: right;
+.ranked-info {
+    text-align: center;
+    margin-top: 15px;
 }
 
 .ranked-info .wins, .profile-info .wins {
@@ -442,7 +443,7 @@ i {
     margin: 0;
 }
 
-/* Leader board styles */
+/* Leaderboard styles */
 .dropdown {
     position: relative;
     display: inline-block;
@@ -473,7 +474,7 @@ i {
 
 .drop-button p {
     margin: 0;
-    width: 90%;
+    width: 80%;
     text-align: left;
     padding: 0 0 5px 0;
 }
@@ -670,10 +671,12 @@ i {
 
 .mobile-match-teams tbody tr td:nth-child(even) {
     width: 40%;
+    font-size: 1.8vw;
 }
 
 .mobile-match-teams tbody tr td:nth-child(odd) {
     width: 10%;
+    min-width: 15px;
 }
 
 .mobile-match-teams img {
@@ -794,6 +797,16 @@ i[data-close] {
         display: inline-block;
     }
 
+    /* Summoner page */
+    .ranked-info {
+        text-align: left;
+    }
+
+    .ranked-info img {
+        float: right;
+        text-align: right;
+    }
+
     /* Leaderboard */
     .leaderboard-title {
         font-size: 2em;
@@ -880,10 +893,15 @@ i[data-close] {
 
     .match-teams tbody tr td:nth-child(even) {
         width: 40%;
+        font-size: 1vw;
     }
 
     .match-teams tbody tr td:nth-child(odd) {
         width: 10%;
+    }
+
+    .match-teams img {
+        min-width: 30px;
     }
 
     .summoner-second-row {
@@ -908,15 +926,17 @@ i[data-close] {
     .ranked-info {
         float: right;
         width: 40%;
+        margin: 0;
     }
 
     .ranked-info h1 {
         margin-top: 0;
     }
 
-
     .ranked-info img {
         width: 40%;
+        min-width: 110px;
+        max-width: 160px;
     }
 
     /* Authentication */
@@ -954,6 +974,16 @@ i[data-close] {
     /* Profile info */
     .profile-container {
         width: 75%;
+    }
+
+    .profile-basic-info {
+        width: 40%;
+        float: left;
+    }
+
+    .profile-ranked {
+        width: 60%;
+        float: right;
     }
 
     #solo-ranked-container {

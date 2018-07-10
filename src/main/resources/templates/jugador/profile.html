@@ -9,12 +9,15 @@
 <section class="main-content">
     <div class="profile-container">
         <section class="profile-info summoner-card clearfix">
-            <img id="profile-image" th:src="@{|https://avatar.leagueoflegends.com/lan/${jugador.nombreInvocador}.png|}" alt="imagen de perfil"/>
-            <h1 id="profile-name" th:text="${jugador.nombreInvocador}">Zetal</h1>
-            <p id="profile-level" th:text="|Level ${jugador.nivel}|">Level 55</p>
-            <!--<img th:src="@{/images/member_logo.png}" alt="logo de miembro"/>-->
+            <section class="profile-basic-info clearfix">
+                <img id="profile-image" th:src="@{|https://avatar.leagueoflegends.com/lan/${jugador.nombreInvocador}.png|}" alt="imagen de perfil"/>
+                <h1 id="profile-name" th:text="${jugador.nombreInvocador}">Zetal</h1>
+                <p id="profile-level" th:text="|Level ${jugador.nivel}|">Level 55</p>
+                <!--<img th:src="@{/images/member_logo.png}" alt="logo de miembro"/>-->
+            </section>
 
-            <section class="profile-ranked">
+
+            <section class="profile-ranked clearfix">
                 <div id="solo-ranked-container">
                     <img th:src="@{|/images/tier-icons/${jugador.nivelRankedSolo}_${jugador.rangoRankedSolo}.png|}" alt="ranked solo"/>
                     <h1 th:text="|${T(com.jeep.lolesports.utils.Utils).firstUpperCase(jugador.nivelRankedSolo)} ${jugador.rangoRankedSolo}|">Unranked</h1>
