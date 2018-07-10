@@ -1,11 +1,13 @@
 package com.jeep.lolesports.model.matches_data;
 
 import com.jeep.lolesports.model.Partida;
+import com.jeep.lolesports.model.static_riot.Champion;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
 @Entity
 public class ParticipantsStatsPar extends MatchData {
@@ -14,6 +16,14 @@ public class ParticipantsStatsPar extends MatchData {
     private int championId;
     private int spell1Id;
     private int spell2Id;
+
+    /* Participants identities */
+    private int summonerId;
+    private long accountId;
+    private String summonerName;
+
+    @Transient
+    private Champion champion;
 
     /* Stats */
     private int item0;
@@ -65,6 +75,37 @@ public class ParticipantsStatsPar extends MatchData {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Partida partida;
 
+    public Champion getChampion() {
+        return champion;
+    }
+
+    public void setChampion(Champion champion) {
+        this.champion = champion;
+    }
+
+    public int getSummonerId() {
+        return summonerId;
+    }
+
+    public void setSummonerId(int summonerId) {
+        this.summonerId = summonerId;
+    }
+
+    public long getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(long accountId) {
+        this.accountId = accountId;
+    }
+
+    public String getSummonerName() {
+        return summonerName;
+    }
+
+    public void setSummonerName(String summonerName) {
+        this.summonerName = summonerName;
+    }
 
     public int getParticipantId() {
         return participantId;

@@ -561,7 +561,8 @@ i {
 .match-details-container {
     background-color: rgba(155,155,155,.2);
     padding: 8px 4px;
-    margin-bottom: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 5px 0 rgba(0,0,0,.5)
 }
 
 .match-details-container p {
@@ -790,8 +791,9 @@ i[data-close] {
     }
 
     /* Profile info */
-    #profile-image {
-
+    .match-basic-data {
+        margin-bottom: 6px;
+        font-size: 1em;
     }
 
     #profile-name {
@@ -841,6 +843,7 @@ i[data-close] {
 
     .summoner-kda p, .match-stats p {
         display: block;
+        text-align: center;
     }
 
     .summoner-champion {
@@ -920,6 +923,10 @@ i[data-close] {
     }
 
     /* Profile info */
+    .profile-container {
+        width: 75%;
+    }
+
     #solo-ranked-container {
         clear: left;
         float: left;

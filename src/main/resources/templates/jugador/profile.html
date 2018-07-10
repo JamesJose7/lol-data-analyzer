@@ -9,242 +9,115 @@
 <section class="main-content">
     <div class="profile-container">
         <section class="profile-info summoner-card clearfix">
-            <img id="profile-image" src="https://avatar.leagueoflegends.com/lan/Zetal.png" alt="imagen de perfil"/>
-            <h1 id="profile-name">Zetal</h1>
-            <p id="profile-level">Level 55</p>
+            <img id="profile-image" th:src="@{|https://avatar.leagueoflegends.com/lan/${jugador.nombreInvocador}.png|}" alt="imagen de perfil"/>
+            <h1 id="profile-name" th:text="${jugador.nombreInvocador}">Zetal</h1>
+            <p id="profile-level" th:text="|Level ${jugador.nivel}|">Level 55</p>
             <!--<img th:src="@{/images/member_logo.png}" alt="logo de miembro"/>-->
 
             <section class="profile-ranked">
                 <div id="solo-ranked-container">
-                    <img th:src="@{/images/tier-icons/UNRANKED_.png}" alt="ranked solo"/>
-                    <h1 >Unranked</h1>
-                    <p>Solo ranked / 40LP</p>
-                    <p>Rengar's Slayers</p>
-                    <p><span class="wins" >10 W</span> <span class="losses">10 L</span></p>
+                    <img th:src="@{|/images/tier-icons/${jugador.nivelRankedSolo}_${jugador.rangoRankedSolo}.png|}" alt="ranked solo"/>
+                    <h1 th:text="|${T(com.jeep.lolesports.utils.Utils).firstUpperCase(jugador.nivelRankedSolo)} ${jugador.rangoRankedSolo}|">Unranked</h1>
+                    <p th:text="|${T(com.jeep.lolesports.utils.Utils).prettyQueueName(jugador.tipoColaRankedSolo)} / ${jugador.puntosRankedSolo} LP|">Solo ranked / 40LP</p>
+                    <p th:text="${jugador.nombreLigaRankedSolo}">Rengar's Slayers</p>
+                    <p><span class="wins" th:text="|${jugador.victoriasRankedSolo} W|"></span> <span class="losses" th:text="|${jugador.derrotasRankedSolo} L|"></span></p>
                 </div>
                 <div id="flex-ranked-container">
-                    <img th:src="@{/images/tier-icons/UNRANKED_.png}" alt="ranked flex"/>
-                    <h1 >Unranked</h1>
-                    <p>Flex ranked / 40LP</p>
-                    <p>Rengar's Slayers</p>
-                    <p><span class="wins" >10 W</span> <span class="losses">10 L</span></p>
+                    <img th:src="@{|/images/tier-icons/${jugador.nivelRankedFlex}_${jugador.rangoRankedFlex}.png|}" alt="ranked flex"/>
+                    <h1 th:text="|${T(com.jeep.lolesports.utils.Utils).firstUpperCase(jugador.nivelRankedFlex)} ${jugador.rangoRankedFlex}|">Unranked</h1>
+                    <p th:text="|${T(com.jeep.lolesports.utils.Utils).prettyQueueName(jugador.tipoColaRankedFlex)} / ${jugador.puntosRankedFlex} LP|">Flex ranked / 40LP</p>
+                    <p th:text="${jugador.nombreLigaRankedFlex}">Rengar's Slayers</p>
+                    <p><span class="wins" th:text="|${jugador.victoriasRankedFlex} W|"></span> <span class="losses" th:text="|${jugador.derrotasRankedFlex} L|"></span></p>
                 </div>
             </section>
         </section>
 
         <section class="profile-matches summoner-card clearfix">
-            <div class="match-details-container match-victory">
+            <div class="match-details-container match-victory" th:each="partida : ${partidas}"
+                 th:classappend="${partida.matchWon ? 'match-victory' : 'match-defeat'}">
                 <div class="match-basic-data">
-                    <p>Ranked solo</p>
-                    <p>26m 46s</p>
+                    <p th:text="${partida.gameMode}">Ranked solo</p>
+                    <p th:text="${T(com.jeep.lolesports.utils.Utils).getDurationFromSecs(partida.gameDuration)}">26m 46s</p>
                 </div>
                 <div class="summoner-second-row">
                     <div class="summoner-champion clearfix">
-                        <img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/Ezreal.png"
+                        <img th:src="@{|http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/${partida.championPlayed.imageName}|}"
                              alt="champion icon" class="champion-icon"/>
-                        <img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/spell/SummonerFlash.png"
+                        <img th:src="@{|http://ddragon.leagueoflegends.com/cdn/6.24.1/img/spell/${T(com.jeep.lolesports.model.static_riot.SummonerSpells).getSpellById(partida.playerStats.spell1Id)}.png|}"
                              alt="summoner spell 1" class="s-spell-1"/>
-                        <img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/spell/SummonerSmite.png"
+                        <img th:src="@{|http://ddragon.leagueoflegends.com/cdn/6.24.1/img/spell/${T(com.jeep.lolesports.model.static_riot.SummonerSpells).getSpellById(partida.playerStats.spell2Id)}.png|}"
                              alt="summoner spell 2" class="s-spell-2"/>
                     </div>
                     <div class="summoner-kda">
-                        <p>6 / 7 / 3</p>
-                        <p>1.42 KDA</p>
-                        <p>Penta Kill</p>
+                        <p th:text="|${partida.playerStats.kills} / ${partida.playerStats.deaths} / ${partida.playerStats.assists}|">6 / 7 / 3</p>
+                        <p th:text="|${T(com.jeep.lolesports.utils.Utils).calculateKDA(partida.playerStats.kills, partida.playerStats.deaths, partida.playerStats.assists)} KDA|">1.42 KDA</p>
+                        <p th:text="${T(com.jeep.lolesports.utils.Utils).getLargestMultiKill(partida.playerStats.largestMultiKill)}">Penta Kill</p>
                     </div>
                     <div class="summoner-items">
                         <div class="items-row1">
-                            <img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/item/3031.png" alt=""/>
-                            <img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/item/3031.png" alt=""/>
-                            <img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/item/3031.png" alt=""/>
-                            <img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/item/3340.png" alt=""/>
+                            <img th:src="@{${T(com.jeep.lolesports.utils.Utils).getIconsUrl(partida.playerStats.item0)}}" alt=""/>
+                            <img th:src="@{${T(com.jeep.lolesports.utils.Utils).getIconsUrl(partida.playerStats.item1)}}" alt=""/>
+                            <img th:src="@{${T(com.jeep.lolesports.utils.Utils).getIconsUrl(partida.playerStats.item2)}}" alt=""/>
+                            <img th:src="@{${T(com.jeep.lolesports.utils.Utils).getIconsUrl(partida.playerStats.item6)}}" alt=""/>
                         </div>
                         <div class="items-row2">
-                            <img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/item/3031.png" alt=""/>
-                            <img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/item/3031.png" alt=""/>
-                            <img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/item/3031.png" alt=""/>
-                            <img src="http://via.placeholder.com/150x150" alt=""/>
+                            <img th:src="@{${T(com.jeep.lolesports.utils.Utils).getIconsUrl(partida.playerStats.item3)}}" alt=""/>
+                            <img th:src="@{${T(com.jeep.lolesports.utils.Utils).getIconsUrl(partida.playerStats.item4)}}" alt=""/>
+                            <img th:src="@{${T(com.jeep.lolesports.utils.Utils).getIconsUrl(partida.playerStats.item5)}}" alt=""/>
+                            <img src="http://via.placeholder.com/150?text=%20" alt=""/>
                         </div>
                     </div>
                     <div class="match-stats">
-                        <p>Level 12</p>
-                        <p>124 CS</p>
-                        <p>Kill participation</p>
+                        <p th:text="|Level ${partida.playerStats.champLevel}|">Level 12</p>
+                        <p th:text="|${partida.playerStats.totalMinionsKilled} CS|">124 CS</p>
+                        <p th:text="|${partida.playerStats.goldEarned} Gold|">Kill participation</p>
                     </div>
-                    <table class="match-teams">
-                        <tr>
-                            <td><img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/Ezreal.png"
-                                     alt="champion icon" class="champion-icon"/></td>
-                            <td>Potato</td>
-                            <td><img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/Ezreal.png"
-                                     alt="champion icon" class="champion-icon"/></td>
-                            <td>Summoner 2</td>
-                        </tr>
-                        <tr>
-                            <td><img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/Ezreal.png"
-                                     alt="champion icon" class="champion-icon"/></td>
-                            <td>Potato</td>
-                            <td><img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/Ezreal.png"
-                                     alt="champion icon" class="champion-icon"/></td>
-                            <td>Summoner 2</td>
-                        </tr>
-                        <tr>
-                            <td><img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/Ezreal.png"
-                                     alt="champion icon" class="champion-icon"/></td>
-                            <td>Potato</td>
-                            <td><img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/Ezreal.png"
-                                     alt="champion icon" class="champion-icon"/></td>
-                            <td>Summoner 2</td>
-                        </tr>
-                        <tr>
-                            <td><img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/Ezreal.png"
-                                     alt="champion icon" class="champion-icon"/></td>
-                            <td>Potato</td>
-                            <td><img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/Ezreal.png"
-                                     alt="champion icon" class="champion-icon"/></td>
-                            <td>Summoner 2</td>
-                        </tr>
-                        <tr>
-                            <td><img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/Ezreal.png"
-                                     alt="champion icon" class="champion-icon"/></td>
-                            <td>Potato</td>
-                            <td><img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/Ezreal.png"
-                                     alt="champion icon" class="champion-icon"/></td>
-                            <td>Summoner 2</td>
+                    <table class="match-teams" th:with="team1=${T(com.jeep.lolesports.utils.Utils).getTeamById(100, partida.participantsStats)},
+                                                team2=${T(com.jeep.lolesports.utils.Utils).getTeamById(200, partida.participantsStats)}">
+                        <tr th:each="i : ${#numbers.sequence(0, 4)}">
+                            <!-- Team 100 -->
+                            <td>
+                                <img th:src="@{|http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/${team1.get(i).champion.imageName}|}"
+                                     alt="champion icon" class="champion-icon"/>
+                            </td>
+                            <td th:text="${team1.get(i).summonerName}">Potato</td>
+                            <!-- Team 200 -->
+                            <td>
+                                <img th:src="@{|http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/${team2.get(i).champion.imageName}|}"
+                                     alt="champion icon" class="champion-icon"/>
+                            </td>
+                            <td th:text="${team2.get(i).summonerName}">Potato</td>
                         </tr>
                     </table>
                 </div>
                 <div class="mobile-third-row">
                     <div class="mobile-match-stats">
-                        <p>Level 12</p>
-                        <p>124 CS</p>
-                        <p>Kill participation</p>
+                        <p th:text="|Level ${partida.playerStats.champLevel}|">Level 12</p>
+                        <p th:text="|${partida.playerStats.totalMinionsKilled} CS|">124 CS</p>
+                        <p th:text="|${partida.playerStats.goldEarned} Gold|">Kill participation</p>
                     </div>
-                    <table class="mobile-match-teams">
+                    <table class="mobile-match-teams" th:with="team1=${T(com.jeep.lolesports.utils.Utils).getTeamById(100, partida.participantsStats)},
+                                                team2=${T(com.jeep.lolesports.utils.Utils).getTeamById(200, partida.participantsStats)}">
                         <tbody>
-                        <tr>
-                            <td><img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/Ezreal.png"
-                                     alt="champion icon" class="champion-icon"/></td>
-                            <td>Potato</td>
-                            <td><img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/Ezreal.png"
-                                     alt="champion icon" class="champion-icon"/></td>
-                            <td>Summoner 2</td>
-                        </tr>
-                        <tr>
-                            <td><img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/Ezreal.png"
-                                     alt="champion icon" class="champion-icon"/></td>
-                            <td>Potato</td>
-                            <td><img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/Ezreal.png"
-                                     alt="champion icon" class="champion-icon"/></td>
-                            <td>Summoner 2</td>
-                        </tr>
-                        <tr>
-                            <td><img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/Ezreal.png"
-                                     alt="champion icon" class="champion-icon"/></td>
-                            <td>Potato</td>
-                            <td><img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/Ezreal.png"
-                                     alt="champion icon" class="champion-icon"/></td>
-                            <td>Summoner 2</td>
-                        </tr>
-                        <tr>
-                            <td><img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/Ezreal.png"
-                                     alt="champion icon" class="champion-icon"/></td>
-                            <td>Potato</td>
-                            <td><img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/Ezreal.png"
-                                     alt="champion icon" class="champion-icon"/></td>
-                            <td>Summoner 2</td>
-                        </tr>
-                        <tr>
-                            <td><img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/Ezreal.png"
-                                     alt="champion icon" class="champion-icon"/></td>
-                            <td>Potato</td>
-                            <td><img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/Ezreal.png"
-                                     alt="champion icon" class="champion-icon"/></td>
-                            <td>Summoner 2</td>
+                        <tr th:each="i : ${#numbers.sequence(0, 4)}">
+                            <!-- Team 100 -->
+                            <td>
+                                <img th:src="@{|http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/${team1.get(i).champion.imageName}|}"
+                                     alt="champion icon" class="champion-icon"/>
+                            </td>
+                            <td th:text="${team1.get(i).summonerName}">Potato</td>
+                            <!-- Team 200 -->
+                            <td>
+                                <img th:src="@{|http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/${team2.get(i).champion.imageName}|}"
+                                     alt="champion icon" class="champion-icon"/>
+                            </td>
+                            <td th:text="${team2.get(i).summonerName}">Potato</td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
 
-            <div class="match-details-container match-defeat">
-                <div class="match-basic-data">
-                    <p>Ranked solo</p>
-                    <p>26m 46s</p>
-                </div>
-                <div class="summoner-second-row">
-                    <div class="summoner-champion clearfix">
-                        <img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/Ezreal.png"
-                             alt="champion icon" class="champion-icon"/>
-                        <img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/spell/SummonerFlash.png"
-                             alt="summoner spell 1" class="s-spell-1"/>
-                        <img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/spell/SummonerSmite.png"
-                             alt="summoner spell 2" class="s-spell-2"/>
-                    </div>
-                    <div class="summoner-kda">
-                        <p>6 / 7 / 3</p>
-                        <p>1.42 KDA</p>
-                        <p>Penta Kill</p>
-                    </div>
-                    <div class="summoner-items">
-                        <div class="items-row1">
-                            <img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/item/3031.png" alt=""/>
-                            <img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/item/3031.png" alt=""/>
-                            <img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/item/3031.png" alt=""/>
-                            <img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/item/3340.png" alt=""/>
-                        </div>
-                        <div class="items-row2">
-                            <img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/item/3031.png" alt=""/>
-                            <img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/item/3031.png" alt=""/>
-                            <img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/item/3031.png" alt=""/>
-                            <img src="http://via.placeholder.com/150x150" alt=""/>
-                        </div>
-                    </div>
-                    <table class="match-teams">
-                        <tr>
-                            <td><img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/Ezreal.png"
-                                     alt="champion icon" class="champion-icon"/></td>
-                            <td>Potato</td>
-                            <td><img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/Ezreal.png"
-                                     alt="champion icon" class="champion-icon"/></td>
-                            <td>Summoner 2</td>
-                        </tr>
-                        <tr>
-                            <td><img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/Ezreal.png"
-                                     alt="champion icon" class="champion-icon"/></td>
-                            <td>Potato</td>
-                            <td><img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/Ezreal.png"
-                                     alt="champion icon" class="champion-icon"/></td>
-                            <td>Summoner 2</td>
-                        </tr>
-                        <tr>
-                            <td><img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/Ezreal.png"
-                                     alt="champion icon" class="champion-icon"/></td>
-                            <td>Potato</td>
-                            <td><img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/Ezreal.png"
-                                     alt="champion icon" class="champion-icon"/></td>
-                            <td>Summoner 2</td>
-                        </tr>
-                        <tr>
-                            <td><img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/Ezreal.png"
-                                     alt="champion icon" class="champion-icon"/></td>
-                            <td>Potato</td>
-                            <td><img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/Ezreal.png"
-                                     alt="champion icon" class="champion-icon"/></td>
-                            <td>Summoner 2</td>
-                        </tr>
-                        <tr>
-                            <td><img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/Ezreal.png"
-                                     alt="champion icon" class="champion-icon"/></td>
-                            <td>Potato</td>
-                            <td><img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/Ezreal.png"
-                                     alt="champion icon" class="champion-icon"/></td>
-                            <td>Summoner 2</td>
-                        </tr>
-                    </table>
-                </div>
-
-            </div>
         </section>
     </div>
 </section>

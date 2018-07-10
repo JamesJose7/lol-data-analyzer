@@ -2,6 +2,7 @@ package com.jeep.lolesports.model;
 
 import com.jeep.lolesports.model.matches_data.ParticipantsStatsPar;
 import com.jeep.lolesports.model.matches_data.TeamPar;
+import com.jeep.lolesports.model.static_riot.Champion;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -18,6 +19,16 @@ public class Partida {
     private int mapId;
     private String gameMode;
     private String gameType;
+
+    private boolean matchWon;
+
+    /* Champion data */
+    private int championPlayedId;
+    @Transient
+    private Champion championPlayed;
+    @Transient
+    private ParticipantsStatsPar playerStats;
+
 
     @OneToMany(mappedBy = "partida",
             cascade = CascadeType.ALL/*,
@@ -105,6 +116,38 @@ public class Partida {
 
     public void setParticipantsStats(List<ParticipantsStatsPar> participantsStats) {
         this.participantsStats = participantsStats;
+    }
+
+    public boolean isMatchWon() {
+        return matchWon;
+    }
+
+    public void setMatchWon(boolean matchWon) {
+        this.matchWon = matchWon;
+    }
+
+    public int getChampionPlayedId() {
+        return championPlayedId;
+    }
+
+    public void setChampionPlayedId(int championPlayedId) {
+        this.championPlayedId = championPlayedId;
+    }
+
+    public Champion getChampionPlayed() {
+        return championPlayed;
+    }
+
+    public void setChampionPlayed(Champion championPlayed) {
+        this.championPlayed = championPlayed;
+    }
+
+    public ParticipantsStatsPar getPlayerStats() {
+        return playerStats;
+    }
+
+    public void setPlayerStats(ParticipantsStatsPar playerStats) {
+        this.playerStats = playerStats;
     }
 
     public Integrante getIntegrante() {
