@@ -30,7 +30,11 @@
     <h2 class="settings-section">Administrar plataforma</h2>
 
     <div class="settings-container clearfix">
-        <div class="left-setting"><a href="#">Modificar horario de extracción</a></div>
+        <div class="left-setting"><a th:href="@{/admin/extractor}">Modificar horario de extracción</a></div>
+        <div class="right-setting" th:classappend="${extractorState ? 'extractor-active' : 'extractor-disabled'}">
+            <p th:text="|Estado de extractor|">Estado de extractor</p>
+            <p th:text="|${hours}h${minutes}|"></p>
+        </div>
     </div>
 </div>
 

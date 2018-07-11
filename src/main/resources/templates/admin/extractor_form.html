@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head('Integrante')"></head>
+<body>
+<div th:replace="layout :: nav"></div>
+<div th:replace="layout :: flash"></div>
+<div th:replace="layout :: admin-nav"></div>
+
+<div class="container form-container">
+
+    <form th:action="${action}" method="post" class="clearfix settings" th:object="${config}">
+        <h1 th:text="${heading}"></h1>
+
+        <fieldset class="left settings">
+            <label class="settings" for="horas">Horas:</label>
+            <select class="settings" name="horas" id="horas" th:field="*{horas}">
+                <option th:value="${i}" th:text="${i}" th:each="i : ${#numbers.sequence(1, 23)}"></option>
+            </select>
+
+            <label class="settings" for="minutos">Minutos:</label>
+            <select class="settings" name="minutos" id="minutos" th:field="*{minutos}">
+                <option th:value="${i}" th:text="${i}" th:each="i :${#numbers.sequence(1, 59)}"></option>
+            </select>
+        </fieldset>
+
+        <fieldset class="right settings">
+            <input class="btn inln default settings" type="submit" th:value="${submit}"/>
+            <input class="btn inln error settings" type="reset" value="Reiniciar"/>
+        </fieldset>
+    </form>
+</div>
+
+<div th:replace="layout :: scripts"></div>
+</body>
+</html>

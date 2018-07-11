@@ -5,6 +5,8 @@ import com.jeep.lolesports.model.Role;
 import com.jeep.lolesports.model.User;
 import com.jeep.lolesports.service.AdministradorService;
 import com.jeep.lolesports.service.UserService;
+import com.jeep.lolesports.utils.extractor.DailyDataExtractor;
+import com.jeep.lolesports.utils.extractor.ExtractorConfig;
 import com.jeep.lolesports.web.FlashMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -33,6 +35,15 @@ public class AdministradorController {
 
     @RequestMapping("/admin")
     public String controlPanel(Model model) {
+        model.addAttribute("extractorState", DailyDataExtractor.isProcessRunning);
+
+        // Currently set extraction hour
+        ExtractorConfig extractorConfig =
+                new ExtractorConfig(DailyDataExtractor.extractorConfig.getHoras(),
+                        DailyDataExtractor.extractorConfig.getMinutos());
+        model.addAttribute("hours", extractorConfig.getHoras());
+        model.addAttribute("minutes", extractorConfig.getMinutos());
+
         return "admin/control_panel";
     }
 
