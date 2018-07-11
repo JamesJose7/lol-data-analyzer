@@ -89,13 +89,22 @@ public class IntegranteController {
     @RequestMapping("/jugadores/search")
     public String searchJugadores(@RequestParam String q, Model model) {
         Jugador jugador = riotService.getJugadorByName(q);
-        Jugador miembro =integranteService.findById(jugador.getId());
-       if(miembro ==null)
+
+        Jugador miembro = null;
+        if (jugador == null) {
+            model.addAttribute("found", false);
+        } else {
+            miembro = integranteService.findById(jugador.getId());
+            model.addAttribute("found", true);
+        }
+
+       if(miembro == null)
            model.addAttribute("miembro", false);
        else
            model.addAttribute("miembro", true);
-       
-        model.addAttribute("jugador", jugador);
+
+       model.addAttribute("jugador", jugador);
+
         return "jugador/search";
     }
 
