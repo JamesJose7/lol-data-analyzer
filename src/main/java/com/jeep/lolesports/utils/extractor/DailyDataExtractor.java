@@ -11,8 +11,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class DailyDataExtractor {
-    public static boolean isProcessRunning = false;
-    public static ExtractorConfig extractorConfig = new ExtractorConfig();
+    public static volatile boolean isProcessRunning = false;
+    public static volatile ExtractorConfig extractorConfig = new ExtractorConfig();
 
     ScheduledExecutorService executorService = Executors.newScheduledThreadPool(1);
     DailyTask dailyTask;
@@ -23,13 +23,12 @@ public class DailyDataExtractor {
     }
 
     public void startExecutionAt(int targetHour, int targetMin, int targetSec) {
+        updateExtractor(targetHour, targetMin);
         Runnable taskWrapper = new Runnable(){
 
             @Override
             public void run()
             {
-                extractorConfig = new ExtractorConfig(targetHour, targetMin);
-                isProcessRunning = true;
                 dailyTask.execute();
                 startExecutionAt(targetHour, targetMin, targetSec);
             }
@@ -55,9 +54,18 @@ public class DailyDataExtractor {
         executorService.shutdown();
         try {
             executorService.awaitTermination(60, TimeUnit.SECONDS);
-            isProcessRunning = false;
+            stopExtractor();
         } catch (InterruptedException ex) {
             Logger.getLogger(DailyDataExtractor.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public synchronized void updateExtractor(int targetHour, int targetMin) {
+        extractorConfig = new ExtractorConfig(targetHour, targetMin);
+        isProcessRunning = true;
+    }
+
+    public synchronized void stopExtractor() {
+        isProcessRunning = false;
     }
 }
