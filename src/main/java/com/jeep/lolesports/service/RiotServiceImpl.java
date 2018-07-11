@@ -1,6 +1,5 @@
 package com.jeep.lolesports.service;
 
-import com.jeep.lolesports.model.Integrante;
 import com.jeep.lolesports.model.Jugador;
 import com.jeep.lolesports.model.Partida;
 import com.jeep.lolesports.model.Partida.PartidaBuilder;
@@ -47,6 +46,10 @@ public class RiotServiceImpl implements RiotService {
         //Get JSON doc
         HTTPService httpRequest = new HTTPService();
         String jsonDataBasic = httpRequest.getRequestContents(url);
+
+        // Return null if user is not found
+        if (jsonDataBasic == null)
+            return null;
 
         //Basic info
         JSONObject docBasic = new JSONObject(jsonDataBasic);

@@ -9,7 +9,7 @@
 <section class="main-content">
     <div class="container">
 
-        <div >
+        <div th:if="${found}">
             <div class="summoner-card clearfix">
                 <div class="basic-info">
 
@@ -27,6 +27,11 @@
                     <p><span class="wins" th:text="|${jugador.victoriasRankedSolo} W|"></span> <span class="losses" th:text="|${jugador.derrotasRankedSolo} L|"></span></p>
                 </div>
             </div>
+        </div>
+
+        <div th:if="${!found}" class="search-not-found clearfix">
+            <img th:src="@{/images/blitz_confused.png}" alt="blitz confused"/>
+            <p>Al parecer el invocador que buscas no existe... Intenta de nuevo por favor</p>
         </div>
     </div>
 </section>

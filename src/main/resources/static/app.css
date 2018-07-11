@@ -78,6 +78,18 @@ a.button {
     cursor: pointer;
 }
 
+.search-not-found img {
+    display: block;
+    width: 100%;
+    padding: 0 10% 0 10%;
+}
+
+.search-not-found p {
+    font-size: 5vw;
+    margin: 15px 0;
+    text-align: center;
+}
+
 /* Base styles */
 .right {
     float: right;
@@ -809,6 +821,23 @@ i[data-close] {
     .inln.settings {
         width: auto;
         display: inline-block;
+    }
+
+    .search-not-found img {
+        width: 40%;
+        padding: 0 3%;
+        display: inline-block;
+        margin: 0;
+        float: left;
+    }
+
+    .search-not-found p {
+        width: 59%;
+        font-size: 1.5em;
+        margin: 50px 0;
+        text-align: left;
+        display: inline-block;
+        float: right;
     }
 
     /* Summoner page */
