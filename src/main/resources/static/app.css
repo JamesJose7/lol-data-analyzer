@@ -769,6 +769,14 @@ i {
     font-size: 1.1rem;
 }
 
+.extractor-active {
+    background-color: #7f9e40;
+}
+
+.extractor-disabled {
+    background-color: #ac4343;
+}
+
 .flash.success {
     background-color: #7f9e40;
     color: #f3f6ee;
