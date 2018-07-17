@@ -1,8 +1,10 @@
 package com.jeep.lolesports.utils;
 
+import com.jeep.lolesports.model.IntegranteHistory;
 import com.jeep.lolesports.model.Partida;
 
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class ProfileStatsCalculator {
 
@@ -55,5 +57,22 @@ public class ProfileStatsCalculator {
                 winRatio[1]++;
         }
         return winRatio;
+    }
+
+    public static Map<String[], Integer[]> calculateLevelHistory(List<IntegranteHistory> historyData) {
+        SimpleDateFormat dayFormat = new SimpleDateFormat("MMMM / d", new Locale("es", "EC"));
+        String[] days = new String[historyData.size()];
+        Integer[] level = new Integer[historyData.size()];
+        int counter = 0;
+        for (IntegranteHistory history : historyData) {
+            Date timestamp = history.getTimestampSaved();
+            days[counter] = dayFormat.format(timestamp);
+            level[counter] = history.getNivel();
+            counter++;
+        }
+        Map<String[], Integer[]> stats = new HashMap<>();
+        stats.put(days, level);
+
+        return stats;
     }
 }

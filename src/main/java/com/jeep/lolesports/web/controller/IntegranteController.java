@@ -1,14 +1,12 @@
 package com.jeep.lolesports.web.controller;
 
 import com.jeep.lolesports.model.Integrante;
+import com.jeep.lolesports.model.IntegranteHistory;
 import com.jeep.lolesports.model.Jugador;
 import com.jeep.lolesports.model.Partida;
 import com.jeep.lolesports.model.matches_data.ParticipantsStatsPar;
 import com.jeep.lolesports.model.static_riot.Champion;
-import com.jeep.lolesports.service.IntegranteService;
-import com.jeep.lolesports.service.MatchDataService;
-import com.jeep.lolesports.service.PartidaService;
-import com.jeep.lolesports.service.RiotService;
+import com.jeep.lolesports.service.*;
 import com.jeep.lolesports.utils.ProfileStatsCalculator;
 import com.jeep.lolesports.web.FlashMessage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +35,8 @@ public class IntegranteController {
     private PartidaService partidaService;
     @Autowired
     private MatchDataService matchDataService;
+    @Autowired
+    private IntegranteHistoryService integranteHistoryService;
 
     @Autowired
     private RiotService riotService;
@@ -80,6 +80,16 @@ public class IntegranteController {
         }
         //Reverse partidas list
         Collections.reverse(partidas);
+
+        //Get history data
+        List<IntegranteHistory> historyData = integranteHistoryService.findBySummonerId(id);
+
+        //history data fro graphs
+
+        for (Map.Entry<String[], Integer[]> entry : ProfileStatsCalculator.calculateLevelHistory(historyData).entrySet()) {
+            model.addAttribute("levelHistoryLabels", entry.getKey());
+            model.addAttribute("levelHistory", entry.getValue());
+        }
 
         model.addAttribute("jugador", integrante);
         model.addAttribute("partidas", partidas);

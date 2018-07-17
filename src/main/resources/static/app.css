@@ -926,6 +926,10 @@ i[data-close] {
         float: right;
     }
 
+    #lanesGraphContainer div:nth-child(3) {
+        clear: both;
+    }
+
     .champion-icon {
         width: 100%;
         float: left;
@@ -1111,5 +1115,9 @@ i[data-close] {
 
     #lanesGraphContainer div:nth-child(2) {
         margin-right: 5%;
+    }
+
+    #lanesGraphContainer div:nth-child(3) {
+        margin: 20px 5%;
     }
 }
