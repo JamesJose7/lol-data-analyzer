@@ -40,7 +40,7 @@ public class PartidaDaoImpl implements PartidaDao {
     public void save(Partida partida) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        session.save(partida);
+        session.saveOrUpdate(partida);
         session.getTransaction().commit();
         session.close();
     }

@@ -44,8 +44,8 @@ public class AdministradorController {
         model.addAttribute("hours", extractorConfig.getHoras());
         model.addAttribute("minutes", extractorConfig.getMinutos());
 
-        System.out.println(String.format("%dh%d\n%b",
-                extractorConfig.getHoras(), extractorConfig.getMinutos(), DailyDataExtractor.isProcessRunning));
+        /*System.out.println(String.format("%dh%d\n%b",
+                extractorConfig.getHoras(), extractorConfig.getMinutos(), DailyDataExtractor.isProcessRunning));*/
 
         return "admin/control_panel";
     }

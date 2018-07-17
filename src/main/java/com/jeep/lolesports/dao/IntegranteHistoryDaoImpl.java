@@ -32,6 +32,16 @@ public class IntegranteHistoryDaoImpl implements IntegranteHistoryDao {
     }
 
     @Override
+    public List<IntegranteHistory> findBySummonerId(int id) {
+        Session session = sessionFactory.openSession();
+        Criteria criteria = session.createCriteria(IntegranteHistory.class);
+        List<IntegranteHistory> integrantes = criteria.add(Restrictions.eq("summonerId", id))
+                .list();
+        session.close();
+        return integrantes;
+    }
+
+    @Override
     public IntegranteHistory findByAccountId(int id) {
         Session session = sessionFactory.openSession();
         Criteria criteria = session.createCriteria(IntegranteHistory.class);

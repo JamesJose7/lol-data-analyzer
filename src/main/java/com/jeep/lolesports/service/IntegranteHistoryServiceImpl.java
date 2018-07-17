@@ -23,6 +23,11 @@ public class IntegranteHistoryServiceImpl implements IntegranteHistoryService {
     }
 
     @Override
+    public List<IntegranteHistory> findBySummonerId(int id) {
+        return integranteHistoryDao.findBySummonerId(id);
+    }
+
+    @Override
     public IntegranteHistory findByAccountId(int id) {
         return null;
     }
