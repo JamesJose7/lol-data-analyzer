@@ -9,6 +9,7 @@ import com.jeep.lolesports.service.IntegranteService;
 import com.jeep.lolesports.service.MatchDataService;
 import com.jeep.lolesports.service.PartidaService;
 import com.jeep.lolesports.service.RiotService;
+import com.jeep.lolesports.utils.ProfileStatsCalculator;
 import com.jeep.lolesports.web.FlashMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -82,6 +83,8 @@ public class IntegranteController {
 
         model.addAttribute("jugador", integrante);
         model.addAttribute("partidas", partidas);
+        model.addAttribute("playerLanesCount", ProfileStatsCalculator.countPlayedLanes(partidas));
+        model.addAttribute("winRatio", ProfileStatsCalculator.countWinLoses(partidas));
 
         return "jugador/profile";
     }

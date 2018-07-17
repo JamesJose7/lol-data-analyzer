@@ -584,6 +584,11 @@ i {
     display: inline-block;
 }
 
+#lanesGraphContainer {
+    width: 80%;
+    margin: 20px auto;
+}
+
 .match-details-container {
     background-color: rgba(155,155,155,.2);
     padding: 8px 4px;
@@ -876,6 +881,10 @@ i[data-close] {
         font-size: 1em;
     }
 
+    .profile-matches-title {
+        clear: both;
+    }
+
     .profile-matches h1 {
         font-size: 1.8em;
     }
@@ -890,6 +899,20 @@ i[data-close] {
 
     #profile-level, #profile-name {
         padding: 0 0 0 30px;
+    }
+
+    #lanesGraphContainer {
+        width: 90%;
+        margin: 20px 20px;
+    }
+
+    #lanesGraphContainer div:nth-child(1), #lanesGraphContainer div:nth-child(2) {
+        width: 50%;
+        float: left;
+    }
+
+    #lanesGraphContainer div:nth-child(2) {
+        float: right;
     }
 
     .champion-icon {
@@ -1061,5 +1084,17 @@ i[data-close] {
         clear: right;
         float: right;
         width: 50%;
+    }
+
+    #lanesGraphContainer div:nth-child(1), #lanesGraphContainer div:nth-child(2) {
+        width: 30%;
+    }
+
+    #lanesGraphContainer div:nth-child(1) {
+        margin-left: 10%;
+    }
+
+    #lanesGraphContainer div:nth-child(2) {
+        margin-right: 10%;
     }
 }
