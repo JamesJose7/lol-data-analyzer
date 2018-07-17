@@ -589,6 +589,17 @@ i {
     margin: 20px auto;
 }
 
+#lanesGraphContainer div {
+    background-color: rgba(169,169,169,.1);
+    padding: 10px 20px;
+    border-radius: 40px;
+    margin-bottom: 30px;
+}
+
+#lanesGraphContainer div h3 {
+    border-bottom: 1px solid rgba(0,0,0,.5);
+}
+
 .match-details-container {
     background-color: rgba(155,155,155,.2);
     padding: 8px 4px;
@@ -907,7 +918,7 @@ i[data-close] {
     }
 
     #lanesGraphContainer div:nth-child(1), #lanesGraphContainer div:nth-child(2) {
-        width: 50%;
+        width: 48%;
         float: left;
     }
 
@@ -1086,15 +1097,19 @@ i[data-close] {
         width: 50%;
     }
 
+    #lanesGraphContainer {
+        margin: 20px auto;
+    }
+
     #lanesGraphContainer div:nth-child(1), #lanesGraphContainer div:nth-child(2) {
-        width: 30%;
+        width: 40%;
     }
 
     #lanesGraphContainer div:nth-child(1) {
-        margin-left: 10%;
+        margin-left: 5%;
     }
 
     #lanesGraphContainer div:nth-child(2) {
-        margin-right: 10%;
+        margin-right: 5%;
     }
 }
