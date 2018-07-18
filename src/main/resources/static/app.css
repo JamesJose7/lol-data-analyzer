@@ -619,6 +619,10 @@ i {
     border-bottom: 1px solid rgba(0,0,0,.5);
 }
 
+#levelHistoryContainer {
+    height: 50vh;
+}
+
 .match-details-container {
     background-color: rgba(155,155,155,.2);
     padding: 8px 4px;
