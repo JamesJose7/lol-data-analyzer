@@ -3,7 +3,6 @@
 <head th:replace="layout :: head('jugadores')"></head>
 <body>
 <div th:replace="layout :: nav"></div>
-<div th:replace="layout :: searchbar"></div>
 <div th:replace="layout :: flash"></div>
 
 <section class="main-content">
@@ -31,6 +30,24 @@
                     <p th:text="|${T(com.jeep.lolesports.utils.Utils).prettyQueueName(jugador.tipoColaRankedFlex)} / ${jugador.puntosRankedFlex} LP|">Flex ranked / 40LP</p>
                     <p th:text="${jugador.nombreLigaRankedFlex}">Rengar's Slayers</p>
                     <p><span class="wins" th:text="|${jugador.victoriasRankedFlex} W|"></span> <span class="losses" th:text="|${jugador.derrotasRankedFlex} L|"></span></p>
+                </div>
+            </section>
+        </section>
+
+        <section class="player-stats-container summoner-card">
+            <h1>Estadísticas</h1>
+            <section id="lanesGraphContainer" class="clearfix">
+                <div>
+                    <h3>Roles</h3>
+                    <canvas id="playerLanes" width="100" height="100"></canvas>
+                </div>
+                <div>
+                    <h3>Victorias / Derrotas</h3>
+                    <canvas id="winRatio" width="100" height="100"></canvas>
+                </div>
+                <div>
+                    <h3>Nivel</h3>
+                    <canvas id="levelHistory" width="100" height="150"></canvas>
                 </div>
             </section>
         </section>
@@ -129,5 +146,120 @@
 </section>
 
 <div th:replace="layout :: scripts"></div>
+<script th:src="@{/vendor/chartjs/Chart.bundle.js}"></script>
+<script th:inline="javascript">
+    /* TOP, JUNGLE, MID, SUPPORT, ADC*/
+    var laneCounts = /*[[${playerLanesCount}]]*/ [0,0,0,0,0];
+    var ctx = document.getElementById("playerLanes").getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'radar',
+        data: {
+            labels: ["Top", "Jungla", "Mid", "Support", "ADC"],
+            datasets: [{
+                label: 'Partidas',
+                data: laneCounts,
+                backgroundColor: [
+                    'rgba(243,119,53, 0.4)'
+                ],
+                borderColor: [
+                    'rgba(243,119,53,1)'
+                ],
+                pointBackgroundColor: 'rgba(209,17,65,0.6)',
+                pointBorderColor: 'rgba(255,196,37,1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            maintainAspectRatio: true,
+            spanGaps: false,
+            scale: {
+                type: 'radialLinear',
+                ticks: {
+                    showLabelBackdrop: true,
+                    backdropColor: 'rgba(169,169,169,0)',
+                    backdropPaddingY: 2,
+                    backdropPaddingX: 2
+                }
+            },
+            legend: {
+                labels: {
+                }
+            }
+        }
+    });
+
+    /* Win ratio */
+    var winRatio = /*[[${winRatio}]]*/ [0,0];
+    var winRatioCanvas = document.getElementById("winRatio").getContext('2d');
+    var winRatioChart = new Chart(winRatioCanvas, {
+        type: 'doughnut',
+        data: {
+            labels: ["Ganadas", "Perdidas"],
+            datasets: [{
+                label: 'Partidas',
+                data: winRatio,
+                backgroundColor: [
+                    'rgba(0,177,89,0.8)',
+                    'rgba(209,17,65,0.8)'
+                ],
+                borderColor: [
+                    'rgba(255,255,255,1)',
+                    'rgba(255,255,255,1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            maintainAspectRatio: true,
+            spanGaps: false,
+        }
+    });
+
+    /* Level */
+    var levelHistory = /*[[${levelHistory}]]*/ [0,0];
+    var levelHistoryLabels = /*[[${levelHistoryLabels}]]*/ [0,0];
+    var levelHistoryCanvas = document.getElementById('levelHistory').getContext('2d');
+    var levelHistoryChart = new Chart(levelHistoryCanvas, {
+        // The type of chart we want to create
+        type: 'line',
+
+        // The data for our dataset
+        data: {
+            labels: levelHistoryLabels,
+            datasets: [{
+                label: "Historial de nivel",
+                backgroundColor: 'rgba(255,196,37,0.7)',
+                borderColor: 'rgb(255,196,37)',
+                data: levelHistory
+            }]
+        },
+
+        // Configuration options go here
+        options: {
+            maintainAspectRatio: false,
+            layout: {
+                padding: {
+                    left: 0,
+                    right: 0,
+                    top: 0,
+                    bottom: 10
+                }
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero:false,
+                        stepSize: 1
+                    }
+                }],
+                xAxes: [{
+                    ticks: {
+                        beginAtZero:false
+                    }
+                }]
+            }
+        }
+    });
+</script>
 </body>
 </html>

@@ -14,12 +14,12 @@
         <fieldset class="left settings">
             <label class="settings" for="horas">Horas:</label>
             <select class="settings" name="horas" id="horas" th:field="*{horas}">
-                <option th:value="${i}" th:text="${i}" th:each="i : ${#numbers.sequence(1, 23)}"></option>
+                <option th:value="${i}" th:text="${i}" th:each="i : ${#numbers.sequence(0, 23)}"></option>
             </select>
 
             <label class="settings" for="minutos">Minutos:</label>
             <select class="settings" name="minutos" id="minutos" th:field="*{minutos}">
-                <option th:value="${i}" th:text="${i}" th:each="i :${#numbers.sequence(1, 59)}"></option>
+                <option th:value="${i}" th:text="${i}" th:each="i :${#numbers.sequence(0, 59)}"></option>
             </select>
         </fieldset>
 

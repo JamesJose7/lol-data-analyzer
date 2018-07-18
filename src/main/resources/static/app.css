@@ -204,13 +204,32 @@ img.member-logo {
 .right-setting {
     /* display: block; */
     width: 49%;
-    height: 75px;
-    border: 1px solid #999;
-    border-radius: 10px;
+    height: 65px;
+    border-radius: 4px;
     background-color: #e5e5e5;
     margin-bottom: 20px;
     text-align: center;
     display: table;
+}
+
+.hover-animated-button {
+    -webkit-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+    -moz-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+    -ms-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+    -o-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+    transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+    border-radius: 4px;
+}
+
+.hover-animated-button {
+    color: rgba(30, 22, 54, 0.6);
+    box-shadow: rgba(30, 22, 54, 0.4) 0 0px 0px 2px inset;
+}
+
+.hover-animated-button:hover {
+    font-weight: bold;
+    color: rgba(255, 255, 255, 0.85);
+    box-shadow: rgba(30, 22, 54, 0.7) 0 0px 0px 40px inset;
 }
 
 .left-setting a,
@@ -584,6 +603,22 @@ i {
     display: inline-block;
 }
 
+#lanesGraphContainer {
+    width: 80%;
+    margin: 20px auto;
+}
+
+#lanesGraphContainer div {
+    background-color: rgba(169,169,169,.1);
+    padding: 10px 20px;
+    border-radius: 40px;
+    margin-bottom: 30px;
+}
+
+#lanesGraphContainer div h3 {
+    border-bottom: 1px solid rgba(0,0,0,.5);
+}
+
 .match-details-container {
     background-color: rgba(155,155,155,.2);
     padding: 8px 4px;
@@ -876,6 +911,10 @@ i[data-close] {
         font-size: 1em;
     }
 
+    .profile-matches-title {
+        clear: both;
+    }
+
     .profile-matches h1 {
         font-size: 1.8em;
     }
@@ -890,6 +929,24 @@ i[data-close] {
 
     #profile-level, #profile-name {
         padding: 0 0 0 30px;
+    }
+
+    #lanesGraphContainer {
+        width: 90%;
+        margin: 20px 20px;
+    }
+
+    #lanesGraphContainer div:nth-child(1), #lanesGraphContainer div:nth-child(2) {
+        width: 48%;
+        float: left;
+    }
+
+    #lanesGraphContainer div:nth-child(2) {
+        float: right;
+    }
+
+    #lanesGraphContainer div:nth-child(3) {
+        clear: both;
     }
 
     .champion-icon {
@@ -1061,5 +1118,25 @@ i[data-close] {
         clear: right;
         float: right;
         width: 50%;
+    }
+
+    #lanesGraphContainer {
+        margin: 20px auto;
+    }
+
+    #lanesGraphContainer div:nth-child(1), #lanesGraphContainer div:nth-child(2) {
+        width: 40%;
+    }
+
+    #lanesGraphContainer div:nth-child(1) {
+        margin-left: 5%;
+    }
+
+    #lanesGraphContainer div:nth-child(2) {
+        margin-right: 5%;
+    }
+
+    #lanesGraphContainer div:nth-child(3) {
+        margin: 20px 5%;
     }
 }

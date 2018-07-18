@@ -10,9 +10,9 @@
     <h2 class="settings-section">Administrar Integrantes</h2>
 
     <div class="settings-container clearfix">
-        <div class="left-setting"><a href="/admin/agregar-integrante">Ingresar</a></div>
-        <div class="right-setting"><a href="/admin/editar-integrante">Modificar</a></div>
-        <div class="left-setting"><a href="/admin/borrar-integrante">Eliminar</a></div>
+        <div class="left-setting"><a class="hover-animated-button" href="/admin/agregar-integrante">Ingresar</a></div>
+        <div class="right-setting"><a class="hover-animated-button" href="/admin/editar-integrante">Modificar</a></div>
+        <div class="left-setting"><a class="hover-animated-button" href="/admin/borrar-integrante">Eliminar</a></div>
     </div>
 </div>
 
@@ -20,8 +20,8 @@
     <h2 class="settings-section">Administrar usuarios</h2>
 
     <div class="settings-container clearfix">
-        <div class="left-setting"><a href="/admin/agregar-admin">Ingresar</a></div>
-        <div class="right-setting"><a href="/admin/edit-admins">Modificar</a></div>
+        <div class="left-setting"><a class="hover-animated-button" href="/admin/agregar-admin">Ingresar</a></div>
+        <div class="right-setting"><a class="hover-animated-button" href="/admin/edit-admins">Modificar</a></div>
     </div>
 </div>
 
@@ -30,10 +30,9 @@
     <h2 class="settings-section">Administrar plataforma</h2>
 
     <div class="settings-container clearfix">
-        <div class="left-setting"><a th:href="@{/admin/extractor}">Modificar horario de extracción</a></div>
-        <div class="right-setting" th:classappend="${extractorState ? 'extractor-active' : 'extractor-disabled'}">
-            <p th:text="|Estado de extractor|">Estado de extractor</p>
-            <p th:text="|${hours}h${minutes}|"></p>
+        <div class="higher-setting left-setting"><a class="hover-animated-button" th:href="@{/admin/extractor}">Modificar horario de extracción</a></div>
+        <div class="higher-setting right-setting" th:classappend="${extractorState ? 'extractor-active' : 'extractor-disabled'}" style="display: table;">
+            <p style="display: table-cell; vertical-align: middle;">Horario de extracción: <span th:text="|${hours}h${minutes}|"></span></p>
         </div>
     </div>
 </div>
