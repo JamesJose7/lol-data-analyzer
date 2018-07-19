@@ -413,25 +413,29 @@ public class IntegranteController {
     public String chooseToCompare(Model model) {
         List<Integrante> jugadores = integranteService.findAll();
 
-        model.addAttribute("action", "/get-comparison");
+        model.addAttribute("action", "/compare-result");
         model.addAttribute("selected_players", new PlayerComparison());
 
         model.addAttribute("jugadores", jugadores);
         return "jugador/choose_compare";
     }
 
-    @RequestMapping(value = "/get-comparison", method = RequestMethod.POST)
-    public String getCOmparison(PlayerComparison playerComparison, BindingResult result, RedirectAttributes redirectAttributes) {
-        if (playerComparison.getPlayer2Id() == 0 || playerComparison.getPlayer1Id() == 0) {
+    @RequestMapping(value = "/compare-result", method = RequestMethod.GET)
+    public String getComparison(@RequestParam(required = false) Integer p1, @RequestParam(required = false) Integer p2,
+                                Model model, RedirectAttributes redirectAttributes) {
+        if (p1 == null || p2 == null) {
             redirectAttributes.addFlashAttribute("flash", new FlashMessage("Seleccione dos jugadores por favor", FlashMessage.Status.FAILURE));
+            return "redirect:/compare";
+        } else if (p1.equals(p2)) {
+            redirectAttributes.addFlashAttribute("flash", new FlashMessage("Seleccione dos jugadores diferentes por favor", FlashMessage.Status.FAILURE));
             return "redirect:/compare";
         }
 
         // Load champions
         riotService.loadChampionData();
         // Get players by id
-        Integrante integrante1 = integranteService.findById(playerComparison.getPlayer1Id());
-        Integrante integrante2 = integranteService.findById(playerComparison.getPlayer2Id());
+        Integrante integrante1 = integranteService.findById(p1);
+        Integrante integrante2 = integranteService.findById(p2);
 
         // Get player matches
         List<Partida> partidas1 = partidaService.findPlayerMatches(integrante1);
@@ -443,7 +447,7 @@ public class IntegranteController {
                 Champion champ = riotService.getChampionById(stats.getChampionId());
                 stats.setChampion(champ);
                 //Set player stats
-                if (stats.getSummonerId() == playerComparison.getPlayer1Id())
+                if (stats.getSummonerId() == p1)
                     partida.setPlayerStats(stats);
             }
             partida.setTeams(matchDataService.findTeamStats(partida));
@@ -457,7 +461,7 @@ public class IntegranteController {
                 Champion champ = riotService.getChampionById(stats.getChampionId());
                 stats.setChampion(champ);
                 //Set player stats
-                if (stats.getSummonerId() == playerComparison.getPlayer2Id())
+                if (stats.getSummonerId() == p2)
                     partida.setPlayerStats(stats);
             }
             partida.setTeams(matchDataService.findTeamStats(partida));
@@ -466,35 +470,28 @@ public class IntegranteController {
         }
 
         //Get history data
-        List<IntegranteHistory> historyData1 = integranteHistoryService.findBySummonerId(playerComparison.getPlayer1Id());
-        List<IntegranteHistory> historyData2 = integranteHistoryService.findBySummonerId(playerComparison.getPlayer2Id());
+        List<IntegranteHistory> historyData1 = integranteHistoryService.findBySummonerId(p1);
+        List<IntegranteHistory> historyData2 = integranteHistoryService.findBySummonerId(p2);
 
         //history data fro graphs
 
         for (Map.Entry<String[], Integer[]> entry : ProfileStatsCalculator.calculateLevelHistory(historyData1).entrySet()) {
-            redirectAttributes.addFlashAttribute("levelHistoryLabels1", entry.getKey());
-            redirectAttributes.addFlashAttribute("levelHistory1", entry.getValue());
+            model.addAttribute("levelHistoryLabels1", entry.getKey());
+            model.addAttribute("levelHistory1", entry.getValue());
         }
 
         for (Map.Entry<String[], Integer[]> entry : ProfileStatsCalculator.calculateLevelHistory(historyData2).entrySet()) {
-            redirectAttributes.addFlashAttribute("levelHistoryLabels2", entry.getKey());
-            redirectAttributes.addFlashAttribute("levelHistory2", entry.getValue());
+            model.addAttribute("levelHistoryLabels2", entry.getKey());
+            model.addAttribute("levelHistory2", entry.getValue());
         }
 
-        redirectAttributes.addFlashAttribute("jugador1", integrante1);
-        redirectAttributes.addFlashAttribute("jugador2", integrante2);
-        redirectAttributes.addFlashAttribute("playerLanesCount1", ProfileStatsCalculator.countPlayedLanes(partidas1));
-        redirectAttributes.addFlashAttribute("playerLanesCount2", ProfileStatsCalculator.countPlayedLanes(partidas2));
-        redirectAttributes.addFlashAttribute("winRatio1", ProfileStatsCalculator.countWinLoses(partidas1));
-        redirectAttributes.addFlashAttribute("winRatio2", ProfileStatsCalculator.countWinLoses(partidas2));
+        model.addAttribute("jugador1", integrante1);
+        model.addAttribute("jugador2", integrante2);
+        model.addAttribute("playerLanesCount1", ProfileStatsCalculator.countPlayedLanes(partidas1));
+        model.addAttribute("playerLanesCount2", ProfileStatsCalculator.countPlayedLanes(partidas2));
+        model.addAttribute("winRatio1", ProfileStatsCalculator.countWinLoses(partidas1));
+        model.addAttribute("winRatio2", ProfileStatsCalculator.countWinLoses(partidas2));
 
-        return "redirect:/compare-result";
-    }
-
-    @RequestMapping("/compare-result")
-    public String compareResult(Model model) {
-        if (!model.containsAttribute("jugador1"))
-            return "redirect:/compare";
         return "jugador/compare_members";
     }
 }
