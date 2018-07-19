@@ -28,6 +28,7 @@
             <ul class="navbar">
                 <li th:classappend="${#httpServletRequest.servletPath.equals('/') ? 'active' : ''}"><a th:href="@{/}">Summoners</a></li>
                 <li th:classappend="${#httpServletRequest.servletPath.equals('/leaderboard') ? 'active' : ''}"><a th:href="@{/leaderboard}">Leaderboard</a></li>
+                <li th:classappend="${#httpServletRequest.servletPath.equals('/compare') ? 'active' : ''}"><a th:href="@{/compare}">Comparar</a></li>
                 <li th:classappend="${#httpServletRequest.servletPath.equals('/about') ? 'active' : ''}"><a th:href="@{/about}">About</a></li>
             </ul>
         </div>
