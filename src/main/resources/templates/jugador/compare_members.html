@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head('jugadores')"></head>
+<body>
+<div th:replace="layout :: nav"></div>
+<div th:replace="layout :: flash"></div>
+
+<section class="main-content">
+    <div class="profile-container">
+        <section class="profile-info summoner-card clearfix">
+            <section class="profile-basic-info clearfix">
+                <img id="profile-image" th:src="@{|https://avatar.leagueoflegends.com/lan/${jugador1.nombreInvocador}.png|}" alt="imagen de perfil"/>
+                <h1 id="profile-name" th:text="${jugador1.nombreInvocador}">Zetal</h1>
+                <p id="profile-level" th:text="|Level ${jugador1.nivel}|">Level 55</p>
+                <!--<img th:src="@{/images/member_logo.png}" alt="logo de miembro"/>-->
+            </section>
+
+
+            <section class="profile-ranked clearfix">
+                <div id="solo-ranked-container">
+                    <img th:src="@{|/images/tier-icons/${jugador1.nivelRankedSolo}_${jugador1.rangoRankedSolo}.png|}" alt="ranked solo"/>
+                    <h1 th:text="|${T(com.jeep.lolesports.utils.Utils).firstUpperCase(jugador1.nivelRankedSolo)} ${jugador1.rangoRankedSolo}|">Unranked</h1>
+                    <p th:text="|${T(com.jeep.lolesports.utils.Utils).prettyQueueName(jugador1.tipoColaRankedSolo)} / ${jugador1.puntosRankedSolo} LP|">Solo ranked / 40LP</p>
+                    <p th:text="${jugador1.nombreLigaRankedSolo}">Rengar's Slayers</p>
+                    <p><span class="wins" th:text="|${jugador1.victoriasRankedSolo} W|"></span> <span class="losses" th:text="|${jugador1.derrotasRankedSolo} L|"></span></p>
+                </div>
+                <div id="flex-ranked-container">
+                    <img th:src="@{|/images/tier-icons/${jugador1.nivelRankedFlex}_${jugador1.rangoRankedFlex}.png|}" alt="ranked flex"/>
+                    <h1 th:text="|${T(com.jeep.lolesports.utils.Utils).firstUpperCase(jugador1.nivelRankedFlex)} ${jugador1.rangoRankedFlex}|">Unranked</h1>
+                    <p th:text="|${T(com.jeep.lolesports.utils.Utils).prettyQueueName(jugador1.tipoColaRankedFlex)} / ${jugador1.puntosRankedFlex} LP|">Flex ranked / 40LP</p>
+                    <p th:text="${jugador1.nombreLigaRankedFlex}">Rengar's Slayers</p>
+                    <p><span class="wins" th:text="|${jugador1.victoriasRankedFlex} W|"></span> <span class="losses" th:text="|${jugador1.derrotasRankedFlex} L|"></span></p>
+                </div>
+            </section>
+        </section>
+
+        <section class="profile-info summoner-card clearfix">
+            <section class="profile-basic-info clearfix">
+                <img id="profile-image" th:src="@{|https://avatar.leagueoflegends.com/lan/${jugador2.nombreInvocador}.png|}" alt="imagen de perfil"/>
+                <h1 id="profile-name" th:text="${jugador2.nombreInvocador}">Zetal</h1>
+                <p id="profile-level" th:text="|Level ${jugador2.nivel}|">Level 55</p>
+                <!--<img th:src="@{/images/member_logo.png}" alt="logo de miembro"/>-->
+            </section>
+
+
+            <section class="profile-ranked clearfix">
+                <div id="solo-ranked-container">
+                    <img th:src="@{|/images/tier-icons/${jugador2.nivelRankedSolo}_${jugador2.rangoRankedSolo}.png|}" alt="ranked solo"/>
+                    <h1 th:text="|${T(com.jeep.lolesports.utils.Utils).firstUpperCase(jugador2.nivelRankedSolo)} ${jugador2.rangoRankedSolo}|">Unranked</h1>
+                    <p th:text="|${T(com.jeep.lolesports.utils.Utils).prettyQueueName(jugador2.tipoColaRankedSolo)} / ${jugador2.puntosRankedSolo} LP|">Solo ranked / 40LP</p>
+                    <p th:text="${jugador2.nombreLigaRankedSolo}">Rengar's Slayers</p>
+                    <p><span class="wins" th:text="|${jugador2.victoriasRankedSolo} W|"></span> <span class="losses" th:text="|${jugador2.derrotasRankedSolo} L|"></span></p>
+                </div>
+                <div id="flex-ranked-container">
+                    <img th:src="@{|/images/tier-icons/${jugador2.nivelRankedFlex}_${jugador2.rangoRankedFlex}.png|}" alt="ranked flex"/>
+                    <h1 th:text="|${T(com.jeep.lolesports.utils.Utils).firstUpperCase(jugador2.nivelRankedFlex)} ${jugador2.rangoRankedFlex}|">Unranked</h1>
+                    <p th:text="|${T(com.jeep.lolesports.utils.Utils).prettyQueueName(jugador2.tipoColaRankedFlex)} / ${jugador2.puntosRankedFlex} LP|">Flex ranked / 40LP</p>
+                    <p th:text="${jugador2.nombreLigaRankedFlex}">Rengar's Slayers</p>
+                    <p><span class="wins" th:text="|${jugador2.victoriasRankedFlex} W|"></span> <span class="losses" th:text="|${jugador2.derrotasRankedFlex} L|"></span></p>
+                </div>
+            </section>
+        </section>
+
+        <section class="player-stats-container summoner-card">
+            <h1>Estadísticas</h1>
+            <section id="lanesGraphContainer" class="clearfix">
+                <div>
+                    <h3>Roles</h3>
+                    <canvas id="playerLanes" width="100" height="100"></canvas>
+                </div>
+                <div>
+                    <h3>Victorias</h3>
+                    <canvas id="winRatio" width="100" height="100"></canvas>
+                </div>
+                <!--<div id="levelHistoryContainer">
+                    <h3>Nivel</h3>
+                    <canvas id="levelHistory"></canvas>
+                </div>-->
+            </section>
+        </section>
+
+    </div>
+</section>
+
+<div th:replace="layout :: scripts"></div>
+<script th:src="@{/vendor/chartjs/Chart.bundle.js}"></script>
+<script th:inline="javascript">
+    var player1Name = /*[[${jugador1.nombreInvocador}]]*/ 'player';
+    var player2Name = /*[[${jugador2.nombreInvocador}]]*/ 'player';
+    /* TOP, JUNGLE, MID, SUPPORT, ADC*/
+    var laneCounts1 = /*[[${playerLanesCount1}]]*/ [0,0,0,0,0];
+    var laneCounts2 = /*[[${playerLanesCount2}]]*/ [0,0,0,0,0];
+    var ctx = document.getElementById("playerLanes").getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'radar',
+        data: {
+            labels: ["Top", "Jungla", "Mid", "Support", "ADC"],
+            datasets: [
+                {
+                label: player1Name,
+                data: laneCounts1,
+                backgroundColor: [
+                    'rgba(243,119,53, 0.4)'
+                ],
+                borderColor: [
+                    'rgba(243,119,53,1)'
+                ],
+                pointBackgroundColor: 'rgba(209,17,65,0.6)',
+                pointBorderColor: 'rgba(255,196,37,1)',
+                borderWidth: 1
+                },
+                {
+                    label: player2Name,
+                    data: laneCounts2,
+                    backgroundColor: [
+                        'rgba(255,196,37,0.4)'
+                    ],
+                    borderColor: [
+                        'rgba(255,196,37,1)'
+                    ],
+                    pointBackgroundColor: 'rgba(255,196,37,0.6)',
+                    pointBorderColor: 'rgba(209,17,65,1)',
+                    borderWidth: 1
+                }
+            ]
+        },
+        options: {
+            maintainAspectRatio: true,
+            spanGaps: false,
+            scale: {
+                type: 'radialLinear',
+                ticks: {
+                    showLabelBackdrop: true,
+                    backdropColor: 'rgba(169,169,169,0)',
+                    backdropPaddingY: 2,
+                    backdropPaddingX: 2
+                }
+            },
+            legend: {
+                labels: {
+                }
+            }
+        }
+    });
+
+    /* Win ratio */
+    var winRatio1 = /*[[${winRatio1}]]*/ [0,0];
+    var winRatio2 = /*[[${winRatio2}]]*/ [0,0];
+    var mixedWins = [winRatio1[0], winRatio2[0]];
+    var winRatioCanvas = document.getElementById("winRatio").getContext('2d');
+    var winRatioChart = new Chart(winRatioCanvas, {
+        type: 'doughnut',
+        data: {
+            labels: [player1Name, player2Name],
+            datasets: [{
+                label: 'Partidas',
+                data: mixedWins,
+                backgroundColor: [
+                    'rgba(0,177,89,0.8)',
+                    'rgba(0,123,62,0.8)'
+                ],
+                borderColor: [
+                    'rgba(255,255,255,1)',
+                    'rgba(255,255,255,1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            maintainAspectRatio: true,
+            spanGaps: false,
+        }
+    });
+
+    /* Level */
+    /*var levelHistory = /!*[[${levelHistory}]]*!/ [0,0];
+    var levelHistoryLabels = /!*[[${levelHistoryLabels}]]*!/ [0,0];
+    var levelHistoryCanvas = document.getElementById('levelHistory').getContext('2d');
+    var levelHistoryChart = new Chart(levelHistoryCanvas, {
+        // The type of chart we want to create
+        type: 'line',
+
+        // The data for our dataset
+        data: {
+            labels: levelHistoryLabels,
+            datasets: [{
+                label: "Historial de nivel",
+                backgroundColor: 'rgba(255,196,37,0.7)',
+                borderColor: 'rgb(255,196,37)',
+                data: levelHistory
+            }]
+        },
+
+        // Configuration options go here
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            layout: {
+                padding: {
+                    left: 0,
+                    right: 0,
+                    top: 0,
+                    bottom: 80
+                }
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero:false,
+                        stepSize: 1
+                    }
+                }],
+                xAxes: [{
+                    ticks: {
+                        beginAtZero:false
+                    }
+                }]
+            }
+        }
+    });*/
+</script>
+</body>
+</html>

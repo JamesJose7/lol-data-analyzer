@@ -1,9 +1,6 @@
 package com.jeep.lolesports.web.controller;
 
-import com.jeep.lolesports.model.Integrante;
-import com.jeep.lolesports.model.IntegranteHistory;
-import com.jeep.lolesports.model.Jugador;
-import com.jeep.lolesports.model.Partida;
+import com.jeep.lolesports.model.*;
 import com.jeep.lolesports.model.matches_data.ParticipantsStatsPar;
 import com.jeep.lolesports.model.static_riot.Champion;
 import com.jeep.lolesports.service.*;
@@ -409,5 +406,95 @@ public class IntegranteController {
         model.addAttribute("jugadores", jugadoresByRango);
         model.addAttribute("filterName", "Rango Flex");
         return "jugador/leaderboardflex";
+    }
+
+    /* Comparison */
+    @RequestMapping("/compare")
+    public String chooseToCompare(Model model) {
+        List<Integrante> jugadores = integranteService.findAll();
+
+        model.addAttribute("action", "/get-comparison");
+        model.addAttribute("selected_players", new PlayerComparison());
+
+        model.addAttribute("jugadores", jugadores);
+        return "jugador/choose_compare";
+    }
+
+    @RequestMapping(value = "/get-comparison", method = RequestMethod.POST)
+    public String getCOmparison(PlayerComparison playerComparison, BindingResult result, RedirectAttributes redirectAttributes) {
+        if (playerComparison.getPlayer2Id() == 0 || playerComparison.getPlayer1Id() == 0) {
+            redirectAttributes.addFlashAttribute("flash", new FlashMessage("Seleccione dos jugadores por favor", FlashMessage.Status.FAILURE));
+            return "redirect:/compare";
+        }
+
+        // Load champions
+        riotService.loadChampionData();
+        // Get players by id
+        Integrante integrante1 = integranteService.findById(playerComparison.getPlayer1Id());
+        Integrante integrante2 = integranteService.findById(playerComparison.getPlayer2Id());
+
+        // Get player matches
+        List<Partida> partidas1 = partidaService.findPlayerMatches(integrante1);
+        List<Partida> partidas2 = partidaService.findPlayerMatches(integrante2);
+
+        for (Partida partida : partidas1) {
+            partida.setParticipantsStats(matchDataService.findParticipantsStats(partida));
+            for (ParticipantsStatsPar stats : partida.getParticipantsStats()) {
+                Champion champ = riotService.getChampionById(stats.getChampionId());
+                stats.setChampion(champ);
+                //Set player stats
+                if (stats.getSummonerId() == playerComparison.getPlayer1Id())
+                    partida.setPlayerStats(stats);
+            }
+            partida.setTeams(matchDataService.findTeamStats(partida));
+            //Set champion played
+            partida.setChampionPlayed(riotService.getChampionById(partida.getChampionPlayedId()));
+        }
+
+        for (Partida partida : partidas2) {
+            partida.setParticipantsStats(matchDataService.findParticipantsStats(partida));
+            for (ParticipantsStatsPar stats : partida.getParticipantsStats()) {
+                Champion champ = riotService.getChampionById(stats.getChampionId());
+                stats.setChampion(champ);
+                //Set player stats
+                if (stats.getSummonerId() == playerComparison.getPlayer2Id())
+                    partida.setPlayerStats(stats);
+            }
+            partida.setTeams(matchDataService.findTeamStats(partida));
+            //Set champion played
+            partida.setChampionPlayed(riotService.getChampionById(partida.getChampionPlayedId()));
+        }
+
+        //Get history data
+        List<IntegranteHistory> historyData1 = integranteHistoryService.findBySummonerId(playerComparison.getPlayer1Id());
+        List<IntegranteHistory> historyData2 = integranteHistoryService.findBySummonerId(playerComparison.getPlayer2Id());
+
+        //history data fro graphs
+
+        for (Map.Entry<String[], Integer[]> entry : ProfileStatsCalculator.calculateLevelHistory(historyData1).entrySet()) {
+            redirectAttributes.addFlashAttribute("levelHistoryLabels1", entry.getKey());
+            redirectAttributes.addFlashAttribute("levelHistory1", entry.getValue());
+        }
+
+        for (Map.Entry<String[], Integer[]> entry : ProfileStatsCalculator.calculateLevelHistory(historyData2).entrySet()) {
+            redirectAttributes.addFlashAttribute("levelHistoryLabels2", entry.getKey());
+            redirectAttributes.addFlashAttribute("levelHistory2", entry.getValue());
+        }
+
+        redirectAttributes.addFlashAttribute("jugador1", integrante1);
+        redirectAttributes.addFlashAttribute("jugador2", integrante2);
+        redirectAttributes.addFlashAttribute("playerLanesCount1", ProfileStatsCalculator.countPlayedLanes(partidas1));
+        redirectAttributes.addFlashAttribute("playerLanesCount2", ProfileStatsCalculator.countPlayedLanes(partidas2));
+        redirectAttributes.addFlashAttribute("winRatio1", ProfileStatsCalculator.countWinLoses(partidas1));
+        redirectAttributes.addFlashAttribute("winRatio2", ProfileStatsCalculator.countWinLoses(partidas2));
+
+        return "redirect:/compare-result";
+    }
+
+    @RequestMapping("/compare-result")
+    public String compareResult(Model model) {
+        if (!model.containsAttribute("jugador1"))
+            return "redirect:/compare";
+        return "jugador/compare_members";
     }
 }
