@@ -149,6 +149,19 @@ a.button {
     max-width: 134px;
 }
 
+.basic-info .profile-icon {
+    min-width: 80px;
+    width: 20%;
+}
+
+.basic-info h1 {
+    font-size: 4vw;
+}
+
+.basic-info P {
+    font-size: 2vw;
+}
+
 .ranked-info {
     text-align: center;
     margin-top: 15px;
@@ -170,7 +183,7 @@ a.button {
 }
 
 img.member-logo {
-    width: 40px;
+    width: 30px;
     border: none;
     box-shadow: none;
 }
@@ -564,11 +577,11 @@ i {
 }
 
 #profile-name {
-    font-size: 7vw;
+    font-size: 4vw;
 }
 
 #profile-level {
-    font-size: 4vw;
+    font-size: 3vw;
 }
 
 #profile-name, #profile-level {
@@ -988,6 +1001,24 @@ i[data-close] {
         float: right;
     }
 
+    img.member-logo {
+        width: 40px;
+    }
+
+
+    .basic-info .profile-icon {
+        min-width: 134px;
+        width: 40%;
+    }
+
+    .basic-info h1 {
+        font-size: 2em;
+    }
+
+    .basic-info P {
+        font-size: 1em;
+    }
+
     /* Summoner page */
     .ranked-info {
         text-align: left;
@@ -1025,11 +1056,11 @@ i[data-close] {
     }
 
     #profile-name {
-        font-size: 3em;
+        font-size: 2em;
     }
 
     #profile-level {
-        font-size: 1.6em;
+        font-size: 1em;
     }
 
     #profile-level, #profile-name {

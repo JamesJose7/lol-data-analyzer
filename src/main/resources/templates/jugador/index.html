@@ -11,7 +11,7 @@
     <div >
         <div th:each="jugador : ${jugadores}" class="summoner-card clearfix">
             <div class="basic-info">
-                <a th:href="@{|/jugadores/${jugador.id}|}"><img th:src="@{|https://avatar.leagueoflegends.com/lan/${jugador.nombreInvocador}.png|}" alt="profile icon"/></a>
+                <a th:href="@{|/jugadores/${jugador.id}|}"><img class="profile-icon" th:src="@{|https://avatar.leagueoflegends.com/lan/${jugador.nombreInvocador}.png|}" alt="profile icon"/></a>
                 <h1 th:text="${jugador.nombreInvocador}"></h1>
                 <p th:text="|Level ${jugador.nivel}|"></p>
                 <img th:src="@{/images/member_logo.png}" alt="logo de miembro" class="member-logo"/>

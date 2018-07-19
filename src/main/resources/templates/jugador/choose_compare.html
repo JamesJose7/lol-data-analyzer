@@ -30,11 +30,11 @@
 <section class="main-content">
     <div class="container comparison-container">
         <h1>Comparar dos jugadores</h1>
-        <form th:action="${action}" method="post" th:object="${selected_players}">
+        <form th:action="${action}" method="get">
         <div class="left-comparison-container">
             <h2>Jugador #1</h2>
             <div th:each="jugador : ${jugadores}" class="mini-summoner-card clearfix">
-                <input th:value="${jugador.id}" th:field="*{player1Id}" type="radio" th:id="|${jugador.nombreInvocador}1|" name="first-member"/>
+                <input th:value="${jugador.id}" type="radio" th:id="|${jugador.nombreInvocador}1|" name="p1"/>
                 <label th:for="|${jugador.nombreInvocador}1|">
                 <div class="basic-info">
                     <img th:src="@{|https://avatar.leagueoflegends.com/lan/${jugador.nombreInvocador}.png|}" alt="profile icon"/> 
@@ -48,7 +48,7 @@
         <div class="right-comparison-container">
             <h2>Jugador #2</h2>
             <div th:each="jugador : ${jugadores}" class="mini-summoner-card clearfix">
-                <input th:value="${jugador.id}" th:field="*{player2Id}" type="radio" th:id="|${jugador.nombreInvocador}2|" name="second-member"/>
+                <input th:value="${jugador.id}" type="radio" th:id="|${jugador.nombreInvocador}2|" name="p2"/>
                 <label th:for="|${jugador.nombreInvocador}2|">
                     <div class="basic-info">
                         <img th:src="@{|https://avatar.leagueoflegends.com/lan/${jugador.nombreInvocador}.png|}" alt="profile icon"/>
