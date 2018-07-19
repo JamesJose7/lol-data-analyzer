@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head('jugadores')"></head>
+<style>
+    /* width */
+    ::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: #888;
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
+</style>
+<body>
+<div th:replace="layout :: nav"></div>
+<div th:replace="layout :: searchbar"></div>
+<div th:replace="layout :: flash"></div>
+
+<section class="main-content">
+    <div class="container comparison-container">
+        <h1>Comparar dos jugadores</h1>
+        <form th:action="${action}" method="post" th:object="${selected_players}">
+        <div class="left-comparison-container">
+            <h2>Jugador #1</h2>
+            <div th:each="jugador : ${jugadores}" class="mini-summoner-card clearfix">
+                <input th:value="${jugador.id}" th:field="*{player1Id}" type="radio" th:id="|${jugador.nombreInvocador}1|" name="first-member"/>
+                <label th:for="|${jugador.nombreInvocador}1|">
+                <div class="basic-info">
+                    <img th:src="@{|https://avatar.leagueoflegends.com/lan/${jugador.nombreInvocador}.png|}" alt="profile icon"/> 
+                    <h1 th:text="${jugador.nombreInvocador}"></h1>
+                    <p th:text="|Level ${jugador.nivel}|"></p>
+                </div>
+                </label>
+            </div>
+        </div>
+
+        <div class="right-comparison-container">
+            <h2>Jugador #2</h2>
+            <div th:each="jugador : ${jugadores}" class="mini-summoner-card clearfix">
+                <input th:value="${jugador.id}" th:field="*{player2Id}" type="radio" th:id="|${jugador.nombreInvocador}2|" name="second-member"/>
+                <label th:for="|${jugador.nombreInvocador}2|">
+                    <div class="basic-info">
+                        <img th:src="@{|https://avatar.leagueoflegends.com/lan/${jugador.nombreInvocador}.png|}" alt="profile icon"/>
+                        <h1 th:text="${jugador.nombreInvocador}"></h1>
+                        <p th:text="|Level ${jugador.nivel}|"></p>
+                    </div>
+                </label>
+            </div>
+        </div>
+        <input id="alertButton" class="btn inln default settings" type="submit" th:value="Comparar"/>
+        </form>
+    </div>
+</section>
+
+<div th:replace="layout :: scripts"></div>
+</body>
+</html>
