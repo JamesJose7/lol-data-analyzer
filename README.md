@@ -6,13 +6,13 @@ We are developing an initiative at our college (Universidad Tecnica Particular d
 
 ### Preview
 User profile
-![User profile](https://lh5.googleusercontent.com/sd2Mqgq8jNiatpztBtz-JzVMdapjNkIaPqdeY3qkcUPjdG3EDuULWbW2w--gZfzz_ct-n94K6sv1Eq-17s_I=w2560-h1242-rw)
+![User profile](https://imgur.com/sGUDMCI)
 
 Performance metrics (more graphs and metrics to be decided, also shown in user profile)
-![User profile metrics](https://lh4.googleusercontent.com/S3gW0t3gWjm6gh-0vnhxUOlL3pdyTqnoLRn6p9YxhZd9MgvZuAlHL7kQxaXGFyi2rYEfRi7svOGSKb5aDqwQ=w2560-h1242-rw)
+![User profile metrics](https://imgur.com/uGXUkBg)
 
 Match history
-![User matches](https://lh3.googleusercontent.com/NpZuU99RCh2Srp-dUOk5Nv_06iCIQDuQaVOsVJIhkm23858JQMKOWm4ASm0ZbHFe7a_Zs0d9c09qoA=w2560-h1242-rw)
+![User matches](https://imgur.com/IC9ppx8)
 
 ### Run local H2 database for dev profile
 Execute on the root of the project
