@@ -6,13 +6,12 @@ We are developing an initiative at our college (Universidad Tecnica Particular d
 
 ### Preview
 User profile
-![User profile](https://imgur.com/sGUDMCI)
-
+![User profile](https://imgur.com/sGUDMCI.png)
 Performance metrics (more graphs and metrics to be decided, also shown in user profile)
-![User profile metrics](https://imgur.com/uGXUkBg)
+![User profile metrics](https://imgur.com/uGXUkBg.png)
 
 Match history
-![User matches](https://imgur.com/IC9ppx8)
+![User matches](https://imgur.com/IC9ppx8.png)
 
 ### Run local H2 database for dev profile
 Execute on the root of the project
