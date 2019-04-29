@@ -7,6 +7,7 @@ import com.jeep.lolesports.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -39,6 +40,15 @@ public class StartupConfig {
                     "$2a$10$1JdTC6rjqaf4Zm5hMWScReSML4b6umMEdb1uAa9RuB9imdHBDpYMm",
                     true, role);
             mUserService.save(superUser);
+        }
+
+        // Create test user
+        User testUser = mUserService.findByUsername("testUser");
+        if (testUser == null) {
+            testUser = new User("testUser",
+                    BCrypt.hashpw("testUser", BCrypt.gensalt(10)),
+                    true, userRole);
+            mUserService.save(testUser);
         }
     }
 }

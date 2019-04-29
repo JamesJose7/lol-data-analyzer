@@ -10,10 +10,13 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+
+import java.util.Optional;
 
 @Configuration
 @EnableWebSecurity
@@ -41,8 +44,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
             .authorizeRequests()
                 .antMatchers("/admin/**").hasRole("ADMIN")
-//                .anyRequest().hasRole("USER")
-                .anyRequest().permitAll()
+                .anyRequest().hasAnyRole("USER", "ADMIN")
+//                .anyRequest().permitAll()
                 .and()
             .formLogin()
                 .loginPage("/login")
@@ -58,7 +61,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     public AuthenticationSuccessHandler loginSuccessHandler() {
-        return (request, response, authentication) -> response.sendRedirect("/admin");
+        return (request, response, authentication) -> {
+            // Redirect according to role
+            Optional<String> role = authentication.getAuthorities().stream()
+                    .map(GrantedAuthority::getAuthority)
+                    .findFirst();
+            String detectedRole = role.orElse("");
+            if (detectedRole.equals("ROLE_ADMIN"))
+                response.sendRedirect("/admin");
+            else if (detectedRole.equals("ROLE_USER"))
+                response.sendRedirect("/");
+            else {
+                request.getSession().setAttribute("flash", new FlashMessage("You don't have permission to acces this page", FlashMessage.Status.FAILURE));
+                response.sendRedirect("/login");
+            }
+        };
     }
 
     public AuthenticationFailureHandler loginFailureHandler() {
