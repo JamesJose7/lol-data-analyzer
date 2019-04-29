@@ -45,8 +45,7 @@ public class AppConfig extends WebMvcConfigurerAdapter {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/resources/**")
-                .addResourceLocations("/assets", "classpath:/static/")
-                .addResourceLocations()
+                .addResourceLocations("/assets", "classpath:/static/assets")
                 .setCachePeriod(31556926);
     }
 }

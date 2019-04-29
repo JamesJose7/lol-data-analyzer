@@ -1,6 +1,5 @@
 package com.jeep.lolesports.config;
 
-import com.jeep.lolesports.service.AdministradorService;
 import com.jeep.lolesports.service.UserService;
 import com.jeep.lolesports.web.FlashMessage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/app.css", "/app.js", "/charts.js", "/images/**", "/vendor/**");
+        web.ignoring().antMatchers("/app.css", "/app.js", "/charts.js", "/images/**", "/vendor/**", "/assests/**");
     }
 
     @Override
