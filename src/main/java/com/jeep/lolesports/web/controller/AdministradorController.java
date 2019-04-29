@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -58,7 +60,7 @@ public class AdministradorController {
         }
 
         model.addAttribute("action", "/administrador");
-        model.addAttribute("heading", "Nuevo administrador");
+        model.addAttribute("heading", "Nuevo usuario");
         model.addAttribute("submit", "Agregar");
 
         return "admin/administrador_form";
@@ -77,7 +79,11 @@ public class AdministradorController {
                 return "redirect:/admin/agregar-admin";
         }
         //Save user and null the password for admin object
-        Role role = new Role(2L, "ROLE_ADMIN");
+        Role role = null;
+        if (administrador.getRole().equals("ROLE_ADMIN"))
+            role = new Role(2L, administrador.getRole());
+        else
+            role = new Role(1L, administrador.getRole());
         User user = new User(administrador.getUsername(), administrador.getPassword(),
                 true, role);
         //BCrypt password
@@ -92,6 +98,7 @@ public class AdministradorController {
         // Redirect browser to /
         return "redirect:/admin";
     }
+
     @RequestMapping("/admin/edit-admins")
     public String deleteAdministrador(Model model) {
         List<Administrador> administradores = administradorService.findAll();
@@ -159,6 +166,12 @@ public class AdministradorController {
     }
 
 
+    @RequestMapping("/user")
+    public String displayUserInfo(HttpServletRequest request) {
+        Principal principal = request.getUserPrincipal();
+        Administrador user  = administradorService.findByUsername(principal.getName());
+        return principal.getName();
+    }
 
 
 }

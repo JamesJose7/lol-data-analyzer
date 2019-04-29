@@ -15,11 +15,23 @@
         <fieldset class="left settings">
             <label class="settings" for="username">User: <span class="field-error" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span></label>
             <input class="settings" th:classappend="${#fields.hasErrors('username')} ? 'field-error' : ''" type="text" id="username" name="username" th:field="*{username}"/>
+
+            <label class="settings" for="name">Nombre: <span class="field-error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span></label>
+            <input class="settings" th:classappend="${#fields.hasErrors('name')} ? 'field-error' : ''" type="text" id="name" name="name" th:field="*{name}"/>
+
+            <label class="settings">Role</label>
+            <input class="settings" type="radio" id="role-admin" name="role-admin" value="ROLE_ADMIN" th:field="*{role}"/>
+            <label class="settings" for="role-admin">Admin</label>
+            <input class="settings" type="radio" id="role-user" name="role-user" value="ROLE_USER" th:field="*{role}"/>
+            <label class="settings" for="role-user">User</label>
         </fieldset>
 
         <fieldset class="right settings">
             <label class="settings" for="password">Password: <span class="field-error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span></label>
             <input class="settings" th:classappend="${#fields.hasErrors('password')} ? 'field-error' : ''" type="password" id="password" name="password" th:field="*{password}"/>
+
+            <label class="settings" for="mail">Mail: <span class="field-error" th:if="${#fields.hasErrors('mail')}" th:errors="*{mail}"></span></label>
+            <input class="settings" th:classappend="${#fields.hasErrors('mail')} ? 'field-error' : ''" type="text" id="mail" name="mail" th:field="*{mail}"/>
 
             <input class="btn inln default settings" type="submit" th:value="${submit}"/>
             <input class="btn inln error settings" type="reset" value="Reiniciar"/>
