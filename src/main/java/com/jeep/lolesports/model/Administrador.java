@@ -15,6 +15,7 @@ public class Administrador {
     private String username;
 
     @Column(length = 100)
+    @Size(min = 8, message = "La contraseña debe ser mínimo de 8 caracteres")
     private String password;
 
     @Size(min = 4, max = 30)

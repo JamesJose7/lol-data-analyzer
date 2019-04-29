@@ -8,6 +8,8 @@ import com.jeep.lolesports.service.UserService;
 import com.jeep.lolesports.utils.extractor.DailyDataExtractor;
 import com.jeep.lolesports.utils.extractor.ExtractorConfig;
 import com.jeep.lolesports.web.FlashMessage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.security.crypto.bcrypt.BCrypt;
@@ -167,10 +169,13 @@ public class AdministradorController {
 
 
     @RequestMapping("/user")
-    public String displayUserInfo(HttpServletRequest request) {
+    public String displayUserInfo(HttpServletRequest request, Model model) {
         Principal principal = request.getUserPrincipal();
         Administrador user  = administradorService.findByUsername(principal.getName());
-        return principal.getName();
+        Logger logger = LoggerFactory.getLogger(AdministradorController.class);
+        logger.info(String.format("User %s requests info", user.getName()));
+        model.addAttribute("user", user);
+        return "user";
     }
 
 
