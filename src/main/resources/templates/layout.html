@@ -80,5 +80,15 @@
     </div>
 </div>
 
+<div th:fragment="logout-nav">
+    <div class="container">
+        <form class="logout-form" th:action="@{/logout}" method="post">
+            <p id="log-in-user">logged in as <span id="logged-user" sec:authentication="name"></span></p>
+            <button id="logout-button" type="submit"><i class="material-icons">power_settings_new</i></button>
+            <a style="visibility: hidden;" th:href="@{/admin}" id="home-button"><i class="material-icons">home</i></a>
+        </form>
+    </div>
+</div>
+
 </body>
 </html>
