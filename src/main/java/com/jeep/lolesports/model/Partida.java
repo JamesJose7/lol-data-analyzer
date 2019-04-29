@@ -12,7 +12,7 @@ import java.util.List;
 @Entity
 public class Partida {
     @Id
-    private long id;
+    private String id;
 
     private long matchId;
     private long gameDuration;
@@ -54,11 +54,11 @@ public class Partida {
         this.gameType = builder.gameType;
     }
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -159,14 +159,14 @@ public class Partida {
     }
 
     public static class PartidaBuilder {
-        private long id;
+        private String id;
         public long matchId;
         private long gameDuration;
         private int mapId;
         private String gameMode;
         private String gameType;
 
-        public PartidaBuilder(long id) {
+        public PartidaBuilder(String id) {
             this.id = id;
         }
 

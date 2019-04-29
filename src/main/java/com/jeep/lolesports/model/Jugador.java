@@ -8,9 +8,9 @@ import java.util.List;
 @MappedSuperclass
 public class Jugador {
     @Id
-    private int id;
+    private String id;
     @Column(nullable = true)
-    private int accountId;
+    private String accountId;
     @Column
     @NotNull
     @Size(min = 1, message = "*Al menos debe tener {min} caracter")
@@ -40,7 +40,7 @@ public class Jugador {
     private String nombreLigaRankedFlex;
     private int puntosRankedFlex;
 
-    public Jugador(int id, String nombreInvocador, int nivel, int accountId) {
+    public Jugador(String id, String nombreInvocador, int nivel, String accountId) {
         this.id = id;
         this.nombreInvocador = nombreInvocador;
         this.nivel = nivel;
@@ -63,7 +63,7 @@ public class Jugador {
         puntosRankedFlex = 0;
     }
 
-    public Jugador(int id, String nombreInvocador, int nivel, int accountId, String tipoColaRankedSolo, int victoriasRankedSolo,
+    public Jugador(String id, String nombreInvocador, int nivel, String accountId, String tipoColaRankedSolo, int victoriasRankedSolo,
                    int derrotasRankedSolo, String nivelRankedSolo, String rangoRankedSolo, String nombreLigaRankedSolo,
                    int puntosRankedSolo, String tipoColaRankedFlex, int victoriasRankedFlex, int derrotasRankedFlex,
                    String nivelRankedFlex, String rangoRankedFlex, String nombreLigaRankedFlex, int puntosRankedFlex) {
@@ -89,11 +89,11 @@ public class Jugador {
 
     public Jugador() {}
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -121,11 +121,11 @@ public class Jugador {
         this.partidas = partidas;
     }
 
-    public int getAccountId() {
+    public String getAccountId() {
         return accountId;
     }
 
-    public void setAccountId(int accountId) {
+    public void setAccountId(String accountId) {
         this.accountId = accountId;
     }
 

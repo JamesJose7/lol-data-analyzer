@@ -25,10 +25,10 @@ public class RiotServiceImpl implements RiotService {
 
     private static final int END_INDEX_PARTIDAS = 20;
 
-    private static final String SUMMONER_V3_URL = "https://la1.api.riotgames.com/lol/summoner/v3/summoners/by-name/";
-    private static final String LEAGUE_V3_URL = "https://la1.api.riotgames.com/lol/league/v3/positions/by-summoner/";
-    private static final String MATCHLIST_V3_URL = "https://la1.api.riotgames.com/lol/match/v3/matchlists/by-account/";
-    private static final String MATCH_V3_URL = "https://la1.api.riotgames.com/lol/match/v3/matches/";
+    private static final String SUMMONER_V4_URL = "https://la1.api.riotgames.com/lol/summoner/v4/summoners/by-name/";
+    private static final String LEAGUE_V4_URL = "https://la1.api.riotgames.com/lol/league/v4/positions/by-summoner/";
+    private static final String MATCHLIST_V4_URL = "https://la1.api.riotgames.com/lol/match/v4/matchlists/by-account/";
+    private static final String MATCH_V4_URL = "https://la1.api.riotgames.com/lol/match/v4/matches/";
 
     private static final String STATIC_CHAMPIONS_URL = "http://ddragon.leagueoflegends.com/cdn/6.24.1/data/en_US/champion.json";
     private List<Champion> mChampions;
@@ -41,7 +41,7 @@ public class RiotServiceImpl implements RiotService {
         final String API_KEY = env.getProperty("lol.api.key");
 
         //Build url with api key and name
-        String url = String.format("%s%s?api_key=%s", SUMMONER_V3_URL, nombreJugador, API_KEY);
+        String url = String.format("%s%s?api_key=%s", SUMMONER_V4_URL, nombreJugador, API_KEY);
 
         //Get JSON doc
         HTTPService httpRequest = new HTTPService();
@@ -53,13 +53,13 @@ public class RiotServiceImpl implements RiotService {
 
         //Basic info
         JSONObject docBasic = new JSONObject(jsonDataBasic);
-        int id = docBasic.getInt("id");
+        String id = docBasic.getString("id");
         String nombre = docBasic.getString("name");
         int nivel = docBasic.getInt("summonerLevel");
-        int accountId = docBasic.getInt("accountId");
+        String accountId = docBasic.getString("accountId");
 
         //Ranked info
-        String urlRanked = String.format("%s%s?api_key=%s", LEAGUE_V3_URL, id, API_KEY);
+        String urlRanked = String.format("%s%s?api_key=%s", LEAGUE_V4_URL, id, API_KEY);
 
         String jsonDataRanked = httpRequest.getRequestContents(urlRanked);
         JSONArray docRanked = new JSONArray(jsonDataRanked);
@@ -112,7 +112,7 @@ public class RiotServiceImpl implements RiotService {
     }
 
     @Override
-    public List<Partida> getPartidasByAccountId(long accountId, int summonerId) {
+    public List<Partida> getPartidasByAccountId(String accountId, String summonerId) {
         //Load champion static data
         loadChampionData();
 
@@ -121,8 +121,8 @@ public class RiotServiceImpl implements RiotService {
         List<Partida> partidas = new ArrayList<>();
 
         // Build recent matches url
-        String recentMatchesUrl = String.format("%s%d?endIndex=%d&api_key=%s",
-                MATCHLIST_V3_URL, accountId, END_INDEX_PARTIDAS, API_KEY);
+        String recentMatchesUrl = String.format("%s%s?endIndex=%d&api_key=%s",
+                MATCHLIST_V4_URL, accountId, END_INDEX_PARTIDAS, API_KEY);
 
         // Get recent matches list
         HTTPService httpService = new HTTPService();
@@ -139,14 +139,14 @@ public class RiotServiceImpl implements RiotService {
 
             // Build match details url
             String matchDetailsUrl = String.format("%s%d?api_key=%s",
-                    MATCH_V3_URL, matchId, API_KEY);
+                    MATCH_V4_URL, matchId, API_KEY);
 
             // Get details for each match
             String jsonMatchDetails = httpService.getRequestContents(matchDetailsUrl);
             JSONObject matchDetails = new JSONObject(jsonMatchDetails);
 
             //Create composite id = matchId + accountId
-            long id = Long.parseLong(String.format("%d%d", matchId, accountId));
+            String id = String.format("%d%s", matchId, accountId);
             Partida partida = new PartidaBuilder(id)
                     .withMatchId(matchId)
                     .withGameDuration(matchDetails.getLong("gameDuration"))
@@ -271,13 +271,13 @@ public class RiotServiceImpl implements RiotService {
                 //Player identity details
                 JSONObject playerStats = participant.getJSONObject("player");
                 try {
-                    stats.setSummonerId(playerStats.getInt("summonerId"));
+                    stats.setSummonerId(playerStats.getString("summonerId"));
                 } catch (JSONException ignored) {}
-                stats.setAccountId(playerStats.getLong("accountId"));
+                stats.setAccountId(playerStats.getString("accountId"));
                 stats.setSummonerName(playerStats.getString("summonerName"));
                 stats.setChampion(getChampionById(stats.getChampionId()));
                 // Check what champion was played by the user
-                if (stats.getSummonerId() == summonerId) {
+                if (stats.getSummonerId().equals(summonerId)) {
                     partida.setChampionPlayedId(stats.getChampion().getKey());
                     //Check if match was won
                     for (TeamPar team : teamsData) {

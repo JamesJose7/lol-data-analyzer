@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface RiotService {
     Jugador getJugadorByName(String jugadorName);
-    List<Partida> getPartidasByAccountId(long accountId, int summonerId);
+    List<Partida> getPartidasByAccountId(String accountId, String summonerId);
     void loadChampionData();
     Champion getChampionById(int id);
 }

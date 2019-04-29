@@ -53,7 +53,7 @@ public class IntegranteController {
     }
 
     @RequestMapping("/jugadores/{id}")
-    public String listPlayerProfile(@PathVariable int id, Model model) {
+    public String listPlayerProfile(@PathVariable String id, Model model) {
         // Load champions
         riotService.loadChampionData();
         // Get player by id
@@ -68,7 +68,7 @@ public class IntegranteController {
                 Champion champ = riotService.getChampionById(stats.getChampionId());
                 stats.setChampion(champ);
                 //Set player stats
-                if (stats.getSummonerId() == id)
+                if (stats.getSummonerId().equals(id))
                     partida.setPlayerStats(stats);
             }
             partida.setTeams(matchDataService.findTeamStats(partida));
@@ -177,7 +177,7 @@ public class IntegranteController {
     }
 
     @RequestMapping(value="/delete", method=RequestMethod.POST)
-    public String deleteIntegrante(@RequestParam("submit") int integranteId, RedirectAttributes redirectAttributes) {
+    public String deleteIntegrante(@RequestParam("submit") String integranteId, RedirectAttributes redirectAttributes) {
         Integrante integrante = integranteService.findById(integranteId);
         integranteService.delete(integrante);
 
@@ -199,7 +199,7 @@ public class IntegranteController {
     }
 
     @RequestMapping(value="/admin/editar-integrante/{id}", method = RequestMethod.GET)
-    public String editarIntegrante(@PathVariable("id") int id, Model model){
+    public String editarIntegrante(@PathVariable("id") String id, Model model){
         Integrante integrante = integranteService.findById(id);
         model.addAttribute("action", "/admin/actualizar-integrante");
         model.addAttribute("submit", "Actualizar");
@@ -421,7 +421,7 @@ public class IntegranteController {
     }
 
     @RequestMapping(value = "/compare-result", method = RequestMethod.GET)
-    public String getComparison(@RequestParam(required = false) Integer p1, @RequestParam(required = false) Integer p2,
+    public String getComparison(@RequestParam(required = false) String p1, @RequestParam(required = false) String p2,
                                 Model model, RedirectAttributes redirectAttributes) {
         if (p1 == null || p2 == null) {
             redirectAttributes.addFlashAttribute("flash", new FlashMessage("Seleccione dos jugadores por favor", FlashMessage.Status.FAILURE));
@@ -447,7 +447,7 @@ public class IntegranteController {
                 Champion champ = riotService.getChampionById(stats.getChampionId());
                 stats.setChampion(champ);
                 //Set player stats
-                if (stats.getSummonerId() == p1)
+                if (stats.getSummonerId().equals(p1))
                     partida.setPlayerStats(stats);
             }
             partida.setTeams(matchDataService.findTeamStats(partida));
@@ -461,7 +461,7 @@ public class IntegranteController {
                 Champion champ = riotService.getChampionById(stats.getChampionId());
                 stats.setChampion(champ);
                 //Set player stats
-                if (stats.getSummonerId() == p2)
+                if (stats.getSummonerId().equals(p2))
                     partida.setPlayerStats(stats);
             }
             partida.setTeams(matchDataService.findTeamStats(partida));

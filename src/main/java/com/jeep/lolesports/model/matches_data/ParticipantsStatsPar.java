@@ -18,8 +18,8 @@ public class ParticipantsStatsPar extends MatchData {
     private int spell2Id;
 
     /* Participants identities */
-    private int summonerId;
-    private long accountId;
+    private String summonerId;
+    private String accountId;
     private String summonerName;
 
     @Transient
@@ -83,19 +83,19 @@ public class ParticipantsStatsPar extends MatchData {
         this.champion = champion;
     }
 
-    public int getSummonerId() {
+    public String getSummonerId() {
         return summonerId;
     }
 
-    public void setSummonerId(int summonerId) {
+    public void setSummonerId(String summonerId) {
         this.summonerId = summonerId;
     }
 
-    public long getAccountId() {
+    public String getAccountId() {
         return accountId;
     }
 
-    public void setAccountId(long accountId) {
+    public void setAccountId(String accountId) {
         this.accountId = accountId;
     }
 

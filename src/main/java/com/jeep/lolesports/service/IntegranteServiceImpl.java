@@ -18,7 +18,7 @@ public class IntegranteServiceImpl implements IntegranteService {
     }
 
     @Override
-    public Integrante findById(int id) {
+    public Integrante findById(String id) {
         return integranteDao.findById(id);
     }
 

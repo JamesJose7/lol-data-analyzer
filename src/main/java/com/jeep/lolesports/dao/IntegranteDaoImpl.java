@@ -27,7 +27,7 @@ public class IntegranteDaoImpl implements IntegranteDao {
     }
 
     @Override
-    public Integrante findById(int id) {
+    public Integrante findById(String id) {
         Session session = sessionFactory.openSession();
         Integrante integrante = session.get(Integrante.class, id);
         session.close();

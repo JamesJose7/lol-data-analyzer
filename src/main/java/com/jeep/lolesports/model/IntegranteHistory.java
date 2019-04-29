@@ -12,8 +12,8 @@ public class IntegranteHistory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private int summonerId;
-    private int accountId;
+    private String summonerId;
+    private String accountId;
     private String nombreInvocador;
     private int nivel;
 
@@ -74,19 +74,19 @@ public class IntegranteHistory {
         this.id = id;
     }
 
-    public int getSummonerId() {
+    public String getSummonerId() {
         return summonerId;
     }
 
-    public void setSummonerId(int summonerId) {
+    public void setSummonerId(String summonerId) {
         this.summonerId = summonerId;
     }
 
-    public int getAccountId() {
+    public String getAccountId() {
         return accountId;
     }
 
-    public void setAccountId(int accountId) {
+    public void setAccountId(String accountId) {
         this.accountId = accountId;
     }
 
