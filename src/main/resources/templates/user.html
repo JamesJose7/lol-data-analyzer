@@ -6,8 +6,11 @@
 <div th:replace="layout :: logout-nav"></div>
 <div th:replace="layout :: searchbar"></div>
 <div th:replace="layout :: flash"></div>
-
-
+<section id="info_user">
+    <p th:text="|Nombre: ${user.name}|"></p>
+    <p th:text="|E-mail: ${user.mail}|"></p>
+    <p th:text="|Nombre: ${user.role}|"></p>
+</section>
 
 <div th:replace="layout :: scripts"></div>
 </body>
