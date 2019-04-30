@@ -947,6 +947,16 @@ i[data-close] {
     cursor: pointer;
 }
 
+/* Estilos User */
+#info_user{
+    width: 80%;
+    margin: auto;
+    box-shadow: 2px 3px 2px #cccccc;
+    padding: 10px;
+}
+
+
+
 
 /* Media Queries */
 
